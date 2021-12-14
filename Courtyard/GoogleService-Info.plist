@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>510034941079-u93hntbg9ro1vt1foo4k2u20mo3h1kpa.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.510034941079-u93hntbg9ro1vt1foo4k2u20mo3h1kpa</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB1tHw80TOwa5RFvZJW6XV1tJPnpL_mw4g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>510034941079</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ambajaman.Courtyard</string>
+	<key>PROJECT_ID</key>
+	<string>courtyard-a7789</string>
+	<key>STORAGE_BUCKET</key>
+	<string>courtyard-a7789.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:510034941079:ios:9d73080cb027c5920685d2</string>
+</dict>
+</plist>
