@@ -23,6 +23,9 @@
 		1B8CC89827675F8400E5CDD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89727675F8400E5CDD2 /* FirebaseStorage */; };
 		1B8CC89B27675FFF00E5CDD2 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89A27675FFF00E5CDD2 /* IQKeyboardManagerSwift */; };
 		1B8CC8A02769675800E5CDD2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC89F2769675800E5CDD2 /* HomeVC.swift */; };
+		1B8CC8A52769F47A00E5CDD2 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A32769F47A00E5CDD2 /* ChatCell.swift */; };
+		1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A42769F47A00E5CDD2 /* ChatCell.xib */; };
+		1B8CC8A8276A016200E5CDD2 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		1B8CC8822767486700E5CDD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B8CC88827675E1900E5CDD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1B8CC89F2769675800E5CDD2 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		1B8CC8A32769F47A00E5CDD2 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		1B8CC8A42769F47A00E5CDD2 /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
+		1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				1B8CC87A2767486400E5CDD2 /* Main.storyboard */,
+				1B8CC8A32769F47A00E5CDD2 /* ChatCell.swift */,
+				1B8CC8A42769F47A00E5CDD2 /* ChatCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -108,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				1B8CC8782767486400E5CDD2 /* LogIn.swift */,
+				1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */,
 				1B8CC89F2769675800E5CDD2 /* HomeVC.swift */,
 			);
 			path = Controller;
@@ -187,6 +196,7 @@
 			files = (
 				1B8CC8812767486700E5CDD2 /* LaunchScreen.storyboard in Resources */,
 				1B8CC88927675E1900E5CDD2 /* GoogleService-Info.plist in Resources */,
+				1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */,
 				1B8CC87E2767486700E5CDD2 /* Assets.xcassets in Resources */,
 				1B8CC87C2767486400E5CDD2 /* Main.storyboard in Resources */,
 			);
@@ -202,6 +212,8 @@
 				1B8CC8792767486400E5CDD2 /* LogIn.swift in Sources */,
 				1B8CC8A02769675800E5CDD2 /* HomeVC.swift in Sources */,
 				1B8CC8752767486400E5CDD2 /* AppDelegate.swift in Sources */,
+				1B8CC8A8276A016200E5CDD2 /* RegisterVC.swift in Sources */,
+				1B8CC8A52769F47A00E5CDD2 /* ChatCell.swift in Sources */,
 				1B8CC8772767486400E5CDD2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
