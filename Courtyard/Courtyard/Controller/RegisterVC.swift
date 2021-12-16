@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+
+
 class RegisterVC: UIViewController {
     
     @IBOutlet weak var singUp: UILabel!
