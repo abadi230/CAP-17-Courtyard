@@ -21,3 +21,7 @@ An application for house occupant to contract works for wash homes patio 
 
 ## ERD
 ![alt text](https://www14.0zz0.com/2021/12/15/23/192912283.png)
+
+
+## Scketch
+![alt text](https://www4.0zz0.com/2021/12/16/07/952418587.jpeg)
