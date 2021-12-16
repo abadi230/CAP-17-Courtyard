@@ -20,7 +20,7 @@ An application for house occupant to contract works for wash homes patio 
 * As a user, I am able to login as a company with different offer
 
 ## ERD
-![alt text](https://www14.0zz0.com/2021/12/15/23/192912283.png)
+<a href="https://ibb.co/P1T26xv"><img src="https://i.ibb.co/mhvncJV/ERD1.png" alt="ERD1" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>
 
 
 ## Scketch
