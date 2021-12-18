@@ -16,6 +16,13 @@ class LogIn: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
+        // get current user email
+        if Auth.auth().currentUser != nil {
+            print("----------------------------------------")
+            print(Auth.auth().currentUser?.email as Any)
+            self.navigationController?.show(homeVC, sender: nil)
+        }
     }
 
     func showAlert(_ msg: String){
