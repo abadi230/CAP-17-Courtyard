@@ -6,9 +6,15 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import Firebase
+import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController {
     
+    var ref: DocumentReference? = nil
+
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
 
     // TODO: adapt pull down Button and Pop Up Button
@@ -19,6 +25,9 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
+        
     }
     
     @IBAction func onClickPersonsService(_ sender: UIButton) {
@@ -67,3 +76,4 @@ extension HomeVC: UITextFieldDelegate{
         }
     }
 }
+
