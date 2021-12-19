@@ -6,26 +6,29 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-class User {
-//    let id : String = ""
-    let name: String = ""
-    let mobile: Int = 0
-    let address : [Address]? = nil
+class User: Codable {
+    @DocumentID var id : String? = "userId\(UUID().uuidString)"
+    var name: String = ""
+    var mobile: Int = 0
+    var addresses : [Address]?
+    var orders : [Order]?
+    
 }
-struct Address {
-    let PrimeLocation : Bool = true
-    let street: String? = nil
-    let buildingNo : Int? = nil
-    let zip: Int? = nil
-    let additionalNo: Int? = nil
-    let location: [Double: Double]? = nil
+struct Address: Codable {
+//    let PrimeLocation : Bool
+    let street: String
+    let buildingNo : Int
+    let zip: Int?
+    let additionalNo: Int?
+//    let location: [Double: Double]? = nil
 }
-struct Service {
-    let name: String = ""
-    let price: Double = 0
+struct Service: Codable {
+    let name: String
+    let price: Double
 }
-struct Order {
-    let userId: String = ""
-    let serviceId: String = ""
+struct Order: Codable {
+    let userId: String
+    let serviceId: String
 }

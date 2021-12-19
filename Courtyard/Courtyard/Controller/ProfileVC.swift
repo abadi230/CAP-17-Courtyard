@@ -7,12 +7,13 @@
 
 import UIKit
 import FirebaseCore
-import Firebase
-import simd
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 
 class ProfileVC: UIViewController {
 
+    var users = [User]()
     var ref : DocumentReference? = nil
     var db : Firestore!
     
@@ -69,6 +70,15 @@ class ProfileVC: UIViewController {
 
     }
     
+    func fetchUsers(){
+        db.collection("Users").addSnapshotListener { querySnapshot, error in
+            guard (querySnapshot?.documents) != nil  else {
+                print("No Documnets")
+                return
+            }
+            
+        }
+    }
     /*
     // MARK: - Navigation
 
