@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B323F2C276E406D008E62AF /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B323F2B276E406D008E62AF /* AddressVC.swift */; };
+		1B323F2E276FBDA5008E62AF /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 1B323F2D276FBDA5008E62AF /* fonts */; };
 		1B57E854276D379D00B9140B /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 1B57E853276D379D00B9140B /* FirebaseFirestoreSwift-Beta */; };
 		1B8CC8752767486400E5CDD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8742767486400E5CDD2 /* AppDelegate.swift */; };
 		1B8CC8772767486400E5CDD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B323F2B276E406D008E62AF /* AddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
+		1B323F2D276FBDA5008E62AF /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		1B8CC8712767486400E5CDD2 /* Courtyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courtyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8CC8742767486400E5CDD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				1B8CC89D27694B2100E5CDD2 /* View */,
 				1B8CC89C27694B0700E5CDD2 /* Model */,
 				1B8CC8742767486400E5CDD2 /* AppDelegate.swift */,
+				1B323F2D276FBDA5008E62AF /* fonts */,
 				1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */,
 				1B8CC87D2767486700E5CDD2 /* Assets.xcassets */,
 				1B8CC87F2767486700E5CDD2 /* LaunchScreen.storyboard */,
@@ -134,6 +139,7 @@
 				1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */,
 				1B8CC89F2769675800E5CDD2 /* HomeVC.swift */,
 				1BA71A80276D22B000FCD1A4 /* ProfileVC.swift */,
+				1B323F2B276E406D008E62AF /* AddressVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -214,6 +220,7 @@
 				1B8CC8812767486700E5CDD2 /* LaunchScreen.storyboard in Resources */,
 				1B8CC88927675E1900E5CDD2 /* GoogleService-Info.plist in Resources */,
 				1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */,
+				1B323F2E276FBDA5008E62AF /* fonts in Resources */,
 				1B8CC87E2767486700E5CDD2 /* Assets.xcassets in Resources */,
 				1B8CC87C2767486400E5CDD2 /* Main.storyboard in Resources */,
 			);
@@ -227,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8CC8792767486400E5CDD2 /* LogIn.swift in Sources */,
+				1B323F2C276E406D008E62AF /* AddressVC.swift in Sources */,
 				1B8CC8A02769675800E5CDD2 /* HomeVC.swift in Sources */,
 				1B8CC8752767486400E5CDD2 /* AppDelegate.swift in Sources */,
 				1B8CC8A8276A016200E5CDD2 /* RegisterVC.swift in Sources */,
