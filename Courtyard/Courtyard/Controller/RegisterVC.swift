@@ -12,30 +12,32 @@ import Firebase
 
 class RegisterVC: UIViewController {
     
-    @IBOutlet weak var singUp: UILabel!
     
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
 
-    @IBAction func onClickSignUp(_ sender: UIButton) {
-        
-        Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) {Result, error in
-                  if (error == nil) {
-                      print(Result?.user.email ?? "")
-                      let x = self.storyboard?.instantiateViewController(withIdentifier: "loginin") as! LogIn
-                      self.present(x, animated: true, completion: nil)
-                  }else{
-                      print(error?.localizedDescription as Any)
-                  }
-              }
-        
-        
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func onClickSignUp(_ sender: UIButton) {
+        
+        Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { [self]Result, error in
+                  if (error == nil) {
+                      print(Result?.user.email ?? "")
+                      
+                      let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginin") as! LogIn
+                      loginVC.emailTF.text = emailTF.text!
+                      loginVC.passwordTF.text = passwordTF.text!
+                      self.present(loginVC, animated: true, completion: nil)
+                  }else{
+                      print(error?.localizedDescription as Any)
+                  }
+              }
+    }
+    
     
 
     /*

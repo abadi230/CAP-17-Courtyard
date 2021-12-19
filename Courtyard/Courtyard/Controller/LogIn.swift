@@ -10,12 +10,19 @@ import Firebase
 
 class LogIn: UIViewController {
 
+    @IBOutlet weak var logInBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        logInBtn.layer.cornerRadius = 8
+        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
+        // get current user email
+        if Auth.auth().currentUser != nil {
+            self.navigationController?.show(homeVC, sender: nil)
+        }
     }
 
     func showAlert(_ msg: String){
@@ -38,6 +45,7 @@ class LogIn: UIViewController {
                 self.navigationController?.show(vc, sender: self)
             }
         }
+        
     }
     @IBAction func onClickForgotPass(_ sender: UIButton) {
         Auth.auth().sendPasswordReset(withEmail: emailTF.text!) { error in
