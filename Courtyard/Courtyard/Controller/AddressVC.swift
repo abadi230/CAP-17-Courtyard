@@ -7,13 +7,21 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class AddressVC: UIViewController, UITableViewDelegate {
-    var ref : DocumentReference? = nil
+    var db = Firestore.firestore()
     var users = [User]()
     var addresses = [Address]()
     
     @IBOutlet weak var addressTV: UITableView!
+    
+    @IBOutlet weak var buildingNoTF: UITextField!
+    @IBOutlet weak var streetTF: UITextField!
+    @IBOutlet weak var districtTF: UITextField!
+    @IBOutlet weak var zipTF: UITextField!
+    @IBOutlet weak var additionalNoTF: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +29,20 @@ class AddressVC: UIViewController, UITableViewDelegate {
         addressTV.delegate = self
         addressTV.dataSource = self
         fetchData()
+    }
+    
+    
+    @IBAction func onClickAddAddress(_ sender: UIButton) {
+        // add Document to sub collection
+        let address = db.collection("Users").document("C4PBPGzsX710rVqtpbg8").collection("Address")
+        address.addDocument(data: [
+            "buildingNo": buildingNoTF.text!,
+            "street": streetTF.text!,
+            "district": districtTF.text!,
+            "zip": zipTF.text!,
+            "additionalNo": additionalNoTF.text!
+        ])
+        
     }
     func fetchData(){
         let db = Firestore.firestore()
@@ -40,7 +62,15 @@ class AddressVC: UIViewController, UITableViewDelegate {
                 print(queryDocumentSnapshot.data())
                 print("-----------------queryDocumnetSnapshot------------------------")
                 print(queryDocumentSnapshot)
-                return try? queryDocumentSnapshot.data(as: Address.self)
+                print("---------------document Id-------------")
+                print(queryDocumentSnapshot.documentID)
+                
+                
+                
+                let myData = try? queryDocumentSnapshot.data(as: Address.self)
+                print (myData)
+                return myData
+                
             })
             DispatchQueue.main.async {
                 

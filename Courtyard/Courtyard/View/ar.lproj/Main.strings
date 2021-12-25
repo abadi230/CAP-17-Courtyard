@@ -1,0 +1,144 @@
+
+/* Class = "UILabel"; text = "Register"; ObjectID = "1Bn-WF-3o4"; */
+"1Bn-WF-3o4.text" = "Register";
+
+/* Class = "UILabel"; text = "Address Details"; ObjectID = "1WI-kh-Pnt"; */
+"1WI-kh-Pnt.text" = "عناويني";
+
+/* Class = "UIButton"; configuration.title = "Add Address"; ObjectID = "2yV-hq-0vA"; */
+"2yV-hq-0vA.configuration.title" = "إضافة عنوان";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "2yV-hq-0vA"; */
+"2yV-hq-0vA.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Courtyard Cleaning"; ObjectID = "40z-4j-2aM"; */
+"40z-4j-2aM.text" = "تنظيف الفناء (الحوش)";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "5MA-qM-Amc"; */
+"5MA-qM-Amc.text" = "الاسم كامل";
+
+/* Class = "UITextField"; placeholder = "Full Name"; ObjectID = "5Us-gZ-UbM"; */
+"5Us-gZ-UbM.placeholder" = "ادخل اسمك هنا";
+
+/* Class = "UIButton"; configuration.title = "Submit"; ObjectID = "9mL-rZ-OdX"; */
+"9mL-rZ-OdX.configuration.title" = "تم";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "9mL-rZ-OdX"; */
+"9mL-rZ-OdX.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Additional No"; ObjectID = "BkU-jG-3qz"; */
+"BkU-jG-3qz.text" = "الرقم الإضافي";
+
+/* Class = "UILabel"; text = "Hello Abdullah"; ObjectID = "FWk-CN-SsV"; */
+"FWk-CN-SsV.text" = "مرحبا";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "IgW-8h-6xc"; */
+"IgW-8h-6xc.text" = "البريد الإلكتروني";
+
+/* Class = "UILabel"; text = "Date:"; ObjectID = "KkY-1X-uFE"; */
+"KkY-1X-uFE.text" = "التاريخ:";
+
+/* Class = "UITabBarItem"; title = "Addresses"; ObjectID = "MKt-Hu-e4f"; */
+"MKt-Hu-e4f.title" = "العناوين";
+
+/* Class = "UILabel"; text = "New to Courtyard App?"; ObjectID = "MXV-sG-Ku6"; */
+"MXV-sG-Ku6.text" = "تسجيل جديد في موقع فناء?";
+
+/* Class = "UIButton"; configuration.title = "Button"; ObjectID = "Mnm-0g-SAX"; */
+"Mnm-0g-SAX.configuration.title" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Mnm-0g-SAX"; */
+"Mnm-0g-SAX.normalTitle" = "Button";
+
+/* Class = "UITabBarItem"; title = "Contact Us"; ObjectID = "PdO-oe-PWe"; */
+"PdO-oe-PWe.title" = "تواصل معنا";
+
+/* Class = "UILabel"; text = "Zip Code"; ObjectID = "Sud-Gx-YBF"; */
+"Sud-Gx-YBF.text" = "الرمز البريدي";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "VPg-r6-OVc"; */
+"VPg-r6-OVc.placeholder" = "الرقم السري";
+
+/* Class = "UILabel"; text = "Building No"; ObjectID = "Vyd-6U-JaE"; */
+"Vyd-6U-JaE.text" = "رقم المبنى";
+
+/* Class = "UITabBarItem"; title = "profile"; ObjectID = "X0N-hF-uSb"; */
+"X0N-hF-uSb.title" = "profile";
+
+/* Class = "UILabel"; text = "Mobile No"; ObjectID = "XUk-ZV-x4f"; */
+"XUk-ZV-x4f.text" = "Mobile No";
+
+/* Class = "UIButton"; configuration.title = "send"; ObjectID = "YW3-Uv-iWH"; */
+"YW3-Uv-iWH.configuration.title" = "إرسال";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "YW3-Uv-iWH"; */
+"YW3-Uv-iWH.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "District Name"; ObjectID = "ZbY-tP-7OB"; */
+"ZbY-tP-7OB.text" = "اسم الحي";
+
+/* Class = "UITextField"; placeholder = "Pasowerd"; ObjectID = "aD2-pT-hNI"; */
+"aD2-pT-hNI.placeholder" = "ادخل الرقم السري";
+
+/* Class = "UILabel"; text = "Price: "; ObjectID = "bTt-SY-JRd"; */
+"bTt-SY-JRd.text" = "السعر: ";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "dDp-N5-hN8"; */
+"dDp-N5-hN8.title" = "Home";
+
+/* Class = "UIButton"; configuration.title = "Forgot Password?"; ObjectID = "eOe-2S-fmP"; */
+"eOe-2S-fmP.configuration.title" = "نسيت الرقم السري?";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "eOe-2S-fmP"; */
+"eOe-2S-fmP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "erG-Qy-p9w"; */
+"erG-Qy-p9w.text" = "100";
+
+/* Class = "UIButton"; configuration.title = "PAY"; ObjectID = "fFr-JC-g9E"; */
+"fFr-JC-g9E.configuration.title" = "ادفع";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fFr-JC-g9E"; */
+"fFr-JC-g9E.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "LOG IN"; ObjectID = "gOc-6d-iW0"; */
+"gOc-6d-iW0.configuration.title" = "تسجيل الدخول";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "gOc-6d-iW0"; */
+"gOc-6d-iW0.normalTitle" = "Button";
+
+/* Class = "UIViewController"; title = "Home"; ObjectID = "i7T-8n-TQD"; */
+"i7T-8n-TQD.title" = "Home";
+
+/* Class = "UILabel"; text = "Service ID: "; ObjectID = "jlm-60-sJK"; */
+"jlm-60-sJK.text" = "Service ID: ";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "md6-xZ-0TF"; */
+"md6-xZ-0TF.placeholder" = "البريد الإلكتروني";
+
+/* Class = "UILabel"; text = "Individual Services"; ObjectID = "o8e-sG-sq4"; */
+"o8e-sG-sq4.text" = "خدمات الأفراد";
+
+/* Class = "UILabel"; text = "Street Name"; ObjectID = "obR-2g-6AC"; */
+"obR-2g-6AC.text" = "اسم الشارع";
+
+/* Class = "UILabel"; text = "My Profile"; ObjectID = "pVk-Ke-RdU"; */
+"pVk-Ke-RdU.text" = "My Profile";
+
+/* Class = "UILabel"; text = "WELCOME!"; ObjectID = "rcl-z6-MBL"; */
+"rcl-z6-MBL.text" = "!مرحبا";
+
+/* Class = "UILabel"; text = "Building"; ObjectID = "szz-Hj-lGg"; */
+"szz-Hj-lGg.text" = "مبنى";
+
+/* Class = "UILabel"; text = "KSA, AlMadinah, Distict: Bani Haritha, Building: 5264"; ObjectID = "uid-Gz-2yZ"; */
+"uid-Gz-2yZ.text" = "KSA, AlMadinah, Distict: Bani Haritha, Building: 5264";
+
+/* Class = "UIButton"; configuration.title = "Sign Up"; ObjectID = "zCW-q6-6mK"; */
+"zCW-q6-6mK.configuration.title" = "Sign Up";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "zCW-q6-6mK"; */
+"zCW-q6-6mK.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "zkX-jl-bLs"; */
+"zkX-jl-bLs.placeholder" = "البريد الإلكتروني";

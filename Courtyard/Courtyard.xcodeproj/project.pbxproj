@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B323F2C276E406D008E62AF /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B323F2B276E406D008E62AF /* AddressVC.swift */; };
 		1B323F2E276FBDA5008E62AF /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 1B323F2D276FBDA5008E62AF /* fonts */; };
+		1B323F3027709D7F008E62AF /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B323F2F27709D7F008E62AF /* ChatVC.swift */; };
 		1B57E854276D379D00B9140B /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 1B57E853276D379D00B9140B /* FirebaseFirestoreSwift-Beta */; };
 		1B8CC8752767486400E5CDD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8742767486400E5CDD2 /* AppDelegate.swift */; };
 		1B8CC8772767486400E5CDD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */; };
@@ -36,6 +37,9 @@
 /* Begin PBXFileReference section */
 		1B323F2B276E406D008E62AF /* AddressVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
 		1B323F2D276FBDA5008E62AF /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		1B323F2F27709D7F008E62AF /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		1B323F36277256FE008E62AF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		1B323F37277256FF008E62AF /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		1B8CC8712767486400E5CDD2 /* Courtyard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courtyard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8CC8742767486400E5CDD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				1B8CC89F2769675800E5CDD2 /* HomeVC.swift */,
 				1BA71A80276D22B000FCD1A4 /* ProfileVC.swift */,
 				1B323F2B276E406D008E62AF /* AddressVC.swift */,
+				1B323F2F27709D7F008E62AF /* ChatVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 1B8CC8682767486300E5CDD2;
 			packageReferences = (
@@ -237,6 +243,7 @@
 				1B323F2C276E406D008E62AF /* AddressVC.swift in Sources */,
 				1B8CC8A02769675800E5CDD2 /* HomeVC.swift in Sources */,
 				1B8CC8752767486400E5CDD2 /* AppDelegate.swift in Sources */,
+				1B323F3027709D7F008E62AF /* ChatVC.swift in Sources */,
 				1B8CC8A8276A016200E5CDD2 /* RegisterVC.swift in Sources */,
 				1BA71A81276D22B000FCD1A4 /* ProfileVC.swift in Sources */,
 				1B8CC8A52769F47A00E5CDD2 /* ChatCell.swift in Sources */,
@@ -252,6 +259,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1B8CC87B2767486400E5CDD2 /* Base */,
+				1B323F36277256FE008E62AF /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1B8CC8802767486700E5CDD2 /* Base */,
+				1B323F37277256FF008E62AF /* ar */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -271,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -332,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
