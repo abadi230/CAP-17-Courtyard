@@ -54,6 +54,7 @@ class HomeVC: UIViewController {
 
         // Store to DB
         let x = try? dbStore.collection("test").addDocument(from: testObj)
+        print(x as Any)
 
 //        // Fetch from DB
 //        dbStore.collection("test").addSnapshotListener { snapshot, error in
