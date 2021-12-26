@@ -23,8 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
-        let db = Firestore.firestore()
-        debugPrint(db)
+        
         return true
     }
     
