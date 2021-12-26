@@ -9,13 +9,13 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class AddressVC: UIViewController, UITableViewDelegate {
+class AddressVC: UIViewController{
     var db = Firestore.firestore()
     var users = [User]()
-    var addresses = [Address]()
+    var address : Address?
     
-    @IBOutlet weak var addressTV: UITableView!
     
+    @IBOutlet weak var addressType: UITextField!
     @IBOutlet weak var buildingNoTF: UITextField!
     @IBOutlet weak var streetTF: UITextField!
     @IBOutlet weak var districtTF: UITextField!
@@ -26,24 +26,45 @@ class AddressVC: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        addressTV.delegate = self
-        addressTV.dataSource = self
-        fetchData()
+        
+//        fetchData()
     }
     
+
     
     @IBAction func onClickAddAddress(_ sender: UIButton) {
-        // add Document to sub collection
-        let address = db.collection("Users").document("C4PBPGzsX710rVqtpbg8").collection("Address")
-        address.addDocument(data: [
-            "buildingNo": buildingNoTF.text!,
-            "street": streetTF.text!,
-            "district": districtTF.text!,
-            "zip": zipTF.text!,
-            "additionalNo": additionalNoTF.text!
-        ])
+        // send data to Address
+        let building = Int(buildingNoTF.text!)!
+        let zip = Int(zipTF.text!)
+        let addition = Int(additionalNoTF.text!)
+
+        address = Address(type: addressType.text!, street: streetTF.text!, buildingNo: building, zip: zip!, additionalNo: addition!, district: districtTF.text!)
+    
+//
+//        print("-----------------------------------------------------------")
+//        print(addresses)
+//        let proVC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileId") as! ProfileVC
+//        proVC.addresses += addresses
+////        proVC.addressesTV.reloadData()
+//        present(proVC, animated: true, completion: nil)
+////        self.navigationController?.popViewController(animated: true)
+        
+        
+        
+        
+        
+//        // add Document to sub collection
+//        let address = db.collection("Users").document("Abadi").collection("Address")
+//        address.addDocument(data: [
+//            "buildingNo": buildingNoTF.text!,
+//            "street": streetTF.text!,
+//            "district": districtTF.text!,
+//            "zip": zipTF.text!,
+//            "additionalNo": additionalNoTF.text!
+//        ])
         
     }
+    /*
     func fetchData(){
         let db = Firestore.firestore()
         let users = db.collection("/Users/C4PBPGzsX710rVqtpbg8/Address")
@@ -60,11 +81,13 @@ class AddressVC: UIViewController, UITableViewDelegate {
                 //                self.addresses.append(queryDocumentSnapshot.data())
                 print("------------------queryDocumnetSnapshot.data()-----------------------")
                 print(queryDocumentSnapshot.data())
+                /* Output: ["street": Prince Mohammed Bin Abdulaziz, "district": Bani Harithah, "city": AlMadinah, "country": KSA, "additional_no": 8391, "building_no": 5264, "postal_code": 42313]
+*/
                 print("-----------------queryDocumnetSnapshot------------------------")
                 print(queryDocumentSnapshot)
                 print("---------------document Id-------------")
                 print(queryDocumentSnapshot.documentID)
-                
+                // Output: gqRtO412fGahNw33rhGZ
                 
                 
                 let myData = try? queryDocumentSnapshot.data(as: Address.self)
@@ -79,39 +102,21 @@ class AddressVC: UIViewController, UITableViewDelegate {
             }
         })
     }
-
-    /*
+*/
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let proVC = segue.destination as? ProfileVC {
+            proVC.addresses.append(address!)
+        }
     }
-    */
+    
 
 }
 
-extension AddressVC : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath) as! AddressCell
-        cell.addressTypeLbl.text = "Building"
-        cell.addressLbl.text = "users[0]"
-//        print(users)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
-    }
-}
 
-class AddressCell : UITableViewCell{
-    @IBOutlet weak var addressTypeLbl: UILabel!
-    @IBOutlet weak var addressLbl: UILabel!
-    
-}
+

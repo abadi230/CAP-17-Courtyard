@@ -19,6 +19,7 @@ class User: Codable {
 }
 struct Address: Codable {
 //    let PrimeLocation : Bool
+    var type: String 
     var street: String
     var buildingNo : Int
     var zip: Int?
