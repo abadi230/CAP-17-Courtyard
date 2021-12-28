@@ -33,6 +33,8 @@ class LogIn: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: delete this function
     @IBAction func onClickSignUp(_ sender: UIButton) {
     }
     @IBAction func OnLogInPressed(_ sender: UIButton) {

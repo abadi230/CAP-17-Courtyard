@@ -5,19 +5,32 @@
 //  Created by Abdullah Bajaman on 17/12/2021.
 //
 
-import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class User: Codable {
-    @DocumentID var id : String? = "userId\(UUID().uuidString)"
+struct User: Codable {
+//    @DocumentID var id : String? = "userId\(UUID().uuidString)"
     var name: String?
     var mobile: Int?
-    var addresses : [Address]?
-    var orders : [Order]?
-//    var services: Service
+    var addresses : [DocumentReference]?
+    var orders : [DocumentReference]? // string then use it as ref
+    
+//    func getAddresses(){
+//        
+//    }
+}
+
+struct Order: Codable {
+//    var id : String = "orderID\(UUID().uuidString)"
+//    var userId: DocumentReference
+    var serviceId: DocumentReference?
+    var date: Date
+    var total: Double
     
 }
+
 struct Address: Codable {
+//    var id : String = "addressID\(UUID().uuidString)"
 //    let PrimeLocation : Bool
     var type: String 
     var street: String
@@ -28,17 +41,10 @@ struct Address: Codable {
 //    var location: [Double: Double]? = nil
 }
 struct Service: Codable {
+//    var id : String = "sericeID\(UUID().uuidString)"
     var name: String
     var date: Date
     var price: Double
-}
-
-struct Order: Codable {
-    var userId: String
-    var serviceId: String
-    var date: Date
-    var total: Double
-    
 }
 
 struct CodeTest : Codable {
