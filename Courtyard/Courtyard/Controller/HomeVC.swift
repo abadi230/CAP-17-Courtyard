@@ -43,27 +43,15 @@ class HomeVC: UIViewController {
         datePicker.addAction(action, for: .valueChanged)
     }
     func sendToDB(){
-        
-        
-        let order1 = Order(userId: "aa", serviceId: "sss", date: Date(), total: 0.5)
-        let order2 = Order(userId: "bb", serviceId: "xxx", date: Date(), total: 0.78)
-
-        let testObj = CodeTest(name: "Boss", age: 23, orders: [order1, order2])
-
         let dbStore = Firestore.firestore()
-
-        // Store to DB
-        let x = try? dbStore.collection("test").addDocument(from: testObj)
-        print(x as Any)
-
 //        // Fetch from DB
-//        dbStore.collection("test").addSnapshotListener { snapshot, error in
-//
-//            for doc in snapshot!.documents {
-////                let testObj = try! doc.data(as: CodeTest.self)
-//                print (testObj)
-//            }
-//        }
+        dbStore.collection("test").addSnapshotListener { snapshot, error in
+
+            for doc in snapshot!.documents {
+                let testObj = try! doc.data(as: CodeTest.self)
+                print (testObj)
+            }
+        }
         
         
         
@@ -71,12 +59,7 @@ class HomeVC: UIViewController {
         
     }
         
-//        salim.name = "Salim"
-//        salim.mobile = 055555552
-//        salim.addresses?.append(Address(street: "quba", buildingNo: 29, zip: 9999, additionalNo: 3333, district: "Rabwah"))
-//        salim.services = Service(name: "cleaning Vila's Courtyard", price: 50)
-//        salim.orders?.append(Order(userId: self, serviceId: self.services))
-   // }
+   
     @IBAction func onClickBook(_ sender: UIButton) {
         if txtBox.text != "" && datePicker.date != Date.now {
             
