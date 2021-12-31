@@ -12,7 +12,12 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
-class ProfileVC: UIViewController {
+class ProfileVC: UIViewController, UserData {
+    func getData(user: User, addresses: [Address]) {
+        self.user = user
+        self.addresses = addresses
+    }
+    
     
     var user: User!
     var service: Service!
@@ -40,17 +45,30 @@ class ProfileVC: UIViewController {
         
 //         service is grapped from homeVC
         print("service: ", service ?? "unable to get data")
-        let loginVC = LogIn()
-        user = loginVC.user
+//        let loginVC = LogIn()
+//        user = loginVC.user
         
-//        user.getData()
-        print("---------------user name--------------------")
-//        print(user.name)
+//        print("---------------user Addresses--------------------")
+//        let client = Client()
+        
+//        // trying delegate
+//        client.user = loginVC.user
+//        client.delegate = self
+        
+        //trying use callback
+//        user.getData( { [weak self] (data: [Address]) in
+//            self?.useData(data: data)
+//        })
+
 //        print(user.getData())
         fetchData()
-
+        
         
     }
+    //trying use callback
+//    private func useData(data: [Address]){
+//        print(data)
+//    }
     
     @IBAction func onClickAddAddress(_ sender: UIButton) {
         performSegue(withIdentifier: "addressID", sender: self)
@@ -66,8 +84,10 @@ class ProfileVC: UIViewController {
         if service != nil && addresses.count != 0{
             
             sendDataToDB()
+            showAlert("Your booking has been successfully completed")
         }else{
-            print("service is: \(service)")
+            print("service is: \(String(describing: service))")
+            showAlert("Please choose the service first")
         }
     }
     func sendDataToDB(){
@@ -75,20 +95,18 @@ class ProfileVC: UIViewController {
         
         //TODO: check service before add address
         // TODO: when add address store two addresses???
-//        // store addresses in DB
-//        var addressesRef : [DocumentReference] = []
-//        for address in addresses {
-//            let ref = (try? db.collection("Addresses").addDocument(from: address))!
-//            addressesRef.append(ref)
-//            print("address ref: \(ref)")
-//        }
+//        var filteredAddresses : [Address] = []
+//        if addresses.count > 2 {
 //
-//        // store user in DB
-//        user = User( name: nameTF.text!, mobile: Int(mobileTF.text!)!, addressesRef: addressesRef)
-//        // Using current user as docoumentID then store field from instence of User
-//        try? db.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
+//            for index in 0...addresses.count - 1{
+//                if index == addresses.count - 2{ break }
+//                if addresses[index].zip != addresses[index + 1].zip{
+//                    filteredAddresses.append(addresses[index])
+//                }
+//            }
+//        }else { filteredAddresses = addresses}
         
-        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses)
+        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses.last)
         
         // store service in DB
         let serviceRef = try? db.collection("Service").addDocument(from: service)
@@ -101,20 +119,8 @@ class ProfileVC: UIViewController {
         
     }
     func fetchData(){
-//        user.getData()
-////        print("--------getData()----------")
-////        print(userInfo)
-//        let userD = User()
-//
-//        DispatchQueue.main.async {
-//
-//            print("-----------self.addresses----------")
-//            print(self.addresses)
-//            self.addressesTV.reloadData()
-//        }
-        
+
         // if current user equal Users/current display name, mobile and addresses
-        
         db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
             if (err == nil){
                 if doc?.exists != false{
@@ -156,6 +162,14 @@ class ProfileVC: UIViewController {
 
         }
         
+    }
+    func showAlert(_ msg: String){
+        let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Navigation

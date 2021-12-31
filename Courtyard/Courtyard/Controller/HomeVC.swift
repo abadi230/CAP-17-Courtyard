@@ -13,9 +13,12 @@ import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController {
 
+    let db = Firestore.firestore()
+    var user : User!
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
 
     // TODO: adapt pull down Button and Pop Up Button
+    @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
     @IBOutlet weak var dropDown: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -26,10 +29,27 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // when user chois service and date add order then move to add adderess  
+        
+//        let user = User()
+//        if let userId = Auth.auth().currentUser?.email{
+            
+//            print("-------user Info------")
+//            print(user.fetchUserData(userId: userId))
+            
+//             when user chois service and date add order then move to add adderess
+//        }
+        getData()
         configDatePicker()
 //        sendToDB()
         
+    }
+    func getData(){
+        db.collection("Users").document((Auth.auth().currentUser?.email)!).getDocument { snapshot, err in
+            if (err == nil){
+                self.user = try! snapshot?.data(as: User.self)
+                self.welcomLbl.text = "Welcome \(self.user.name! )"
+            }
+        }
     }
     
     func configDatePicker(){

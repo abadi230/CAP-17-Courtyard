@@ -10,8 +10,10 @@ import Firebase
 
 class LogIn: UIViewController {
 
+    let db = Firestore.firestore()
     var user : User!
     var (email, password) = ("", "")
+    
     @IBOutlet weak var logInBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
@@ -23,10 +25,13 @@ class LogIn: UIViewController {
         guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
         // get current user email
         if Auth.auth().currentUser != nil {
+            
             self.navigationController?.show(homeVC, sender: nil)
         }
     }
 
+    
+    
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -41,7 +46,7 @@ class LogIn: UIViewController {
     }
     
     @IBAction func OnLogInPressed(_ sender: UIButton) {
-        let db = Firestore.firestore()
+        
         
         Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { (user, error) in
             if(error != nil){
