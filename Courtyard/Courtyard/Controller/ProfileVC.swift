@@ -20,13 +20,15 @@ class ProfileVC: UIViewController {
     var db = Firestore.firestore()
     
     @IBOutlet weak var userNameLbl: UILabel!
-    
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var mobileTF: UITextField!
-    
     @IBOutlet weak var addressesTV: UITableView!
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+//        print(user.name)
+//        user.getData()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +38,17 @@ class ProfileVC: UIViewController {
         addressesTV.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: "addressCell")
         
         
-        // service is grapped from homeVC
-        //        print("service: ", service ?? "unable to get data")
+//         service is grapped from homeVC
+        print("service: ", service ?? "unable to get data")
+        let loginVC = LogIn()
+        user = loginVC.user
         
+//        user.getData()
+        print("---------------user name--------------------")
+//        print(user.name)
+//        print(user.getData())
         fetchData()
+
         
     }
     
@@ -54,79 +63,97 @@ class ProfileVC: UIViewController {
     //
     @IBAction func OnClickBook(_ sender: UIButton){
         //        if address or service not exist display alert or message
-        sendDataToDB()
+        if service != nil && addresses.count != 0{
+            
+            sendDataToDB()
+        }else{
+            print("service is: \(service)")
+        }
     }
     func sendDataToDB(){
         // Using reference
-        // store service in DB
-        let serviceRef = try? db.collection("Service").addDocument(from: service)
-        // create Order
-        let order1 = Order(serviceId: serviceRef, date: Date(), total: service!.price)
         
-        // store Orders in DB
-        let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
-        let ordersRef = [orderRef1!]
-        
-        // store addresses in DB
         //TODO: check service before add address
         // TODO: when add address store two addresses???
-        var addressesRef : [DocumentReference] = []
-        for address in addresses {
-            let ref = (try? db.collection("Addresses").addDocument(from: address))!
-            addressesRef.append(ref)
-            print("address ref: \(ref)")
-        }
-        //        let addressRef1 = try? db.collection("Addresses").addDocument(from: address1)
+//        // store addresses in DB
+//        var addressesRef : [DocumentReference] = []
+//        for address in addresses {
+//            let ref = (try? db.collection("Addresses").addDocument(from: address))!
+//            addressesRef.append(ref)
+//            print("address ref: \(ref)")
+//        }
+//
+//        // store user in DB
+//        user = User( name: nameTF.text!, mobile: Int(mobileTF.text!)!, addressesRef: addressesRef)
+//        // Using current user as docoumentID then store field from instence of User
+//        try? db.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
         
+        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses)
         
-        user = User( name: nameTF.text!, mobile: Int(mobileTF.text!)!, addresses: addressesRef, orders: ordersRef)
-        // Using current user as docoumentID then store field from instence of User
-        try? db.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
+        // store service in DB
+        let serviceRef = try? db.collection("Service").addDocument(from: service)
         
-        
-        
-        
+        // create Order
+        let order1 = Order(userId: userRef, serviceId: serviceRef, date: Date(), total: service!.price, paymentState: false)
+        // store Orders in DB
+        let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
+//        let ordersRef = [orderRef1!]
         
     }
     func fetchData(){
+//        user.getData()
+////        print("--------getData()----------")
+////        print(userInfo)
+//        let userD = User()
+//
+//        DispatchQueue.main.async {
+//
+//            print("-----------self.addresses----------")
+//            print(self.addresses)
+//            self.addressesTV.reloadData()
+//        }
+        
         // if current user equal Users/current display name, mobile and addresses
         
         db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
             if (err == nil){
                 if doc?.exists != false{
-                    
+
                     self.user = try! doc?.data(as: User.self)
                     self.nameTF.text = self.user.name
                     self.mobileTF.text = "0\(String(describing: self.user.mobile!))"
-                    
+
                     // loop addresses from user Struct then store it in address model
-                    for addressID in self.user.addresses! {
-                        
-                        addressID.getDocument { addressDoc, err in
-                            do {
-                                print("---------data---------")
-                                print(addressDoc?.data()!)
-                                if (err == nil){
-                                    let address = try! addressDoc?.data(as: Address.self)
-                                    print("---------address--------")
-                                    print(address!)
-                                    print("--------addressDoc?.documentID------")
-                                    print(addressDoc?.documentID)
-                                    
-                                    self.addresses.append(address!)
-                                    self.addressesTV.reloadData()
-                                    print("---------self.addresses.last--------")
-                                    print(self.addresses.last)
+                    if let addressesRef = self.user.addressesRef{
+
+                        for addressID in addressesRef {
+
+                            addressID.getDocument { addressDoc, err in
+                                do {
+                                    print("---------data---------")
+                                    print(addressDoc?.data()!)
+                                    if (err == nil){
+                                        let address = try! addressDoc?.data(as: Address.self)
+                                        print("---------address--------")
+                                        print(address!)
+                                        print("--------addressDoc?.documentID------")
+                                        print(addressDoc?.documentID)
+
+                                        self.addresses.append(address!)
+                                        self.addressesTV.reloadData()
+                                        print("---------self.addresses.last--------")
+                                        print(self.addresses.last)
+                                    }
+
                                 }
-                                
                             }
                         }
                     }
-                    
+
                 }
-                
+
             }
-            
+
         }
         
     }
@@ -136,10 +163,10 @@ class ProfileVC: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // MARK: if address selected let user edit address
-        //        if segue.identifier == "addressID"{
-        //            let addressVC = segue.destination as! AddressVC
-        //            addressVC.addresses = addresses
-        //        }
+                if segue.identifier == "addressID"{
+                    let addressVC = segue.destination as! AddressVC
+                    addressVC.user = self.user
+                }
     }
     
     
@@ -181,3 +208,4 @@ extension ProfileVC: UITableViewDataSource{
     
     
 }
+

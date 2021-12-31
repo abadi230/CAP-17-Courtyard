@@ -12,9 +12,6 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController {
-    
-    
-    
 
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
 
@@ -29,7 +26,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // when user chois service and date move to add adderess then add order
+        // when user chois service and date add order then move to add adderess  
         configDatePicker()
 //        sendToDB()
         
@@ -42,33 +39,26 @@ class HomeVC: UIViewController {
         }
         datePicker.addAction(action, for: .valueChanged)
     }
-    func sendToDB(){
-        let dbStore = Firestore.firestore()
-//        // Fetch from DB
-        dbStore.collection("test").addSnapshotListener { snapshot, error in
-
-            for doc in snapshot!.documents {
-                let testObj = try! doc.data(as: CodeTest.self)
-                print (testObj)
-            }
-        }
-        
-        
-        
-        
-        
-    }
         
    
     @IBAction func onClickBook(_ sender: UIButton) {
         if txtBox.text != "" && datePicker.date != Date.now {
             
             performSegue(withIdentifier: "profileID", sender: self)
+//            guard let proVC = self.tabBarController?.viewControllers?[2] else { return  }
+//            let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileId") as! ProfileVC
+//
+//            self.navigationController?.show(proVC, sender: nil)
         }else{
             print("Select service and Date")
         }
     }
     
+    
+    @IBAction func onClickLogOut(_ sender: UIButton) {
+        try! Auth.auth().signOut()
+        self.navigationController?.popViewController(animated: true)
+    }
 //    synchronizeTitleAndSelectedItem()
     
     

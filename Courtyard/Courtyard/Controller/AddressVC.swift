@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 class AddressVC: UIViewController{
     var db = Firestore.firestore()
-//    var users = [User]()
+    var user = User()
     var address : Address?
     
     

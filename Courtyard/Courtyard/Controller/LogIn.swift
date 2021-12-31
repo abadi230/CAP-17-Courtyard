@@ -10,6 +10,8 @@ import Firebase
 
 class LogIn: UIViewController {
 
+    var user : User!
+    var (email, password) = ("", "")
     @IBOutlet weak var logInBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
@@ -37,14 +39,23 @@ class LogIn: UIViewController {
     // MARK: delete this function
     @IBAction func onClickSignUp(_ sender: UIButton) {
     }
+    
     @IBAction func OnLogInPressed(_ sender: UIButton) {
+        let db = Firestore.firestore()
+        
         Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { (user, error) in
-            if(error == nil){
+            if(error != nil){
                 debugPrint(error ?? "Unable to Log in")
                 self.showAlert(error?.localizedDescription ?? "")
             }else {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "homeID") as! HomeVC
-                self.navigationController?.show(vc, sender: self)
+                if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
+                    
+                    self.navigationController?.show(vc, sender: self)
+                }else{
+                    // VC for Admin
+                }
+                
             }
         }
         
