@@ -103,38 +103,18 @@ class User: Codable {
 
 //    var orders : [DocumentReference]? // string then use it as ref
 
-    func storeUserDataInDB(name: String?, mobile: String?, addresses: Address?) -> DocumentReference?{
-        let dbStore = Firestore.firestore()
-        let user = User()
-        var addressesRef: [DocumentReference] = []
-        if let addresses = addresses {
-
-            
-                let ref = (try? dbStore.collection("Addresses").addDocument(from: addresses))!
-                addressesRef.append(ref)
-                print("address ref: \(ref)")
-        }
-        
-        user.name = name
-        user.mobile = Int(mobile!)
-        user.addressesRef = addressesRef
-        try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
-        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
-        return userRef
-    }
-//    func storeUserDataInDB(name: String?, mobile: String?, addresses: [Address]?) -> DocumentReference?{
+//    func storeUserDataInDB(name: String?, mobile: String?, addresses: Address?) -> DocumentReference?{
 //        let dbStore = Firestore.firestore()
 //        let user = User()
 //        var addressesRef: [DocumentReference] = []
 //        if let addresses = addresses {
 //
-//            for address in addresses {
-//                let ref = (try? dbStore.collection("Addresses").addDocument(from: address))!
+//            
+//                let ref = (try? dbStore.collection("Addresses").addDocument(from: addresses))!
 //                addressesRef.append(ref)
 //                print("address ref: \(ref)")
-//            }
 //        }
-//
+//        
 //        user.name = name
 //        user.mobile = Int(mobile!)
 //        user.addressesRef = addressesRef
@@ -142,6 +122,26 @@ class User: Codable {
 //        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
 //        return userRef
 //    }
+    func storeUserDataInDB(name: String?, mobile: String?, addresses: [Address]?) -> DocumentReference?{
+        let dbStore = Firestore.firestore()
+        let user = User()
+        var addressesRef: [DocumentReference] = []
+        if let addresses = addresses {
+
+            for address in addresses {
+                let ref = (try? dbStore.collection("Addresses").addDocument(from: address))!
+                addressesRef.append(ref)
+                print("address ref: \(ref)")
+            }
+        }
+
+        user.name = name
+        user.mobile = Int(mobile!)
+        user.addressesRef = addressesRef
+        try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
+        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
+        return userRef
+    }
     
 //    func fetchUserData(userId: String)-> ([String : Any]?){ // tried to send user data as dictionery
 //        let dbStore = Firestore.firestore()
@@ -159,86 +159,122 @@ class User: Codable {
 //    }
 
     
-    func getData(){
-        let dbStore = Firestore.firestore()
-//        let proVC = ProfileVC()
-        
-        var user = User()
-        var userAddreses : [Address] = []
-        dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).getDocument { doc, err in
-            if (err == nil){
-                if doc?.exists != false{
-                    
-//                    user = try! doc?.data(as: User.self)
-                    user = try! doc?.data(as: User.self) ?? User()
-                    self.name = user.name
-                    self.mobile = user.mobile
-                    self.addressesRef = user.addressesRef
-                    // loop addresses reference from user class then send the references to getAddresses Function
-                    if let addressesRef = self.addressesRef{
-                        
-                        for addressID in addressesRef {
-                            print("--------addressId------------")
-                            print(addressID.documentID)
-                            let address = self.getAddresses(addressRef: addressID)
-                            userAddreses.append(address)
-                            
-                            // find way to send address to viewControllers
-//                            let data = userAddreses
-                            
-                        }
-                        // MARK: I tried to use callback to retrieve data in profileVC
+//    func getData(){
+//        let dbStore = Firestore.firestore()
+////        let proVC = ProfileVC()
+//
+//        var user = User()
+//        var userAddreses : [Address] = []
 //        dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).getDocument { doc, err in
 //            if (err == nil){
 //                if doc?.exists != false{
 //
 ////                    user = try! doc?.data(as: User.self)
 //                    user = try! doc?.data(as: User.self) ?? User()
-////                    self.name = user?.name
-////                    self.mobile = user?.mobile
-//
+//                    self.name = user.name
+//                    self.mobile = user.mobile
+//                    self.addressesRef = user.addressesRef
 //                    // loop addresses reference from user class then send the references to getAddresses Function
 //                    if let addressesRef = self.addressesRef{
 //
 //                        for addressID in addressesRef {
 //                            print("--------addressId------------")
 //                            print(addressID.documentID)
-//                            let address = self.getAddresses(addressRef: addressID)
-//                            userAddreses.append(address)
+//                            if let address = self.getAddresses(addressRef: addressID) {
+//                                userAddreses.append(address)
+//                            }
 //
 //                            // find way to send address to viewControllers
-//                            let data = userAddreses
-//                            completion(data)
+////                            let data = userAddreses
+//
 //                        }
-                        
-                    }
+//                        // MARK: I tried to use callback to retrieve data in profileVC
+////        dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).getDocument { doc, err in
+////            if (err == nil){
+////                if doc?.exists != false{
+////
+//////                    user = try! doc?.data(as: User.self)
+////                    user = try! doc?.data(as: User.self) ?? User()
+//////                    self.name = user?.name
+//////                    self.mobile = user?.mobile
+////
+////                    // loop addresses reference from user class then send the references to getAddresses Function
+////                    if let addressesRef = self.addressesRef{
+////
+////                        for addressID in addressesRef {
+////                            print("--------addressId------------")
+////                            print(addressID.documentID)
+////                            let address = self.getAddresses(addressRef: addressID)
+////                            userAddreses.append(address)
+////
+////                            // find way to send address to viewControllers
+////                            let data = userAddreses
+////                            completion(data)
+////                        }
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
+//        print("Complete user address loop")
+////        return (user)
+//    }
+    
+    func getDataClosure(completion: @escaping (User)->Void) {
+        let dbStore = Firestore.firestore()
+        
+        var userAddreses : [Address] = []
+        dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).getDocument { doc, err in
+            if (err == nil) {
+                do {
+                    var user = User()
+                    user = try doc?.data(as: User.self) ?? User()
+                    self.name = user.name
+                    self.mobile = user.mobile
+                    self.addressesRef = user.addressesRef
+
+//                    if let addressesRef = self.addressesRef {
+//                        for addressID in addressesRef {
+//                            print("--------addressId------------")
+//                            print(addressID.documentID)
+//                            if let address = self.getAddresses(addressRef: addressID) {
+//                                userAddreses.append(address)
+//                                //print (completion(user, userAddreses))
+//                            }
+//                        }
+//                    }
+                    print (completion(user))
                     
+                } catch {
+                    print (error.localizedDescription)
                 }
-                
             }
-            
         }
         print("Complete user address loop")
-//        return (user)
     }
-    
-    func getAddresses(addressRef: DocumentReference?) -> Address{
-        
-        var userAddress : Address!
-        if let addressRef = addressRef {
-            // fetch addresses then store it in userAddress
-            addressRef.getDocument { addressDoc, err in
-                do {
-                    if (err == nil){
-                        let address = try! addressDoc?.data(as: Address.self)
-                        
-                        userAddress = address!
+
+    func getAddresses(completion: @escaping ([Address])-> Void) {
+        var userAddress = [Address]()
+        if let addressRef = self.addressesRef {
+            for addressID in addressRef {
+                print("--------addressId------------")
+                print(addressID.documentID)
+                addressID.getDocument { addressDoc, err in
+                    do {
+                        if (err == nil) {
+                            let address = try addressDoc?.data(as: Address.self)
+                            userAddress.append(address!)
+                        }
+                    } catch {
+                        print (error.localizedDescription)
                     }
-                    
+                    completion(userAddress)
                 }
             }
         }
-        return userAddress
     }
     
     func requestData(addresses: [Address], completion: ((_ data: [Address]) -> Void)){
@@ -274,8 +310,3 @@ struct Service: Codable {
     var price: Double
 }
 
-struct CodeTest : Codable {
-    var name: String?
-    var age: Int?
-    var orders: [Order]
-}

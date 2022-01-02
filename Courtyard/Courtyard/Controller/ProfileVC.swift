@@ -7,8 +7,8 @@
 // MARK: check imported library which one is not nesserry
 import UIKit
 import Firebase
-import FirebaseCore
-import FirebaseFirestore
+//import FirebaseCore
+//import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
@@ -19,7 +19,7 @@ class ProfileVC: UIViewController, UserData {
     }
     
     
-    var user: User!
+    var user = User()
     var service: Service!
     var address: Address?
     var addresses = [Address]()
@@ -38,11 +38,25 @@ class ProfileVC: UIViewController, UserData {
         print("addresses: ", addresses)
 //        addresses.removeAll()
         print("after remove addresses: ", addresses)
-        fetchData()
+//        fetchData()
 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //from DB
+        user.getDataClosure(completion: { user  in
+            print ("Closure Done")
+            print (user.name)
+
+            user.getAddresses { addresses in
+                for address in addresses {
+                    print (address.buildingNo)
+                    print (address.street)
+                    self.addresses.append(address)
+                    self.addressesTV.reloadData()
+                }
+            }
+        })
         
         // Do any additional setup after loading the view.
         addressesTV.delegate = self
@@ -107,7 +121,7 @@ class ProfileVC: UIViewController, UserData {
         // TODO: when add address store two addresses???
 
         
-        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses.last)
+        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses)
         
         // store service in DB
         let serviceRef = try? db.collection("Service").addDocument(from: service)
@@ -119,68 +133,68 @@ class ProfileVC: UIViewController, UserData {
 //        let ordersRef = [orderRef1!]
         
     }
-    func fetchData(){
-
-        // if current user equal Users/current display name, mobile and addresses
-        db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
-            if (err == nil){
-                if doc?.exists != false{
-
-                    self.user = try! doc?.data(as: User.self)
-                    self.nameTF.text = self.user.name
-                    self.mobileTF.text = "0\(String(describing: self.user.mobile!))"
-
-                    print("nubmer of addressesRef: \(self.user.addressesRef!.count)")
-                    
-                    // if no addressesRef
-                    if self.user.addressesRef?.count == 0 && self.address != nil {
-                        if let address = self.address {
-                            
-                            self.addresses.append(address)
-                            
-                            self.addressesTV.reloadData()
-                        }
-                        
-                    }
-                    
-                    // loop addressesRef from user Struct then store it in address model
-                    if let addressesRef = self.user.addressesRef{
-
-                        for addressID in addressesRef {
-
-                            addressID.getDocument { addressDoc, err in
-                                do {
-                                    
-                                    if (err == nil){
-                                        
-                                        // store address from DB to Address instance
-                                        let address = try! addressDoc?.data(as: Address.self)
-                                        print("Address from DB: ", address)
-                                        if address?.buildingNo != self.address?.buildingNo && address?.district != self.address?.district && address?.street != self.address?.street && address?.type != self.address?.type && address?.zip != self.address?.zip {
-                                            return
-                                            
-                                            if let address = self.address {
-                                                
-                                                self.addresses.append(self.address!)
-                                                self.addressesTV.reloadData()
-                                            }
-                                        }
-                                        print("---------self.addresses.last--------")
-                                        print(self.addresses.last)
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-        }
-        
-    }
+//    func fetchData(){
+//
+//        // if current user equal Users/current display name, mobile and addresses
+//        db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
+//            if (err == nil){
+//                if doc?.exists != false{
+//
+//                    //self.user = try! doc?.data(as: User.self)
+//                    self.nameTF.text = self.user.name
+//                    self.mobileTF.text = "0\(String(describing: self.user.mobile!))"
+//
+//                    print("nubmer of addressesRef: \(self.user.addressesRef!.count)")
+//
+//                    // if no addressesRef
+//                    if self.user.addressesRef?.count == 0 && self.address != nil {
+//                        if let address = self.address {
+//
+//                            self.addresses.append(address)
+//
+//                            self.addressesTV.reloadData()
+//                        }
+//
+//                    }
+//
+//                    // loop addressesRef from user Struct then store it in address model
+//                    if let addressesRef = self.user.addressesRef{
+//
+//                        for addressID in addressesRef {
+//
+//                            addressID.getDocument { addressDoc, err in
+//                                do {
+//
+//                                    if (err == nil){
+//
+//                                        // store address from DB to Address instance
+//                                        let address = try! addressDoc?.data(as: Address.self)
+//                                        print("Address from DB: ", address)
+//                                        if address?.buildingNo != self.address?.buildingNo && address?.district != self.address?.district && address?.street != self.address?.street && address?.type != self.address?.type && address?.zip != self.address?.zip {
+//                                            return
+//
+//                                            if let address = self.address {
+//
+//                                                self.addresses.append(self.address!)
+//                                                self.addressesTV.reloadData()
+//                                            }
+//                                        }
+//                                        print("---------self.addresses.last--------")
+//                                        print(self.addresses.last)
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
 //    func fetchData(){
 //
 //        // if current user equal Users/current display name, mobile and addresses
