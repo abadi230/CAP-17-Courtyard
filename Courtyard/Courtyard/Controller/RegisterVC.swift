@@ -12,8 +12,11 @@ import Firebase
 
 class RegisterVC: UIViewController {
     
+    var db = Firestore.firestore()
     
     @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var mobile: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
 
     override func viewDidLoad() {
@@ -24,13 +27,16 @@ class RegisterVC: UIViewController {
     
     @IBAction func onClickSignUp(_ sender: UIButton) {
         
-        Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { [self]Result, error in
+        Auth.auth().createUser(withEmail: emailTF.text!, password: passwordTF.text!) { [self]Result, error in
                   if (error == nil) {
                       print(Result?.user.email ?? "")
-                      
-                      let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginin") as! LogIn
-                      loginVC.emailTF.text = emailTF.text!
-                      loginVC.passwordTF.text = passwordTF.text!
+                      let user = User()
+                      user.storeUserDataInDB(name: name.text!, mobile: mobile.text, addresses: nil)
+//                      try? db.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user.self)
+
+                      let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "logInId") as! LogIn
+                      loginVC.email = emailTF.text!
+                      loginVC.password = passwordTF.text!
                       self.present(loginVC, animated: true, completion: nil)
                   }else{
                       print(error?.localizedDescription as Any)
