@@ -12,13 +12,13 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class HomeVC: UIViewController {
-    
-    
-    
 
+    let db = Firestore.firestore()
+    var user : User!
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
 
     // TODO: adapt pull down Button and Pop Up Button
+    @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
     @IBOutlet weak var dropDown: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -29,10 +29,27 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // when user chois service and date move to add adderess then add order
+        
+//        let user = User()
+//        if let userId = Auth.auth().currentUser?.email{
+            
+//            print("-------user Info------")
+//            print(user.fetchUserData(userId: userId))
+            
+//             when user chois service and date add order then move to add adderess
+//        }
+        getData()
         configDatePicker()
 //        sendToDB()
         
+    }
+    func getData(){
+        db.collection("Users").document((Auth.auth().currentUser?.email)!).getDocument { snapshot, err in
+            if (err == nil){
+                self.user = try! snapshot?.data(as: User.self)
+                self.welcomLbl.text = "Welcome \(self.user.name! )"
+            }
+        }
     }
     
     func configDatePicker(){
@@ -42,33 +59,26 @@ class HomeVC: UIViewController {
         }
         datePicker.addAction(action, for: .valueChanged)
     }
-    func sendToDB(){
-        let dbStore = Firestore.firestore()
-//        // Fetch from DB
-        dbStore.collection("test").addSnapshotListener { snapshot, error in
-
-            for doc in snapshot!.documents {
-                let testObj = try! doc.data(as: CodeTest.self)
-                print (testObj)
-            }
-        }
-        
-        
-        
-        
-        
-    }
         
    
     @IBAction func onClickBook(_ sender: UIButton) {
         if txtBox.text != "" && datePicker.date != Date.now {
             
             performSegue(withIdentifier: "profileID", sender: self)
+//            guard let proVC = self.tabBarController?.viewControllers?[2] else { return  }
+//            let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileId") as! ProfileVC
+//
+//            self.navigationController?.show(proVC, sender: nil)
         }else{
             print("Select service and Date")
         }
     }
     
+    
+    @IBAction func onClickLogOut(_ sender: UIButton) {
+        try! Auth.auth().signOut()
+        self.navigationController?.popViewController(animated: true)
+    }
 //    synchronizeTitleAndSelectedItem()
     
     

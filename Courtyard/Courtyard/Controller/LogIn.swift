@@ -10,6 +10,10 @@ import Firebase
 
 class LogIn: UIViewController {
 
+    let db = Firestore.firestore()
+    var user : User!
+    var (email, password) = ("", "")
+    
     @IBOutlet weak var logInBtn: UIButton!
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
@@ -21,10 +25,13 @@ class LogIn: UIViewController {
         guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
         // get current user email
         if Auth.auth().currentUser != nil {
+            
             self.navigationController?.show(homeVC, sender: nil)
         }
     }
 
+    
+    
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -37,14 +44,23 @@ class LogIn: UIViewController {
     // MARK: delete this function
     @IBAction func onClickSignUp(_ sender: UIButton) {
     }
+    
     @IBAction func OnLogInPressed(_ sender: UIButton) {
+        
+        
         Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { (user, error) in
-            if(error == nil){
+            if(error != nil){
                 debugPrint(error ?? "Unable to Log in")
                 self.showAlert(error?.localizedDescription ?? "")
             }else {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "homeID") as! HomeVC
-                self.navigationController?.show(vc, sender: self)
+                if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
+                    
+                    self.navigationController?.show(vc, sender: self)
+                }else{
+                    // VC for Admin
+                }
+                
             }
         }
         
