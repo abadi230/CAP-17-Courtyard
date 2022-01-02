@@ -31,7 +31,7 @@ class RegisterVC: UIViewController {
                   if (error == nil) {
                       print(Result?.user.email ?? "")
                       let user = User()
-                      user.storeUserDataInDB(name: name.text!, mobile: mobile.text, addresses: nil)
+                      user.storeUserDataInDB(name: name.text!, mobile: mobile.text)
 //                      try? db.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user.self)
 
                       let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "logInId") as! LogIn

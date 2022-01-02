@@ -12,12 +12,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 
-class ProfileVC: UIViewController, UserData {
-    func getData(user: User, addresses: [Address]) {
-        self.user = user
-        self.addresses = addresses
-    }
-    
+class ProfileVC: UIViewController {
     
     var user = User()
     var service: Service!
@@ -32,31 +27,12 @@ class ProfileVC: UIViewController, UserData {
     
     override func viewWillAppear(_ animated: Bool) {
         print("---------------viewWillAppear--------------------")
-//         service is grapped from homeVC
-//        print("service: ", service ?? "unable to get data")
-        print("address: ", address)
-        print("addresses: ", addresses)
-//        addresses.removeAll()
-        print("after remove addresses: ", addresses)
-//        fetchData()
 
+        fetchData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //from DB
-        user.getDataClosure(completion: { user  in
-            print ("Closure Done")
-            print (user.name)
-
-            user.getAddresses { addresses in
-                for address in addresses {
-                    print (address.buildingNo)
-                    print (address.street)
-                    self.addresses.append(address)
-                    self.addressesTV.reloadData()
-                }
-            }
-        })
+//        fetchData()
         
         // Do any additional setup after loading the view.
         addressesTV.delegate = self
@@ -67,31 +43,20 @@ class ProfileVC: UIViewController, UserData {
 //         service is grapped from homeVC
         print("service: ", service ?? "unable to get data")
         print("addresses: ", addresses)
-//        let loginVC = LogIn()
-//        user = loginVC.user
-        
-//        print("---------------user Addresses--------------------")
-//        let client = Client()
-        
-//        // trying delegate
-//        client.user = loginVC.user
-//        client.delegate = self
-        
-        //trying use callback
-//        user.getData( { [weak self] (data: [Address]) in
-//            self?.useData(data: data)
-//        })
-
-//        print(user.getData())
-//        fetchData()
-        
-        
     }
-    //trying use callback
-//    private func useData(data: [Address]){
-//        print(data)
-//    }
     
+    func fetchData(){
+        //from DB
+        user.getDataClosure(completion: { user  in
+            self.nameTF.text = user.name
+            self.mobileTF.text = "0\(String(describing: user.mobile!))"
+
+            user.getAddresses { addresses in
+                self.addresses = addresses
+                self.addressesTV.reloadData()
+            }
+        })
+    }
     @IBAction func onClickAddAddress(_ sender: UIButton) {
         performSegue(withIdentifier: "addressID", sender: self)
     }
@@ -99,10 +64,9 @@ class ProfileVC: UIViewController, UserData {
     @IBAction func unWindToProfile (sender: UIStoryboardSegue){
         print("--------------- print form unWindToProfile--------------------")
         print(address)
-        // TODO: call fetchData here
-//        addressesTV.reloadData()
+
     }
-    //
+    
     @IBAction func OnClickBook(_ sender: UIButton){
         //        if address or service not exist display alert or message
         if service != nil && addresses.count != 0{
@@ -121,125 +85,19 @@ class ProfileVC: UIViewController, UserData {
         // TODO: when add address store two addresses???
 
         
-        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text, addresses: addresses)
+        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // store service in DB
         let serviceRef = try? db.collection("Service").addDocument(from: service)
         
         // create Order
-        let order1 = Order(userId: userRef, serviceId: serviceRef, date: Date(), total: service!.price, paymentState: false)
+        let order1 = Order(userId: user.userReference(), serviceId: serviceRef, date: Date(), total: service!.price, paymentState: false)
         // store Orders in DB
         let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
 //        let ordersRef = [orderRef1!]
         
     }
-//    func fetchData(){
-//
-//        // if current user equal Users/current display name, mobile and addresses
-//        db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
-//            if (err == nil){
-//                if doc?.exists != false{
-//
-//                    //self.user = try! doc?.data(as: User.self)
-//                    self.nameTF.text = self.user.name
-//                    self.mobileTF.text = "0\(String(describing: self.user.mobile!))"
-//
-//                    print("nubmer of addressesRef: \(self.user.addressesRef!.count)")
-//
-//                    // if no addressesRef
-//                    if self.user.addressesRef?.count == 0 && self.address != nil {
-//                        if let address = self.address {
-//
-//                            self.addresses.append(address)
-//
-//                            self.addressesTV.reloadData()
-//                        }
-//
-//                    }
-//
-//                    // loop addressesRef from user Struct then store it in address model
-//                    if let addressesRef = self.user.addressesRef{
-//
-//                        for addressID in addressesRef {
-//
-//                            addressID.getDocument { addressDoc, err in
-//                                do {
-//
-//                                    if (err == nil){
-//
-//                                        // store address from DB to Address instance
-//                                        let address = try! addressDoc?.data(as: Address.self)
-//                                        print("Address from DB: ", address)
-//                                        if address?.buildingNo != self.address?.buildingNo && address?.district != self.address?.district && address?.street != self.address?.street && address?.type != self.address?.type && address?.zip != self.address?.zip {
-//                                            return
-//
-//                                            if let address = self.address {
-//
-//                                                self.addresses.append(self.address!)
-//                                                self.addressesTV.reloadData()
-//                                            }
-//                                        }
-//                                        print("---------self.addresses.last--------")
-//                                        print(self.addresses.last)
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
-//    func fetchData(){
-//
-//        // if current user equal Users/current display name, mobile and addresses
-//        db.collection("Users").document((Auth.auth().currentUser?.email!)!).addSnapshotListener { doc, err in
-//            if (err == nil){
-//                if doc?.exists != false{
-//
-//                    self.user = try! doc?.data(as: User.self)
-//                    self.nameTF.text = self.user.name
-//                    self.mobileTF.text = "0\(String(describing: self.user.mobile!))"
-//
-//                    // loop addresses from user Struct then store it in address model
-//                    if let addressesRef = self.user.addressesRef{
-//
-//                        for addressID in addressesRef {
-//
-//                            addressID.getDocument { addressDoc, err in
-//                                do {
-//                                    print("---------data---------")
-//                                    print(addressDoc?.data()!)
-//                                    if (err == nil){
-//                                        let address = try! addressDoc?.data(as: Address.self)
-//                                        print("---------address--------")
-//                                        print(address!)
-//                                        print("--------addressDoc?.documentID------")
-//                                        print(addressDoc?.documentID)
-//
-//                                        self.addresses.append(address!)
-//                                        self.addressesTV.reloadData()
-//                                        print("---------self.addresses.last--------")
-//                                        print(self.addresses.last)
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//    }
+    
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -283,13 +141,11 @@ extension ProfileVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = addressesTV.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath) as! AddressCell
-        //        if addresses.count != 0 {
-        print(addresses.count)
+        
         let address = addresses[indexPath.row]
         cell.addressTypeLbl.text = address.type
-        // cell.addressTypeLbl.text = "Building"
         cell.addressLbl.text = "\(address.buildingNo), \(address.street), \(String(describing: address.district!))"
-        //        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
