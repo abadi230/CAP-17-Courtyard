@@ -34,7 +34,6 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 //        fetchData()
         
-        // Do any additional setup after loading the view.
         addressesTV.delegate = self
         addressesTV.dataSource = self
         addressesTV.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: "addressCell")
@@ -63,7 +62,7 @@ class ProfileVC: UIViewController {
     
     @IBAction func unWindToProfile (sender: UIStoryboardSegue){
         print("--------------- print form unWindToProfile--------------------")
-        print(address)
+//        print(address)
 
     }
     
@@ -85,15 +84,16 @@ class ProfileVC: UIViewController {
         // TODO: when add address store two addresses???
 
         
-        let userRef = user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
+        user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // store service in DB
         let serviceRef = try? db.collection("Service").addDocument(from: service)
         
         // create Order
         let order1 = Order(userId: user.userReference(), serviceId: serviceRef, date: Date(), total: service!.price, paymentState: false)
+        print(order1)
         // store Orders in DB
-        let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
+//        let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
 //        let ordersRef = [orderRef1!]
         
     }

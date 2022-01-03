@@ -1,0 +1,46 @@
+//
+//  PaymentVC.swift
+//  Courtyard
+//
+//  Created by Abdullah Bajaman on 03/01/2022.
+//
+
+import UIKit
+
+class PaymentVC: UIViewController {
+
+    var ref, date, address, paymentState : String?
+    var price : Float = 0
+    @IBOutlet weak var orderRef: UILabel!
+    @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var currentAddress: UILabel!
+    @IBOutlet weak var PriceLbl: UILabel!
+    @IBOutlet weak var paymentStatus: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        orderRef.text = ref
+        dateLbl.text = date
+        currentAddress.text = address
+        PriceLbl.text = "SAR \(price)"
+        paymentStatus.text = paymentState
+    }
+    @IBAction func onClickPay(_ sender: UIButton) {
+        // when client pay: update data in DB
+        
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
