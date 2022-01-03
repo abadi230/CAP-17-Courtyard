@@ -17,7 +17,7 @@
 		1B8CC8772767486400E5CDD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */; };
 		1B8CC8792767486400E5CDD2 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8782767486400E5CDD2 /* LogIn.swift */; };
 		1B8CC87C2767486400E5CDD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC87A2767486400E5CDD2 /* Main.storyboard */; };
-		1B8CC87E2767486700E5CDD2 /* CortyardBackground in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC87D2767486700E5CDD2 /* CortyardBackground */; };
+		1B8CC87E2767486700E5CDD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC87D2767486700E5CDD2 /* Assets.xcassets */; };
 		1B8CC8812767486700E5CDD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC87F2767486700E5CDD2 /* LaunchScreen.storyboard */; };
 		1B8CC88927675E1900E5CDD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC88827675E1900E5CDD2 /* GoogleService-Info.plist */; };
 		1B8CC88C27675F8400E5CDD2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC88B27675F8400E5CDD2 /* FirebaseAnalytics */; };
@@ -54,7 +54,7 @@
 		1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1B8CC8782767486400E5CDD2 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		1B8CC87B2767486400E5CDD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1B8CC87D2767486700E5CDD2 /* CortyardBackground */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CortyardBackground; sourceTree = "<group>"; };
+		1B8CC87D2767486700E5CDD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B8CC8802767486700E5CDD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B8CC8822767486700E5CDD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B8CC88827675E1900E5CDD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -124,7 +124,7 @@
 				1B8CC8742767486400E5CDD2 /* AppDelegate.swift */,
 				1B323F2D276FBDA5008E62AF /* fonts */,
 				1B8CC8762767486400E5CDD2 /* SceneDelegate.swift */,
-				1B8CC87D2767486700E5CDD2 /* CortyardBackground */,
+				1B8CC87D2767486700E5CDD2 /* Assets.xcassets */,
 				1B8CC87F2767486700E5CDD2 /* LaunchScreen.storyboard */,
 				1B8CC8822767486700E5CDD2 /* Info.plist */,
 				1B8CC88827675E1900E5CDD2 /* GoogleService-Info.plist */,
@@ -249,7 +249,7 @@
 				1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */,
 				1B323F3C277799E3008E62AF /* AddressCell.xib in Resources */,
 				1B323F2E276FBDA5008E62AF /* fonts in Resources */,
-				1B8CC87E2767486700E5CDD2 /* CortyardBackground in Resources */,
+				1B8CC87E2767486700E5CDD2 /* Assets.xcassets in Resources */,
 				1B8CC87C2767486400E5CDD2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
