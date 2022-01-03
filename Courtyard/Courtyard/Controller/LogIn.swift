@@ -22,12 +22,7 @@ class LogIn: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         logInBtn.layer.cornerRadius = 8
-        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
-        // get current user email
-        if Auth.auth().currentUser != nil {
-            
-            self.navigationController?.show(homeVC, sender: nil)
-        }
+        logIn()
     }
 
     
@@ -53,12 +48,12 @@ class LogIn: UIViewController {
                 debugPrint(error ?? "Unable to Log in")
                 self.showAlert(error?.localizedDescription ?? "")
             }else {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "homeID") as! HomeVC
+                
                 if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
                     
-                    self.navigationController?.show(vc, sender: self)
+                    self.goToHomeVC()
                 }else{
-                    // VC for Admin
+                    self.goToAdminHomeVC()
                 }
                 
             }
@@ -73,6 +68,32 @@ class LogIn: UIViewController {
             }else{
                 self.showAlert("Reset your Passwrd form your Email")
             }
+        }
+    }
+    
+    func goToHomeVC(){
+        guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
+        // get current user email
+        if Auth.auth().currentUser != nil {
+            
+            self.navigationController?.show(homeVC, sender: nil)
+        }
+    }
+    func goToAdminHomeVC(){
+        let adminHome = storyboard?.instantiateViewController(withIdentifier: "OwnerID") as! AdminHome
+        self.navigationController?.show(adminHome, sender: nil)
+    }
+    func logIn(){
+        if Auth.auth().currentUser != nil{
+            
+            if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
+                
+                self.goToHomeVC()
+            }else{
+                // VC for Admin
+                self.goToAdminHomeVC()
+            }
+            
         }
     }
     

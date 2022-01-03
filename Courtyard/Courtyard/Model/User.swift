@@ -10,10 +10,41 @@ import Firebase
 import FirebaseFirestoreSwift
 import UIKit
 
-
+class Admin {
+    let db = Firestore.firestore()
+    var name: String = ""
+    var email: String = ""
+    var mobile: String = ""
+    
+    func getAllOrders(complation: @escaping([Order]) -> Void){
+        
+        var orders = [Order]()
+        
+        self.db.collection("Orders").getDocuments { snapshot, err in
+            if err == nil{
+                for doc in snapshot!.documents{
+                    do {
+                        let order = try doc.data(as: Order.self)
+                        orders.append(order!)
+                    }catch{
+                        print(err?.localizedDescription ?? "Unable to get Data")
+                    }
+                    complation(orders)
+                }
+            }
+        }
+        
+    }
+    
+    func getUserDetail(userId: DocumentReference, complation: @escaping(User) -> Void){
+        
+    }
+    func getUserService(serviceId: DocumentReference, coplation: @escaping(Service)->Void){
+        
+    }
+}
 class User: Codable {
-//    var delgate : Addresses!
-//    @DocumentID var id : String? = "userId\(UUID().uuidString)"
+
     var name: String?
     var mobile: Int?
     var addressesRef : [DocumentReference]?
@@ -24,21 +55,16 @@ class User: Codable {
         let dbStore = Firestore.firestore()
         
         if let address = address {
-//            let addressID = UUID().uuidString
-            
-//            self.addressesRef?.append(try! dbStore.collection("Addresses").addDocument(from: address))
-//            update addressesRef in DB
+            // Create Address
             let addressRef = try! dbStore.collection("Addresses").addDocument(from: address)
-//            self.addressesRef?.append(addressRef)
-            //MARK: THIS CODE DELETE ALL USER INFO IF NOT ADD ADDRESS
-//            try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: self)
-//            dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(["addressesRef" : addressRef], merge: true)
+            
+            // Update addressesRef in DB
             let userRef = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
         }
     }
-    func storeUserDataInDB(name: String?, mobile: String?) -> DocumentReference?{
+    func storeUserDataInDB(name: String?, mobile: String?){
         let dbStore = Firestore.firestore()
         
         self.name = name
@@ -46,35 +72,13 @@ class User: Codable {
         
         try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: self)
         
-        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
-        return userRef
+//        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
+//        return userRef
     }
     func userReference()->DocumentReference{
         let db = Firestore.firestore()
         return db.collection("Users").document((Auth.auth().currentUser?.email)!)
     }
-//    func storeUserDataInDB(name: String?, mobile: String?, addresses: [Address]?) -> DocumentReference?{
-//        let dbStore = Firestore.firestore()
-//        let user = User()
-//        var addressesRef: [DocumentReference] = []
-//        if let addresses = addresses {
-//
-//            for address in addresses {
-//                let ref = (try? dbStore.collection("Addresses").addDocument(from: address))!
-//                addressesRef.append(ref)
-//                print("address ref: \(ref)")
-//            }
-//        }
-//
-//
-//        user.name = name
-//        user.mobile = Int(mobile!)
-//        user.addressesRef = addressesRef
-//        try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: user)
-//
-//        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
-//        return userRef
-//    }
     
     func getDataClosure(completion: @escaping (User)->Void) {
         let dbStore = Firestore.firestore()
@@ -132,6 +136,34 @@ struct Order: Codable {
     var date: Date
     var total: Double
     var paymentState: Bool
+    
+    func getOrders(complation: @escaping( ([Order]) -> Void) ){
+        let db = Firestore.firestore()
+        var orders = [Order]()
+        
+        db.collection("Orders").getDocuments { snapshot, err in
+            if err == nil{
+//                snapshot!.documents.compactMap{ doc in
+//                    do {
+//                        let order = try doc.data(as: Order.self)
+//                        orders.append(order!)
+//                    }catch{
+//                        print(err?.localizedDescription ?? "Unable to get Data")
+//                    }
+//                }
+                for doc in snapshot!.documents{
+                    do {
+                        let order = try doc.data(as: Order.self)
+                        orders.append(order!)
+                    }catch{
+                        print(err?.localizedDescription ?? "Unable to get Data")
+                    }
+                    complation(orders)
+                }
+            }
+        }
+    }
+    // TODO: get user info from userId
 }
 
 struct Address: Codable {

@@ -25,10 +25,21 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 //        datePicker.date = Date.now
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //        test orders
+        print("----------HomeVC viewDidLoad----------------")
+        var order = Admin()
+        order.getAllOrders(complation: { orders in
+            print("----------orders count----------------")
+            print(orders.count)
+            print("----------orders----------------")
+            print(orders)
+        })
+        
+        
         fetchData()
         configDatePicker()
 //        sendToDB()
@@ -37,8 +48,7 @@ class HomeVC: UIViewController {
     func fetchData(){
         //from DB
         user.getDataClosure(completion: { user  in
-            print ("Closure Done")
-            print (user.name)
+            
             self.welcomLbl.text = "Welcome \(user.name!)"
         })
     }
@@ -120,4 +130,3 @@ extension HomeVC: UITextFieldDelegate{
         }
     }
 }
-
