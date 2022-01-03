@@ -1,27 +1,21 @@
 //
-//  HomeTabBarVC.swift
+//  OrderDetails.swift
 //  Courtyard
 //
-//  Created by Abdullah Bajaman on 30/12/2021.
+//  Created by Abdullah Bajaman on 03/01/2022.
 //
 
 import UIKit
 
-class HomeTabBarVC: UITabBarController {
-    
-    var user : User!
-    
+class OrderDetails: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(user.name)
-        let profileVC = viewControllers?[2] as! ProfileVC
-        profileVC.user = user
-        print("User is: \(user.name)")
+
         // Do any additional setup after loading the view.
     }
     
 
-    
     /*
     // MARK: - Navigation
 
