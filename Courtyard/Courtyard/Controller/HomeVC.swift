@@ -16,12 +16,14 @@ class HomeVC: UIViewController {
     let db = Firestore.firestore()
     var user = User()
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
-
+    var service: Service?
+    var price: String = "0"
     // TODO: adapt pull down Button and Pop Up Button
     @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
     @IBOutlet weak var dropDown: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var priceLbl: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
 //        datePicker.date = Date.now
@@ -29,20 +31,10 @@ class HomeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        test orders
-        print("----------HomeVC viewDidLoad----------------")
-        var order = Admin()
-        order.getAllOrders(complation: { orders in
-            print("----------orders count----------------")
-            print(orders.count)
-            print("----------orders----------------")
-            print(orders)
-        })
-        
-        
+
+        priceLbl.text = price
         fetchData()
         configDatePicker()
-//        sendToDB()
         
     }
     func fetchData(){
@@ -55,9 +47,16 @@ class HomeVC: UIViewController {
 
     
     func configDatePicker(){
-        let action = UIAction{ _ in
+        let action = UIAction{ [self] _ in
             print(self.datePicker.date)
-            
+            if self.txtBox.text != nil{
+                
+                service = user.setService(name: txtBox.text!, date: datePicker.date)
+                price = "SAR \(service!.price)"
+                priceLbl.text = price
+            }else{
+                print("Select Service Please")
+            }
         }
         datePicker.addAction(action, for: .valueChanged)
     }
@@ -91,7 +90,8 @@ class HomeVC: UIViewController {
         // Get the new view controller using segue.destination.
         if segue.identifier == "profileID" {
             let profileVC = segue.destination as! ProfileVC
-            let service = Service(name: txtBox.text!, date: datePicker.date, price: 100)
+//            let service = Service(name: txtBox.text!, date: datePicker.date, price: 100)
+//            let service = user.setService(name: txtBox.text!, date: datePicker.date)
             profileVC.service = service
             
         }
@@ -118,6 +118,7 @@ extension HomeVC: UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.txtBox.text = services[row]
+        
         self.dropDown.isHidden = true
     }
 }

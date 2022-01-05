@@ -10,7 +10,10 @@ import UIKit
 class PaymentVC: UIViewController {
 
     var ref, date, address, paymentState : String?
-    var price : Float = 0
+    var price : Double = 0
+    var serviceTitle = ""
+    
+    @IBOutlet weak var serviceTitleLbl: UILabel!
     @IBOutlet weak var orderRef: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var currentAddress: UILabel!
@@ -21,11 +24,12 @@ class PaymentVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        orderRef.text = ref
-        dateLbl.text = date
-        currentAddress.text = address
+        serviceTitleLbl.text = serviceTitle
+        orderRef.text = ref!
+        dateLbl.text = date!
+        currentAddress.text = address!
         PriceLbl.text = "SAR \(price)"
-        paymentStatus.text = paymentState
+        paymentStatus.text = paymentState!
     }
     @IBAction func onClickPay(_ sender: UIButton) {
         // when client pay: update data in DB
