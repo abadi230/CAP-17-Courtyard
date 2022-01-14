@@ -54,6 +54,7 @@ class ProfileVC: UIViewController {
             self.mobileTF.text = "0\(String(describing: user.mobile!))"
 
             user.getAddresses { addresses in
+                //MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
                 self.addresses = addresses
                 self.addressesTV.reloadData()
             }
@@ -81,8 +82,7 @@ class ProfileVC: UIViewController {
         }
     }
     func sendDataToDB(){
-        
-        //TODO: check service before add address
+
         user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // asign order reference to orderRef and order

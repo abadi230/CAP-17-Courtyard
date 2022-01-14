@@ -103,6 +103,7 @@ class User: Codable {
         
         try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: self)
         
+        
 //        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
 //        return userRef
     }
@@ -116,7 +117,7 @@ class User: Codable {
         // create Order
         let order = Order(userId: self.userReference(), serviceId: serviceRef, date: Date(), total: total, paymentState: false)
 
-         //store Orders in DB and return the reference
+         //store Orders in DB and return the reference and order
         return try! (db.collection("Orders").addDocument(from: order), order)
     }
     func setService(name: String, date: Date)->Service{
