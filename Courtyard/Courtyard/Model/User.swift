@@ -12,9 +12,8 @@ import UIKit
 
 class Admin {
     let db = Firestore.firestore()
-    var name: String = ""
-    var email: String = ""
-    var mobile: String = ""
+    
+    static let shared = Admin()
     
     func getAllOrders(complation: @escaping([Order]) -> Void){
         
@@ -35,12 +34,35 @@ class Admin {
         }
         
     }
-    
-    func getUserDetail(userId: DocumentReference, complation: @escaping(User) -> Void){
+    func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
+        db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
+            if err == nil{
+                var userInfo : User?
+                do {
+                    userInfo = try doc?.data(as: User.self)
+                    
+                }catch{
+                    print(err?.localizedDescription ?? "Unable to get Data")
+                }
+                
+                complation(userInfo!)
+            }
+        }
         
     }
-    func getUserService(serviceId: DocumentReference, coplation: @escaping(Service)->Void){
-        
+    
+    func getUserService(serviceRef: DocumentReference, complation: @escaping(Service)->Void){
+        db.collection("Service").document(serviceRef.documentID).getDocument { doc, err in
+            if err == nil{
+                var service : Service?
+                do{
+                    service = try doc?.data(as: Service.self)
+                }catch{
+                    print(err?.localizedDescription ?? "Unable to get Data")
+                }
+                complation(service!)
+            }
+        }
     }
 }
 class User: Codable {
@@ -50,6 +72,7 @@ class User: Codable {
     var addressesRef : [DocumentReference]?
     
 
+    // MARK: SETTER
     func addAddressToDB(address: Address?){
         
         let dbStore = Firestore.firestore()
@@ -63,6 +86,14 @@ class User: Codable {
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
         }
+        // MARK: to call this function use this code
+        //        var order = Admin()
+        //        order.getAllOrders(complation: { orders in
+        //            print("----------orders count----------------")
+        //            print(orders.count)
+        //            print("----------orders----------------")
+        //            print(orders)
+        //        })
     }
     func storeUserDataInDB(name: String?, mobile: String?){
         let dbStore = Firestore.firestore()
@@ -75,6 +106,36 @@ class User: Codable {
 //        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
 //        return userRef
     }
+    
+    func setOrder(service: Service, servicePrice: Double) -> (DocumentReference, Order){
+        let db = Firestore.firestore()
+        
+        let serviceRef = try? db.collection("Service").addDocument(from: service)
+        let total = servicePrice + 0.15 // 15% tax
+        
+        // create Order
+        let order = Order(userId: self.userReference(), serviceId: serviceRef, date: Date(), total: total, paymentState: false)
+
+         //store Orders in DB and return the reference
+        return try! (db.collection("Orders").addDocument(from: order), order)
+    }
+    func setService(name: String, date: Date)->Service{
+        var priceD : Double
+
+        switch name {
+        case "Courtyard":
+            priceD = 100
+        case "Roof of House":
+            priceD = 80
+        case "Stairs":
+            priceD = 50
+        default:
+            priceD = 100
+        }
+        return Service(name: name, date: date, price: priceD)
+    }
+    
+    // MARK: Getter
     func userReference()->DocumentReference{
         let db = Firestore.firestore()
         return db.collection("Users").document((Auth.auth().currentUser?.email)!)
@@ -127,6 +188,40 @@ class User: Codable {
             }
         }
     }
+    func getUserOrders(userId: String, complation: @escaping ([Order]) -> Void){
+        let db = Firestore.firestore()
+        
+        db.collection("Orders").getDocuments { snapshot, err in
+            if err == nil{
+                var userOrders = [Order]()
+                
+                for doc in snapshot!.documents{
+                    do {
+                        let order = try doc.data(as: Order.self)
+                        // filter order
+                        let userDocID = order?.userId?.documentID
+                        if userDocID == userId{
+                            userOrders.append(order!)
+                        }
+                    }catch{
+                        print(err?.localizedDescription ?? "Unable to get Data")
+                    }
+                    
+                }
+                complation((userOrders))
+            }
+        }
+    }
+//    // MARK: To Call this in view controller copy the folowing code and paste it in VC
+//    // test user Orders
+//    let userId = self.user.userReference().documentID
+//    user.getUserOrders(userId: userId) { userOrders in
+//        print("---------order from comlation---------")
+//        print(userOrders.count)
+//        print(userOrders)
+////            self.orders = userOrders
+//
+//    }
 }
 
 struct Order: Codable {

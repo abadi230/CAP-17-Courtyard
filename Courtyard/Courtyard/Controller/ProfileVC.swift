@@ -16,8 +16,10 @@ class ProfileVC: UIViewController {
     
     var user = User()
     var service: Service!
-    var address: Address?
+    var address: Address!
     var addresses = [Address]()
+    var orderRef : DocumentReference?
+    var order: Order!
     var db = Firestore.firestore()
     
     @IBOutlet weak var userNameLbl: UILabel!
@@ -28,6 +30,7 @@ class ProfileVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         print("---------------viewWillAppear--------------------")
 
+        print(service)
         fetchData()
     }
     override func viewDidLoad() {
@@ -78,29 +81,20 @@ class ProfileVC: UIViewController {
         }
     }
     func sendDataToDB(){
-        // Using reference
         
         //TODO: check service before add address
-        // TODO: when add address store two addresses???
-
-        
         user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
-        // store service in DB
-        let serviceRef = try? db.collection("Service").addDocument(from: service)
-        
-        // create Order
-        let order1 = Order(userId: user.userReference(), serviceId: serviceRef, date: Date(), total: service!.price, paymentState: false)
-        print(order1)
-        // store Orders in DB
-//        let orderRef1 = try? db.collection("Orders").addDocument(from: order1)
-//        let ordersRef = [orderRef1!]
-        
+        // asign order reference to orderRef and order
+        (orderRef, order) = user.setOrder(service: service!, servicePrice: service!.price)
     }
     
     func showAlert(_ msg: String){
-        let alertController = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+//        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.performSegue(withIdentifier: "orderID", sender: nil)
+        }
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
@@ -112,10 +106,26 @@ class ProfileVC: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // MARK: if address selected let user edit address
-                if segue.identifier == "addressID"{
-                    let addressVC = segue.destination as! AddressVC
-                    addressVC.user = self.user
-                }
+        switch segue.identifier{
+        case "orderID":
+            let paymentVC = segue.destination as! PaymentVC
+            //ref, date, address, paymentState
+            paymentVC.serviceTitle = service!.name + "Cleaning"
+            paymentVC.ref = "\(String(describing: orderRef!.documentID))"
+            paymentVC.date = "\(String(describing: service!.date))"
+            paymentVC.address = "\(String(describing: addresses.last!.buildingNo)), \(String(describing: addresses.last!.street)), \(String(describing: addresses.last!.district!)))"
+            paymentVC.paymentState = order!.paymentState ? "Paied" : "Pending"
+            paymentVC.price = order.total
+        case "addressID":
+            let addressVC = segue.destination as! AddressVC
+            addressVC.user = self.user
+        default:
+            print("no data")
+        }
+//                if segue.identifier == "addressID"{
+//                    let addressVC = segue.destination as! AddressVC
+//                    addressVC.user = self.user
+//                }
     }
     
     
