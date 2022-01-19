@@ -44,6 +44,7 @@ class Admin {
                 }catch{
                     print(err?.localizedDescription ?? "Unable to get Data")
                 }
+
                 complation(userInfo!)
             }
         }
@@ -86,8 +87,7 @@ class User: Codable {
             
         }
         // MARK: to call this function use this code
-        
-        //        Admin.getAllOrders(complation: { orders in
+
         //            print("----------orders count----------------")
         //            print(orders.count)
         //            print("----------orders----------------")
@@ -116,7 +116,9 @@ class User: Codable {
         // create Order
         let order = Order(userId: self.userReference(), serviceId: serviceRef, date: Date(), total: total, paymentState: false)
 
+
          //store Orders in DB and return the reference and order
+
         return try! (db.collection("Orders").addDocument(from: order), order)
     }
     func setService(name: String, date: Date)->Service{
