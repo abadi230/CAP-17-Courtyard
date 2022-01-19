@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 
 class AdminHome: UIViewController {
-
+    
     var orders: [Order] = []
     var userInfo : User!
     var address : Address!
@@ -46,6 +48,11 @@ class AdminHome: UIViewController {
             
         }
         
+    }
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        
+        try! Auth.auth().signOut()
+        dismiss(animated: true, completion: nil)
     }
 }
 // MARK: TableView

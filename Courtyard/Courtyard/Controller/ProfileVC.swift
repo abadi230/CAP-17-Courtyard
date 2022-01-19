@@ -27,24 +27,26 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var mobileTF: UITextField!
     @IBOutlet weak var addressesTV: UITableView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("---------------viewWillAppear--------------------")
-
-        print(service)
-        fetchData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print("---------------viewWillAppear--------------------")
+//
+//        print(service)
+//
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        fetchData()
+        fetchData()
         
         addressesTV.delegate = self
         addressesTV.dataSource = self
         addressesTV.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: "addressCell")
         
+
         print("---------------didLoad--------------------")
 //         service is grapped from homeVC
         print("service: ", service ?? "unable to get data")
         print("addresses: ", addresses)
+        
     }
     
     func fetchData(){
@@ -67,7 +69,8 @@ class ProfileVC: UIViewController {
     @IBAction func unWindToProfile (sender: UIStoryboardSegue){
         print("--------------- print form unWindToProfile--------------------")
 //        print(address)
-
+        print(address ?? "no new address")
+        fetchData()
     }
     
     @IBAction func OnClickBook(_ sender: UIButton){

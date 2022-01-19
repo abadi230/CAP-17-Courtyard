@@ -36,26 +36,18 @@ class LogIn: UIViewController {
         }
     }
     
-    // MARK: delete this function
-    @IBAction func onClickSignUp(_ sender: UIButton) {
-    }
-    
     @IBAction func OnLogInPressed(_ sender: UIButton) {
-        
-        
-        Auth.auth().signIn(withEmail: emailTF.text!, password: passwordTF.text!) { (user, error) in
+        Auth.auth().signIn(withEmail: emailTF.text!,
+                           password: passwordTF.text!) { (user, error) in
             if(error != nil){
                 debugPrint(error ?? "Unable to Log in")
                 self.showAlert(error?.localizedDescription ?? "")
             }else {
-                
                 if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
-                    
                     self.goToHomeVC()
                 }else{
                     self.goToAdminHomeVC()
                 }
-                
             }
         }
         
@@ -75,13 +67,14 @@ class LogIn: UIViewController {
         guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
         // get current user email
         if Auth.auth().currentUser != nil {
-            
-            self.navigationController?.show(homeVC, sender: nil)
+            homeVC.modalPresentationStyle = .fullScreen
+            present(homeVC, animated: true, completion: nil)
         }
     }
     func goToAdminHomeVC(){
-        let adminHome = storyboard?.instantiateViewController(withIdentifier: "OwnerID") as! AdminHome
-        self.navigationController?.show(adminHome, sender: nil)
+        let adminHomeVC = storyboard?.instantiateViewController(withIdentifier: "OwnerID") as! AdminHome
+        adminHomeVC.modalPresentationStyle = .fullScreen
+        present(adminHomeVC, animated: true, completion: nil)
     }
     func logIn(){
         if Auth.auth().currentUser != nil{

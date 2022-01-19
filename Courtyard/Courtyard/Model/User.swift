@@ -153,7 +153,7 @@ class User: Codable {
                     self.mobile = user.mobile
                     self.addressesRef = user.addressesRef
 
-                    print (completion(user))
+                    completion(user)
                     
                 } catch {
                     print (error.localizedDescription)
