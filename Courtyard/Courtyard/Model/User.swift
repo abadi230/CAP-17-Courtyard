@@ -44,7 +44,6 @@ class Admin {
                 }catch{
                     print(err?.localizedDescription ?? "Unable to get Data")
                 }
-                
                 complation(userInfo!)
             }
         }
@@ -87,8 +86,8 @@ class User: Codable {
             
         }
         // MARK: to call this function use this code
-        //        var order = Admin()
-        //        order.getAllOrders(complation: { orders in
+        
+        //        Admin.getAllOrders(complation: { orders in
         //            print("----------orders count----------------")
         //            print(orders.count)
         //            print("----------orders----------------")
