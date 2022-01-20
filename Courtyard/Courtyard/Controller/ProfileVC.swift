@@ -27,24 +27,26 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var mobileTF: UITextField!
     @IBOutlet weak var addressesTV: UITableView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("---------------viewWillAppear--------------------")
-
-        print(service)
-        fetchData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        print("---------------viewWillAppear--------------------")
+//
+//        print(service)
+//
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        fetchData()
+        fetchData()
         
         addressesTV.delegate = self
         addressesTV.dataSource = self
         addressesTV.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: "addressCell")
         
+
         print("---------------didLoad--------------------")
 //         service is grapped from homeVC
         print("service: ", service ?? "unable to get data")
         print("addresses: ", addresses)
+        
     }
     
     func fetchData(){
@@ -54,6 +56,7 @@ class ProfileVC: UIViewController {
             self.mobileTF.text = "0\(String(describing: user.mobile!))"
 
             user.getAddresses { addresses in
+                //MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
                 self.addresses = addresses
                 self.addressesTV.reloadData()
             }
@@ -66,7 +69,8 @@ class ProfileVC: UIViewController {
     @IBAction func unWindToProfile (sender: UIStoryboardSegue){
         print("--------------- print form unWindToProfile--------------------")
 //        print(address)
-
+        print(address ?? "no new address")
+        fetchData()
     }
     
     @IBAction func OnClickBook(_ sender: UIButton){
@@ -81,8 +85,7 @@ class ProfileVC: UIViewController {
         }
     }
     func sendDataToDB(){
-        
-        //TODO: check service before add address
+
         user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // asign order reference to orderRef and order
