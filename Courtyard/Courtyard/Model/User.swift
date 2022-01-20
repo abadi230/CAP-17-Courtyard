@@ -44,6 +44,7 @@ class Admin {
                 }catch{
                     print(err?.localizedDescription ?? "Unable to get Data")
                 }
+                
                 complation(userInfo!)
             }
         }
