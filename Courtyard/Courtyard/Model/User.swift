@@ -80,7 +80,7 @@ class User: Codable {
         if let address = address {
             // Create Address
             let addressRef = try! dbStore.collection("Addresses").addDocument(from: address)
-            
+            changePrimeAddress(for: addressRef)
             // Update addressesRef in DB
             let userRef = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
@@ -94,6 +94,18 @@ class User: Codable {
         //            print("----------orders----------------")
         //            print(orders)
         //        })
+    }
+    func changePrimeAddress(for addressRer: DocumentReference){
+//        let dbStore = Firestore.firestore()
+        // get all user addresses
+        // updata isPrime to false
+        if let userAddresses = self.addressesRef{
+             userAddresses.forEach { docRef in
+                docRef.setData(["isPrime" : false], merge: true)
+            }
+        }
+//        let primeAddress = dbStore.collection("Addresses").document(addressRer)
+        addressRer.setData(["isPrime" : true], merge: true)
     }
     func storeUserDataInDB(name: String?, mobile: String?){
         let dbStore = Firestore.firestore()
@@ -163,8 +175,9 @@ class User: Codable {
         }
     }
 
-    func getAddresses(completion: @escaping ([Address])-> Void) {
+    func getAddresses(completion: @escaping ([Address],[DocumentReference])-> Void) {
         var userAddress = [Address]()
+        var references : [DocumentReference] = []
         if let addressRef = self.addressesRef {
             for addressID in addressRef {
 //                print("--------getAddresses------------")
@@ -180,14 +193,16 @@ class User: Codable {
                             userAddress.append(address!)
 //                            print("--------number of addersses added------------")
 //                            print(userAddress.count)
+                            references.append(addressDoc!.reference)
                         }
                     } catch {
                         print (error.localizedDescription)
                     }
-                    completion(userAddress)
+                    completion(userAddress, references)
                 }
             }
         }
+        
     }
     func getUserOrders(userId: String, complation: @escaping ([Order]) -> Void){
         let db = Firestore.firestore()
@@ -269,6 +284,7 @@ struct Address: Codable {
     var zip: Int?
     var additionalNo: Int?
     var district: String?
+    var isPrime: Bool
 }
 
 struct Service: Codable {
