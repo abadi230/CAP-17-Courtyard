@@ -41,7 +41,7 @@ class AddressVC: UIViewController{
         let zipInt = Int(zipTF.text!)
         let addition = Int(additionalNoTF.text!)
         
-        self.newAddress = Address(type: addressType.text!, street: streetTF.text!, buildingNo: building, zip: zipInt, additionalNo: addition!, district: districtTF.text!)
+        self.newAddress = Address(type: addressType.text!, street: streetTF.text!, buildingNo: building, zip: zipInt, additionalNo: addition!, district: districtTF.text!, isPrime: true)
         user?.addAddressToDB(address: newAddress)
     }
     

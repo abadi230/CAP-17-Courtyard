@@ -13,6 +13,7 @@ class AddressCell: UITableViewCell {
     @IBOutlet weak var addressLbl: UILabel!
     
     
+    @IBOutlet weak var OnClickMappingCircle: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

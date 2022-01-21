@@ -32,6 +32,7 @@
 		1B8CC8A52769F47A00E5CDD2 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A32769F47A00E5CDD2 /* ChatCell.swift */; };
 		1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A42769F47A00E5CDD2 /* ChatCell.xib */; };
 		1B8CC8A8276A016200E5CDD2 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */; };
+		1B918417279A938900756F74 /* MyProgress.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B918416279A938900756F74 /* MyProgress.rtf */; };
 		1BA71A7F276CD2E300FCD1A4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA71A7E276CD2E300FCD1A4 /* User.swift */; };
 		1BA71A81276D22B000FCD1A4 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA71A80276D22B000FCD1A4 /* ProfileVC.swift */; };
 		1BE1383C278267A100D636CF /* AdminHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE1383B278267A000D636CF /* AdminHome.swift */; };
@@ -62,6 +63,7 @@
 		1B8CC8A32769F47A00E5CDD2 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		1B8CC8A42769F47A00E5CDD2 /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		1B8CC8A7276A016100E5CDD2 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
+		1B918416279A938900756F74 /* MyProgress.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = MyProgress.rtf; sourceTree = "<group>"; };
 		1BA71A7E276CD2E300FCD1A4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1BA71A80276D22B000FCD1A4 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		1BE1383B278267A000D636CF /* AdminHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHome.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				1BE1383B278267A000D636CF /* AdminHome.swift */,
 				1BE138412782E39600D636CF /* OrderDetails.swift */,
 				1BE1384327830ED100D636CF /* PaymentVC.swift */,
+				1B918416279A938900756F74 /* MyProgress.rtf */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				1B8CC8812767486700E5CDD2 /* LaunchScreen.storyboard in Resources */,
 				1B8CC88927675E1900E5CDD2 /* GoogleService-Info.plist in Resources */,
 				1B8CC8A62769F47A00E5CDD2 /* ChatCell.xib in Resources */,
+				1B918417279A938900756F74 /* MyProgress.rtf in Resources */,
 				1B323F3C277799E3008E62AF /* AddressCell.xib in Resources */,
 				1B323F2E276FBDA5008E62AF /* fonts in Resources */,
 				1B8CC87E2767486700E5CDD2 /* Assets.xcassets in Resources */,
