@@ -121,6 +121,7 @@ class ProfileVC: UIViewController {
         // swap element value from index to inother
         addresses.swapAt(index, 0)
         addressesRef!.swapAt(index, 0)
+        primeAddress = addresses.first
         addressesTV.reloadData()
 
     }
