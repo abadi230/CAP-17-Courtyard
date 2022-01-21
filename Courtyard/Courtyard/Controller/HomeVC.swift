@@ -21,8 +21,9 @@ class HomeVC: UIViewController {
     // TODO: adapt pull down Button and Pop Up Button
     @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
-    @IBOutlet weak var dropDown: UIPickerView!
+//    @IBOutlet weak var dropDown: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    var dropDown = UIPickerView()
     @IBOutlet weak var priceLbl: UILabel!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +36,9 @@ class HomeVC: UIViewController {
         priceLbl.text = price
         fetchData()
         configDatePicker()
+        dropDown.delegate = self
+        dropDown.dataSource = self
+        txtBox.inputView = dropDown
         
     }
     func fetchData(){
@@ -111,22 +115,24 @@ extension HomeVC : UIPickerViewDataSource {
 }
 extension HomeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.txtBox.endEditing(true)
-        txtBox.text = ""
+//        self.txtBox.endEditing(true)
+//        txtBox.text = ""
         return services[row]
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.txtBox.text = services[row]
-        
-        self.dropDown.isHidden = true
+        self.txtBox.resignFirstResponder()
+
+//        self.dropDown.isHidden = true
     }
 }
-extension HomeVC: UITextFieldDelegate{
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == self.txtBox {
-            self.dropDown.isHidden = false
-            textField.endEditing(true)
-            
-        }
-    }
-}
+//extension HomeVC: UITextFieldDelegate{
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField == self.txtBox {
+//            self.dropDown.isHidden = false
+//            textField.endEditing(true)
+//
+//        }
+//    }
+//}

@@ -65,7 +65,9 @@ extension AdminHome: UITableViewDelegate {
         vc.user = self.userInfo
         vc.address = self.address
         
-        self.navigationController?.show(vc, sender: nil)
+//        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
+//        self.navigationController?.show(vc, sender: nil)
     }
 }
 extension AdminHome: UITableViewDataSource {
@@ -80,7 +82,7 @@ extension AdminHome: UITableViewDataSource {
         Admin.shared.getUserDetail(userRef: order.userId) { user in
             self.userInfo = user
             // TODO: fix address
-            user.getAddresses { addresses in
+            user.getAddresses { addresses,ref  in
                 self.address = addresses.last
                 print("---------------User Address---------------")
                 print(self.address!)

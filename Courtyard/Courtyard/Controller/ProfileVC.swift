@@ -18,6 +18,10 @@ class ProfileVC: UIViewController {
     var service: Service!
     var address: Address!
     var addresses = [Address]()
+    var addressesRef: [DocumentReference]?
+    var primeAddress : Address!
+    
+    
     var orderRef : DocumentReference?
     var order: Order!
     var db = Firestore.firestore()
@@ -54,11 +58,15 @@ class ProfileVC: UIViewController {
         user.getDataClosure(completion: { user  in
             self.nameTF.text = user.name
             self.mobileTF.text = "0\(String(describing: user.mobile!))"
+            self.addressesRef = user.addressesRef
 
-            user.getAddresses { addresses in
-                //MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
+            user.getAddresses { addresses,ref  in
+//MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
                 self.addresses = addresses
+                self.addressesRef = ref
+                self.primeAddress = addresses.filter{$0.isPrime == true}.first
                 self.addressesTV.reloadData()
+                
             }
         })
     }
@@ -74,7 +82,7 @@ class ProfileVC: UIViewController {
     }
     
     @IBAction func OnClickBook(_ sender: UIButton){
-        //        if address or service not exist display alert or message
+        //  if address or service not exist display alert or message
         if service != nil && addresses.count != 0{
             
             sendDataToDB()
@@ -94,7 +102,6 @@ class ProfileVC: UIViewController {
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-//        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             self.performSegue(withIdentifier: "orderID", sender: nil)
         }
@@ -104,9 +111,22 @@ class ProfileVC: UIViewController {
         }
     }
     
+    @objc func changeAddressPrime(_ sender: UIButton){
+
+        let index = sender.tag
+        user.changePrimeAddress(for: addressesRef![index])
+        sender.setImage(UIImage(systemName: "mappin.circle.fill"), for: .normal)
+        print(addressesRef![index].documentID)
+        
+        // swap element value from index to inother
+        addresses.swapAt(index, 0)
+        addressesRef!.swapAt(index, 0)
+        addressesTV.reloadData()
+
+    }
+    
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // MARK: if address selected let user edit address
         switch segue.identifier{
@@ -114,9 +134,9 @@ class ProfileVC: UIViewController {
             let paymentVC = segue.destination as! PaymentVC
             //ref, date, address, paymentState
             paymentVC.serviceTitle = service!.name + "Cleaning"
-            paymentVC.ref = "\(String(describing: orderRef!.documentID))"
+            paymentVC.orderRef = orderRef
             paymentVC.date = "\(String(describing: service!.date))"
-            paymentVC.address = "\(String(describing: addresses.last!.buildingNo)), \(String(describing: addresses.last!.street)), \(String(describing: addresses.last!.district!)))"
+            paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"
             paymentVC.paymentState = order!.paymentState ? "Paied" : "Pending"
             paymentVC.price = order.total
         case "addressID":
@@ -133,7 +153,7 @@ class ProfileVC: UIViewController {
     
     
 }
-
+// MARK: TableView
 extension ProfileVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let alert = UIAlertController(title: "Order", message: "Are you sure you want to Order this service", preferredStyle: .actionSheet)
@@ -156,13 +176,28 @@ extension ProfileVC: UITableViewDataSource{
         let cell = addressesTV.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath) as! AddressCell
         
         let address = addresses[indexPath.row]
+        
         cell.addressTypeLbl.text = address.type
         cell.addressLbl.text = "\(address.buildingNo), \(address.street), \(String(describing: address.district!))"
+        cell.OnClickMappingCircle.tag = indexPath.row
+
+        if indexPath.row != 0 {
+                cell.OnClickMappingCircle.setImage(UIImage(systemName: "mappin.circle"), for: .normal)
+
+            }else{
+                cell.OnClickMappingCircle.setImage(UIImage(systemName: "mappin.circle.fill"), for: .normal)
+
+            }
+        
+        
+        cell.OnClickMappingCircle.addTarget(self, action: #selector(changeAddressPrime), for: .touchUpInside)
+        
+        
         
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        100
     }
     
     
