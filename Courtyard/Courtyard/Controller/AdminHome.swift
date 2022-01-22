@@ -24,7 +24,9 @@ class AdminHome: UIViewController {
     @IBOutlet weak var fromDP: UIDatePicker!
     @IBOutlet weak var toDP: UIDatePicker!
     @IBOutlet weak var totalLbl: UILabel!
-    
+//    override func viewDidAppear(_ animated: Bool) {
+//        <#code#>
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,10 +44,11 @@ class AdminHome: UIViewController {
         ordersTV.delegate = self
         ordersTV.dataSource = self
         
-        Admin.shared.getAllOrders { orders in
+        Admin.shared.getAllOrders(serviceName: nil) { orders in
+
             self.orders = orders
             self.ordersTV.reloadData()
-            
+
         }
         
     }
@@ -84,8 +87,8 @@ extension AdminHome: UITableViewDataSource {
             // TODO: fix address
             user.getAddresses { addresses,ref  in
                 self.address = addresses.last
-                print("---------------User Address---------------")
-                print(self.address!)
+//                print("---------------User Address---------------")
+//                print(self.address!)
                 cell.districLbl.text = self.address!.district
             }
         }
@@ -103,8 +106,17 @@ extension AdminHome: UITableViewDataSource {
 extension AdminHome: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: filter table
+        Admin.shared.getAllOrders(serviceName: nil) { orders in
+            DispatchQueue.main.async {
+                print(orders.count)
+                self.orders = orders
+                self.ordersTV.reloadData()
+                
+            }
+            
+        }
+        
     }
-    
 }
 extension AdminHome: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

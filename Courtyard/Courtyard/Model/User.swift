@@ -15,25 +15,100 @@ class Admin {
     
     static let shared = Admin()
     
-    func getAllOrders(complation: @escaping([Order]) -> Void){
+    func getAllOrders(serviceName: String?, complation: @escaping([Order]) -> Void){
         
         var orders = [Order]()
-        
+        var servicesRef : [DocumentReference] = []
+        var arr = [String]()
         self.db.collection("Orders").getDocuments { snapshot, err in
             if err == nil{
                 for doc in snapshot!.documents{
                     do {
+                
                         let order = try doc.data(as: Order.self)
-                        orders.append(order!)
+                        if serviceName == nil {
+                            orders.append(order!)
+                        } else{
+                            // TODO: try fetch service here
+                            /*
+                             1. iterate services
+                             2. check service name
+                             3. if equal to param append reference to array
+                             4. outer iteration (Order) check the reference array with orders.serveceRef
+                             5. if match append it to orders[]
+                             6. send orders with complation
+                             */
+                            let serviceId = order?.serviceId?.documentID
+                            let serviceQuery = self.db.collection("Service").document(serviceId!).parent
+//                                .whereField("name", isEqualTo: serviceName!)
+                                .whereField("name", isEqualTo: serviceName!)
+                            serviceQuery.getDocuments() { snap, error in
+                                orders.removeAll()
+                                for doc in snap!.documents{
+                                    
+                                    let docRef = doc.reference
+                                    
+//                                    print(doc.reference)
+//                                    print(doc.data())
+                                    
+                                    if doc.reference == order?.serviceId{
+                                        orders.append(order!)
+//                                        print(doc.reference)
+//                                        print(doc.data())
+                                        print(orders)
+                                    }
+                                    servicesRef.append(docRef)
+                                }
+                                
+                            }
+//                            print("servicequery",serviceRef)
+                            
+//                            servicesRef.append(order!.serviceId!)
+//                            self.getUserService(serviceRef: (order!.serviceId)!) { service in
+//                                if service.name == serviceName!{
+////                                    print(service.name)
+////                                    print(serviceName!)
+//                                    arr.append(service.name)
+//                                    orders.append(order!)
+////                                    print("orders",orders.count)
+//                                }
+//                            }
+                            
+                        }
                     }catch{
                         print(err?.localizedDescription ?? "Unable to get Data")
                     }
+                    
                     complation(orders)
                 }
+//                print(arr.count)
+                print("servecesRef: \(servicesRef)")
             }
         }
         
     }
+    func sortedOrders(){
+        
+    }
+//    func getAllOrders(complation: @escaping([Order]) -> Void){
+//
+//        var orders = [Order]()
+//
+//        self.db.collection("Orders").getDocuments { snapshot, err in
+//            if err == nil{
+//                for doc in snapshot!.documents{
+//                    do {
+//                        let order = try doc.data(as: Order.self)
+//                        orders.append(order!)
+//                    }catch{
+//                        print(err?.localizedDescription ?? "Unable to get Data")
+//                    }
+//                    complation(orders)
+//                }
+//            }
+//        }
+//
+//    }
     func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
         db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
             if err == nil{
@@ -52,7 +127,8 @@ class Admin {
     }
     
     func getUserService(serviceRef: DocumentReference, complation: @escaping(Service)->Void){
-        db.collection("Service").document(serviceRef.documentID).getDocument { doc, err in
+        db.collection("Service").document(serviceRef.documentID)
+            .getDocument { doc, err in
             if err == nil{
                 var service : Service?
                 do{
