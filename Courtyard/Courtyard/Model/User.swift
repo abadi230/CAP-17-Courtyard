@@ -18,8 +18,7 @@ class Admin {
     func getAllOrders(serviceName: String?, complation: @escaping([Order]) -> Void){
         
         var orders = [Order]()
-        var servicesRef : [DocumentReference] = []
-        var arr = [String]()
+        
         self.db.collection("Orders").getDocuments { snapshot, err in
             if err == nil{
                 for doc in snapshot!.documents{
@@ -29,35 +28,21 @@ class Admin {
                         if serviceName == nil {
                             orders.append(order!)
                         } else{
-                            // TODO: try fetch service here
-                            /*
-                             1. iterate services
-                             2. check service name
-                             3. if equal to param append reference to array
-                             4. outer iteration (Order) check the reference array with orders.serveceRef
-                             5. if match append it to orders[]
-                             6. send orders with complation
-                             */
+                            
                             let serviceId = order?.serviceId?.documentID
                             let serviceQuery = self.db.collection("Service").document(serviceId!).parent
-//                                .whereField("name", isEqualTo: serviceName!)
                                 .whereField("name", isEqualTo: serviceName!)
                             serviceQuery.getDocuments() { snap, error in
-                                orders.removeAll()
+                            
                                 for doc in snap!.documents{
                                     
                                     let docRef = doc.reference
-                                    
-//                                    print(doc.reference)
-//                                    print(doc.data())
-                                    
-                                    if doc.reference == order?.serviceId{
+                                    if docRef == order!.serviceId{
                                         orders.append(order!)
 //                                        print(doc.reference)
-//                                        print(doc.data())
+//                                        print(order!)
                                         print(orders)
                                     }
-                                    servicesRef.append(docRef)
                                 }
                                 
                             }
@@ -78,37 +63,53 @@ class Admin {
                     }catch{
                         print(err?.localizedDescription ?? "Unable to get Data")
                     }
-                    
                     complation(orders)
+                    print(orders)
                 }
-//                print(arr.count)
-                print("servecesRef: \(servicesRef)")
             }
         }
         
     }
-    func sortedOrders(){
+
+    func filteredOrder(serviceTitle: String, complation: @escaping([Order]) -> Void){
+        var ordersF = [Order]()
+        self.getAllOrders { orders in
+            orders.forEach { order in
+                order.serviceId?.getDocument(completion: { snapShot, error in
+                    
+                    if let name = snapShot?.get("name") {
+                        if name as! String == serviceTitle{
+                            ordersF.append(order)
+                        }
+                    }
+                    complation(ordersF)
+                })
+            }
+//            print(ordersF.count)
+        }
         
     }
-//    func getAllOrders(complation: @escaping([Order]) -> Void){
-//
-//        var orders = [Order]()
-//
-//        self.db.collection("Orders").getDocuments { snapshot, err in
-//            if err == nil{
-//                for doc in snapshot!.documents{
-//                    do {
-//                        let order = try doc.data(as: Order.self)
-//                        orders.append(order!)
-//                    }catch{
-//                        print(err?.localizedDescription ?? "Unable to get Data")
-//                    }
-//                    complation(orders)
-//                }
-//            }
-//        }
-//
-//    }
+    
+    func getAllOrders(complation: @escaping([Order]) -> Void){
+
+        var orders = [Order]()
+
+        self.db.collection("Orders").getDocuments { snapshot, err in
+            if err == nil{
+                for doc in snapshot!.documents{
+                    do {
+                        let order = try doc.data(as: Order.self)
+                        orders.append(order!)
+                        
+                    }catch{
+                        print(err?.localizedDescription ?? "Unable to get Data")
+                    }
+                    complation(orders)
+                }
+            }
+        }
+
+    }
     func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
         db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
             if err == nil{
@@ -314,6 +315,56 @@ class User: Codable {
 ////            self.orders = userOrders
 //
 //    }
+    
+    // MARK: DELETE
+    func removeAddress(addressRef: DocumentReference){
+        self.addressesRef?.forEach({ address in
+            if addressRef == address {
+                let userRef = self.userReference()
+                userRef.updateData(["addressesRef" : FieldValue.arrayRemove([addressRef])])
+                addressRef.delete { err in
+                    if let err = err {
+                        print(err.localizedDescription)
+                    }else{
+                        print("Document Successfully removed!")
+                    }
+                }
+            }
+        })
+    }
+    /*
+     ## **Delete Document from Cloud Firestore**
+
+     ```swift
+     private func deleteDocument(collection: String, document: String) {
+             
+             **dbStore.collection(collection).document(document).delete() { err in
+                 if let err = err {
+                     print("Error removing document: \(err)")
+                 } else {
+                     print("Document successfully removed!")
+                 }
+             }**
+             
+     }
+     ```
+
+     ### Delete Field from Array in Document
+
+     ```swift
+     let washingtonRef = db.collection("cities").document("DC")
+
+     // Atomically add a new region to the "regions" array field.
+     washingtonRef.updateData([
+         "regions": FieldValue.arrayUnion(["greater_virginia"])
+     ])
+
+     // Atomically remove a region from the "regions" array field.
+     **washingtonRef.updateData([
+         "regions": FieldValue.arrayRemove(["east_coast"])
+     ])**
+     ```
+     */
 }
 
 struct Order: Codable {

@@ -12,6 +12,7 @@ import FirebaseAuth
 class AdminHome: UIViewController {
     
     var orders: [Order] = []
+    var ordersFilter: [Order] = []
     var userInfo : User!
     var address : Address!
 //    var service: Service!
@@ -24,9 +25,7 @@ class AdminHome: UIViewController {
     @IBOutlet weak var fromDP: UIDatePicker!
     @IBOutlet weak var toDP: UIDatePicker!
     @IBOutlet weak var totalLbl: UILabel!
-//    override func viewDidAppear(_ animated: Bool) {
-//        <#code#>
-//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +43,7 @@ class AdminHome: UIViewController {
         ordersTV.delegate = self
         ordersTV.dataSource = self
         
-        Admin.shared.getAllOrders(serviceName: nil) { orders in
+        Admin.shared.getAllOrders() { orders in
 
             self.orders = orders
             self.ordersTV.reloadData()
@@ -106,14 +105,16 @@ extension AdminHome: UITableViewDataSource {
 extension AdminHome: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: filter table
-        Admin.shared.getAllOrders(serviceName: nil) { orders in
-            DispatchQueue.main.async {
-                print(orders.count)
-                self.orders = orders
-                self.ordersTV.reloadData()
+        self.orders.removeAll()
+        Admin.shared.filteredOrder(serviceTitle: services[indexPath.row]) { orders in
+//                print(orders.count)
                 
+            self.orders = orders
+            DispatchQueue.main.async {
+                self.ordersTV.reloadData()
+                print(orders.count)
+
             }
-            
         }
         
     }

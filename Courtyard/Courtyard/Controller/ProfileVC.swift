@@ -201,7 +201,16 @@ extension ProfileVC: UITableViewDataSource{
         100
     }
     
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let actionDelete = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            self.user.removeAddress(addressRef: self.addressesRef![indexPath.row])
+            self.addresses.remove(at: indexPath.row)
+            self.addressesTV.reloadData()
+            completionHandler(true)
+        }
+       
+        return UISwipeActionsConfiguration(actions: [actionDelete])
+    }
     
 }
 
