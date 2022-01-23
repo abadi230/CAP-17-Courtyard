@@ -13,7 +13,7 @@ class OrderDetails: UIViewController {
     var user: User!
     var address: Address!
     var service: Service!
-    
+    var serviceTitle = ""
     // MARK: Connection
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -35,10 +35,11 @@ class OrderDetails: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        Admin.shared.getUserService(serviceRef: order.serviceId!) { service in
+//        Admin.shared.getUserService(serviceRef: order.serviceId!) { service in
             
-            self.serviceNameLbl.text = service.name
-        }
+//            self.serviceNameLbl.text = service.name
+//        }
+        self.serviceNameLbl.text = serviceTitle
         userNameLbl.text = user.name
         mobileLbl.text = "0\(user.mobile!)"
         addressLbl.text = address.district

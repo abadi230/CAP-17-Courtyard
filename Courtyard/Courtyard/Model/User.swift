@@ -15,81 +15,6 @@ class Admin {
     
     static let shared = Admin()
     
-    func getAllOrders(serviceName: String?, complation: @escaping([Order]) -> Void){
-        
-        var orders = [Order]()
-        
-        self.db.collection("Orders").getDocuments { snapshot, err in
-            if err == nil{
-                for doc in snapshot!.documents{
-                    do {
-                
-                        let order = try doc.data(as: Order.self)
-                        if serviceName == nil {
-                            orders.append(order!)
-                        } else{
-                            
-                            let serviceId = order?.serviceId?.documentID
-                            let serviceQuery = self.db.collection("Service").document(serviceId!).parent
-                                .whereField("name", isEqualTo: serviceName!)
-                            serviceQuery.getDocuments() { snap, error in
-                            
-                                for doc in snap!.documents{
-                                    
-                                    let docRef = doc.reference
-                                    if docRef == order!.serviceId{
-                                        orders.append(order!)
-//                                        print(doc.reference)
-//                                        print(order!)
-                                        print(orders)
-                                    }
-                                }
-                                
-                            }
-//                            print("servicequery",serviceRef)
-                            
-//                            servicesRef.append(order!.serviceId!)
-//                            self.getUserService(serviceRef: (order!.serviceId)!) { service in
-//                                if service.name == serviceName!{
-////                                    print(service.name)
-////                                    print(serviceName!)
-//                                    arr.append(service.name)
-//                                    orders.append(order!)
-////                                    print("orders",orders.count)
-//                                }
-//                            }
-                            
-                        }
-                    }catch{
-                        print(err?.localizedDescription ?? "Unable to get Data")
-                    }
-                    complation(orders)
-                    print(orders)
-                }
-            }
-        }
-        
-    }
-
-    func filteredOrder(serviceTitle: String, complation: @escaping([Order]) -> Void){
-        var ordersF = [Order]()
-        self.getAllOrders { orders in
-            orders.forEach { order in
-                order.serviceId?.getDocument(completion: { snapShot, error in
-                    
-                    if let name = snapShot?.get("name") {
-                        if name as! String == serviceTitle{
-                            ordersF.append(order)
-                        }
-                    }
-                    complation(ordersF)
-                })
-            }
-//            print(ordersF.count)
-        }
-        
-    }
-    
     func getAllOrders(complation: @escaping([Order]) -> Void){
 
         var orders = [Order]()
@@ -157,11 +82,11 @@ class User: Codable {
         if let address = address {
             // Create Address
             let addressRef = try! dbStore.collection("Addresses").addDocument(from: address)
-            changePrimeAddress(for: addressRef)
             // Update addressesRef in DB
             let userRef = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
+            changePrimeAddress(for: addressRef)
         }
         // MARK: to call this function use this code
         
@@ -255,7 +180,7 @@ class User: Codable {
     func getAddresses(completion: @escaping ([Address],[DocumentReference])-> Void) {
         var userAddress = [Address]()
         var references : [DocumentReference] = []
-        if let addressRef = self.addressesRef {
+        guard let addressRef = self.addressesRef else {return}
             for addressID in addressRef {
 //                print("--------getAddresses------------")
 //
@@ -266,8 +191,8 @@ class User: Codable {
                 addressID.getDocument { addressDoc, err in
                     do {
                         if (err == nil) {
-                            let address = try addressDoc?.data(as: Address.self)
-                            userAddress.append(address!)
+                            guard let address = try addressDoc?.data(as: Address.self) else {return}
+                            userAddress.append(address)
 //                            print("--------number of addersses added------------")
 //                            print(userAddress.count)
                             references.append(addressDoc!.reference)
@@ -278,8 +203,28 @@ class User: Codable {
                     completion(userAddress, references)
                 }
             }
-        }
         
+        
+    }
+    func getPrimeAddress(complation: @escaping  (Address)->()){
+        var primeAddress : Address?
+        guard let addressesRef = self.addressesRef else { return }
+        addressesRef.forEach { document in
+            document.getDocument { snapShot, error in
+                do {
+                    if error == nil {
+                        let address = try snapShot?.data(as: Address.self)
+                        if (address?.isPrime == true ) { primeAddress = address! }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                }
+                DispatchQueue.main.async {
+                    
+                    complation(primeAddress!)
+                }
+            }
+        }
     }
     func getUserOrders(userId: String, complation: @escaping ([Order]) -> Void){
         let db = Firestore.firestore()
