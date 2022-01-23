@@ -12,9 +12,12 @@ import FirebaseAuth
 class AdminHome: UIViewController {
     
     var orders: [Order] = []
+    var ordersFilter: [Order] = []
+    var isFiltered = false
+    
     var userInfo : User!
     var address : Address!
-//    var service: Service!
+    
     var services = ["Courtyard", "Roof of House", "Stairs"]
     var images: [UIImage?] = []
     
@@ -27,7 +30,7 @@ class AdminHome: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         let image1 = UIImage(named: "cortyard")
@@ -42,11 +45,13 @@ class AdminHome: UIViewController {
         ordersTV.delegate = self
         ordersTV.dataSource = self
         
-        Admin.shared.getAllOrders { orders in
+        Admin.shared.getAllOrders() { orders in
+            
             self.orders = orders
             self.ordersTV.reloadData()
             
         }
+        
         
     }
     @IBAction func logOutPressed(_ sender: UIButton) {
@@ -58,35 +63,40 @@ class AdminHome: UIViewController {
 // MARK: TableView
 extension AdminHome: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let vc = storyboard?.instantiateViewController(withIdentifier: "orderDetailsID") as! OrderDetails
-        let order = self.orders[indexPath.row]
+        let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
+        
+        Admin.shared.getUserService(serviceRef: order.serviceId!) { service in
+            vc.serviceNameLbl.text = service.name
+            print(service.name)
+        }
         
         vc.order = order
         vc.user = self.userInfo
         vc.address = self.address
         
-//        vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
-//        self.navigationController?.show(vc, sender: nil)
+        
     }
 }
 extension AdminHome: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        orders.count
+        
+                return isFiltered ? ordersFilter.count : orders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTVCell
         
-        let order = orders[indexPath.row]
+        let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
+        
         Admin.shared.getUserDetail(userRef: order.userId) { user in
             self.userInfo = user
-            // TODO: fix address
-            user.getAddresses { addresses,ref  in
-                self.address = addresses.last
-                print("---------------User Address---------------")
-                print(self.address!)
-                cell.districLbl.text = self.address!.district
+            
+            user.getPrimeAddress { primeAddress  in
+                self.address = primeAddress
+                cell.districLbl.text = self.address.district
             }
         }
         
@@ -96,16 +106,60 @@ extension AdminHome: UITableViewDataSource {
         return cell
     }
     
-    
 }
 
 //MARK: Collecton
 extension AdminHome: UICollectionViewDelegate{
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: filter table
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)  {
+        
+        ordersFilter.removeAll()
+        isFiltered = true
+        
+        getFilteredOrder(index: indexPath.row) { orders in
+            self.ordersFilter = orders
+            self.ordersTV.reloadData()
+        }
     }
-    
+    func getFilteredOrder(index: Int, complation: @escaping([Order])->Void){
+//        ordersFilter.removeAll()
+        var filterO = [Order]()
+        orders.forEach { order in
+            order.serviceId?.getDocument(completion: { doc, err in
+                guard let serviceName = doc?["name"] else { return }
+                
+                if serviceName as! String == self.services[index] {
+                    filterO.append(order)
+                    
+                }
+                complation(filterO)
+            })
+        }
+    }
+//    func test(){
+//        print("i am here")
+//        ordersFilter.removeAll()
+//
+//        for x in orders {
+//            x.serviceId?.getDocument(completion: { DocumentSnapshot, error in
+//
+//                guard let data = DocumentSnapshot?.data() else {return}
+//
+//                if data["name"] as! String == self.services[self.index]{
+//                    print(data["name"])
+//
+//                    self.isFiltered = true
+//                    self.ordersFilter.append(x)
+//                    self.ordersTV.reloadData()
+//                }
+//            })
+//        }
+//        print(self.ordersFilter)
+//
+//
+//    }
 }
+
+
 extension AdminHome: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         images.count

@@ -33,26 +33,25 @@ class RegisterVC: UIViewController {
                       let user = User()
                       user.storeUserDataInDB(name: name.text!, mobile: mobile.text)
 
-                      let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "logInId") as! LogIn
-                      loginVC.email = emailTF.text!
-                      loginVC.password = passwordTF.text!
-                      self.present(loginVC, animated: true, completion: nil)
+                      guard let homeVC = storyboard?.instantiateViewController(withIdentifier: "tabID") else { return  }
+                      // get current user email
+                      if Auth.auth().currentUser != nil {
+                          homeVC.modalPresentationStyle = .fullScreen
+                          present(homeVC, animated: true, completion: nil)
+                      }
                   }else{
-                      print(error?.localizedDescription as Any)
+                      showAlert(error!.localizedDescription)
                   }
               }
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func showAlert(_ msg: String){
+        let alertController = UIAlertController(title: "Message", message: msg, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
-    */
 
 }

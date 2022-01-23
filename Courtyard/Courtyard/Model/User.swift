@@ -16,15 +16,16 @@ class Admin {
     static let shared = Admin()
     
     func getAllOrders(complation: @escaping([Order]) -> Void){
-        
+
         var orders = [Order]()
-        
+
         self.db.collection("Orders").getDocuments { snapshot, err in
             if err == nil{
                 for doc in snapshot!.documents{
                     do {
                         let order = try doc.data(as: Order.self)
                         orders.append(order!)
+                        
                     }catch{
                         print(err?.localizedDescription ?? "Unable to get Data")
                     }
@@ -32,7 +33,7 @@ class Admin {
                 }
             }
         }
-        
+
     }
     func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
         db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
@@ -52,7 +53,8 @@ class Admin {
     }
     
     func getUserService(serviceRef: DocumentReference, complation: @escaping(Service)->Void){
-        db.collection("Service").document(serviceRef.documentID).getDocument { doc, err in
+        db.collection("Service").document(serviceRef.documentID)
+            .getDocument { doc, err in
             if err == nil{
                 var service : Service?
                 do{
@@ -80,11 +82,11 @@ class User: Codable {
         if let address = address {
             // Create Address
             let addressRef = try! dbStore.collection("Addresses").addDocument(from: address)
-            changePrimeAddress(for: addressRef)
             // Update addressesRef in DB
             let userRef = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
+            changePrimeAddress(for: addressRef)
         }
         // MARK: to call this function use this code
         
@@ -178,7 +180,7 @@ class User: Codable {
     func getAddresses(completion: @escaping ([Address],[DocumentReference])-> Void) {
         var userAddress = [Address]()
         var references : [DocumentReference] = []
-        if let addressRef = self.addressesRef {
+        guard let addressRef = self.addressesRef else {return}
             for addressID in addressRef {
 //                print("--------getAddresses------------")
 //
@@ -189,8 +191,8 @@ class User: Codable {
                 addressID.getDocument { addressDoc, err in
                     do {
                         if (err == nil) {
-                            let address = try addressDoc?.data(as: Address.self)
-                            userAddress.append(address!)
+                            guard let address = try addressDoc?.data(as: Address.self) else {return}
+                            userAddress.append(address)
 //                            print("--------number of addersses added------------")
 //                            print(userAddress.count)
                             references.append(addressDoc!.reference)
@@ -201,8 +203,28 @@ class User: Codable {
                     completion(userAddress, references)
                 }
             }
-        }
         
+        
+    }
+    func getPrimeAddress(complation: @escaping  (Address)->()){
+        var primeAddress : Address?
+        guard let addressesRef = self.addressesRef else { return }
+        addressesRef.forEach { document in
+            document.getDocument { snapShot, error in
+                do {
+                    if error == nil {
+                        let address = try snapShot?.data(as: Address.self)
+                        if (address?.isPrime == true ) { primeAddress = address! }
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                }
+                DispatchQueue.main.async {
+                    
+                    complation(primeAddress!)
+                }
+            }
+        }
     }
     func getUserOrders(userId: String, complation: @escaping ([Order]) -> Void){
         let db = Firestore.firestore()
@@ -238,6 +260,56 @@ class User: Codable {
 ////            self.orders = userOrders
 //
 //    }
+    
+    // MARK: DELETE
+    func removeAddress(addressRef: DocumentReference){
+        self.addressesRef?.forEach({ address in
+            if addressRef == address {
+                let userRef = self.userReference()
+                userRef.updateData(["addressesRef" : FieldValue.arrayRemove([addressRef])])
+                addressRef.delete { err in
+                    if let err = err {
+                        print(err.localizedDescription)
+                    }else{
+                        print("Document Successfully removed!")
+                    }
+                }
+            }
+        })
+    }
+    /*
+     ## **Delete Document from Cloud Firestore**
+
+     ```swift
+     private func deleteDocument(collection: String, document: String) {
+             
+             **dbStore.collection(collection).document(document).delete() { err in
+                 if let err = err {
+                     print("Error removing document: \(err)")
+                 } else {
+                     print("Document successfully removed!")
+                 }
+             }**
+             
+     }
+     ```
+
+     ### Delete Field from Array in Document
+
+     ```swift
+     let washingtonRef = db.collection("cities").document("DC")
+
+     // Atomically add a new region to the "regions" array field.
+     washingtonRef.updateData([
+         "regions": FieldValue.arrayUnion(["greater_virginia"])
+     ])
+
+     // Atomically remove a region from the "regions" array field.
+     **washingtonRef.updateData([
+         "regions": FieldValue.arrayRemove(["east_coast"])
+     ])**
+     ```
+     */
 }
 
 struct Order: Codable {
