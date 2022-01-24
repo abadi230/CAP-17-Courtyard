@@ -46,13 +46,11 @@ class AdminHome: UIViewController {
         ordersTV.dataSource = self
         
         Admin.shared.getAllOrders() { orders in
-            
+
             self.orders = orders
             self.ordersTV.reloadData()
-            
+
         }
-        
-        
     }
     @IBAction func logOutPressed(_ sender: UIButton) {
         
@@ -67,9 +65,8 @@ extension AdminHome: UITableViewDelegate {
         let vc = storyboard?.instantiateViewController(withIdentifier: "orderDetailsID") as! OrderDetails
         let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
         
-        Admin.shared.getUserService(serviceRef: order.serviceId!) { service in
+        Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
             vc.serviceNameLbl.text = service.name
-            print(service.name)
         }
         
         vc.order = order
@@ -90,18 +87,18 @@ extension AdminHome: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTVCell
         
         let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
-        
+//        print("address DocID", order.addressRef?.documentID)
         Admin.shared.getUserDetail(userRef: order.userId) { user in
             self.userInfo = user
             
-            user.getPrimeAddress { primeAddress  in
-                self.address = primeAddress
-                cell.districLbl.text = self.address.district
-            }
+            
         }
-        
+        Admin.shared.getUserAddress(addressRef: order.addressRef!) { address in
+            self.address = address
+            cell.districLbl.text = self.address.district
+        }
         cell.userIDLbl.text = order.userId!.documentID
-        cell.paymentState.text = order.paymentState ? "Paid" : "Unpaied"
+        cell.paymentState.text = order.paymentStatus ? "Paid" : "Unpaied"
         cell.totalLbl.text = "SAR \(order.total)"
         return cell
     }
@@ -124,7 +121,7 @@ extension AdminHome: UICollectionViewDelegate{
 //        ordersFilter.removeAll()
         var filterO = [Order]()
         orders.forEach { order in
-            order.serviceId?.getDocument(completion: { doc, err in
+            order.serviceRef?.getDocument(completion: { doc, err in
                 guard let serviceName = doc?["name"] else { return }
                 
                 if serviceName as! String == self.services[index] {

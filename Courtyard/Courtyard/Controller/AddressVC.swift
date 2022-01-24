@@ -14,6 +14,7 @@ class AddressVC: UIViewController{
     var db = Firestore.firestore()
     var user : User?
     var newAddress : Address?
+    var addressRef : DocumentReference!
     
     
     @IBOutlet weak var addressType: UITextField!
@@ -42,7 +43,10 @@ class AddressVC: UIViewController{
         let addition = Int(additionalNoTF.text!)
         
         self.newAddress = Address(type: addressType.text!, street: streetTF.text!, buildingNo: building, zip: zipInt, additionalNo: addition!, district: districtTF.text!, isPrime: true)
-        user?.addAddressToDB(address: newAddress)
+        
+//        user?.addAddressToDB(address: newAddress, complation: { addressRef in
+//            self.addressRef = addressRef
+//        })
     }
     
     // MARK: - Navigation
@@ -52,6 +56,7 @@ class AddressVC: UIViewController{
         if let proVC = segue.destination as? ProfileVC {
                 
             proVC.address = self.newAddress!
+            proVC.addressRef = self.addressRef
         }
     }
     

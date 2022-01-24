@@ -35,6 +35,22 @@ class Admin {
         }
 
     }
+    func getUserAddress(addressRef: DocumentReference, complation: @escaping(Address)->()){
+        addressRef.getDocument { addressDoc, error in
+            if error == nil{
+                var address : Address
+                do{
+                    if let doc = addressDoc{
+                        
+                        address = try doc.data(as: Address.self)!
+                        complation(address)
+                    }
+                }catch{
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
         db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
             if err == nil{
@@ -75,10 +91,10 @@ class User: Codable {
     
 
     // MARK: SETTER
-    func addAddressToDB(address: Address?){
+    func addAddressToDB(address: Address?, complation: @escaping (DocumentReference)->()){
         
         let dbStore = Firestore.firestore()
-        
+         
         if let address = address {
             // Create Address
             let addressRef = try! dbStore.collection("Addresses").addDocument(from: address)
@@ -87,6 +103,7 @@ class User: Codable {
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
             changePrimeAddress(for: addressRef)
+            complation(addressRef)
         }
         // MARK: to call this function use this code
         
@@ -96,8 +113,10 @@ class User: Codable {
         //            print("----------orders----------------")
         //            print(orders)
         //        })
+        
+//        return (self.addressesRef?.last)!
     }
-    func changePrimeAddress(for addressRer: DocumentReference){
+    func changePrimeAddress(for addressRef: DocumentReference){
 //        let dbStore = Firestore.firestore()
         // get all user addresses
         // updata isPrime to false
@@ -107,7 +126,8 @@ class User: Codable {
             }
         }
 //        let primeAddress = dbStore.collection("Addresses").document(addressRer)
-        addressRer.setData(["isPrime" : true], merge: true)
+        addressRef.setData(["isPrime" : true], merge: true)
+        
     }
     func storeUserDataInDB(name: String?, mobile: String?){
         let dbStore = Firestore.firestore()
@@ -122,14 +142,15 @@ class User: Codable {
 //        return userRef
     }
     
-    func setOrder(service: Service, servicePrice: Double) -> (DocumentReference, Order){
+    func setOrder(service: Service, servicePrice: Double, addressRef: DocumentReference) -> (DocumentReference, Order){
         let db = Firestore.firestore()
         
         let serviceRef = try? db.collection("Service").addDocument(from: service)
         let total = servicePrice + 0.15 // 15% tax
         
         // create Order
-        let order = Order(userId: self.userReference(), serviceId: serviceRef, date: Date(), total: total, paymentState: false)
+        let order = Order(userId: self.userReference(), serviceRef: serviceRef, addressRef: addressRef, date: Date(), total: total, paymentStatus: false)
+//        let order = Order(userId: self.userReference(), serviceRef: serviceRef, date: Date(), total: total, paymentStatus: false)
 
          //store Orders in DB and return the reference and order
         return try! (db.collection("Orders").addDocument(from: order), order)
@@ -277,48 +298,17 @@ class User: Codable {
             }
         })
     }
-    /*
-     ## **Delete Document from Cloud Firestore**
-
-     ```swift
-     private func deleteDocument(collection: String, document: String) {
-             
-             **dbStore.collection(collection).document(document).delete() { err in
-                 if let err = err {
-                     print("Error removing document: \(err)")
-                 } else {
-                     print("Document successfully removed!")
-                 }
-             }**
-             
-     }
-     ```
-
-     ### Delete Field from Array in Document
-
-     ```swift
-     let washingtonRef = db.collection("cities").document("DC")
-
-     // Atomically add a new region to the "regions" array field.
-     washingtonRef.updateData([
-         "regions": FieldValue.arrayUnion(["greater_virginia"])
-     ])
-
-     // Atomically remove a region from the "regions" array field.
-     **washingtonRef.updateData([
-         "regions": FieldValue.arrayRemove(["east_coast"])
-     ])**
-     ```
-     */
+    
 }
 
 struct Order: Codable {
 
     var userId: DocumentReference?
-    var serviceId: DocumentReference?
+    var serviceRef: DocumentReference?
+    var addressRef: DocumentReference?
     var date: Date
     var total: Double
-    var paymentState: Bool
+    var paymentStatus: Bool
     
     func getOrders(complation: @escaping( ([Order]) -> Void) ){
         let db = Firestore.firestore()

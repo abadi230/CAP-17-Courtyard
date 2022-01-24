@@ -17,6 +17,7 @@ class ProfileVC: UIViewController {
     var user = User()
     var service: Service!
     var address: Address!
+    var addressRef: DocumentReference!
     var addresses = [Address]()
     var addressesRef: [DocumentReference]?
     var primeAddress : Address!
@@ -67,8 +68,10 @@ class ProfileVC: UIViewController {
                 self.primeAddress = addresses.filter{$0.isPrime == true}.first
                 self.addressesTV.reloadData()
                 
+//                self.addressRef = ref.last
             }
         })
+        
     }
     @IBAction func onClickAddAddress(_ sender: UIButton) {
         performSegue(withIdentifier: "addressID", sender: self)
@@ -78,7 +81,11 @@ class ProfileVC: UIViewController {
         print("--------------- print form unWindToProfile--------------------")
 //        print(address)
         print(address ?? "no new address")
+        user.addAddressToDB(address: address, complation: { addressRef in
+            self.addressRef = addressRef
+        })
         fetchData()
+//        addressRef = user.addressesRef?.last
     }
     
     @IBAction func OnClickBook(_ sender: UIButton){
@@ -97,7 +104,7 @@ class ProfileVC: UIViewController {
         user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // asign order reference to orderRef and order
-        (orderRef, order) = user.setOrder(service: service!, servicePrice: service!.price)
+        (orderRef, order) = user.setOrder(service: service!, servicePrice: service!.price, addressRef: addressRef)
     }
     
     func showAlert(_ msg: String){
@@ -138,7 +145,7 @@ class ProfileVC: UIViewController {
             paymentVC.orderRef = orderRef
             paymentVC.date = "\(String(describing: service!.date))"
             paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"
-            paymentVC.paymentState = order!.paymentState ? "Paied" : "Pending"
+            paymentVC.paymentState = order!.paymentStatus ? "Paied" : "Pending"
             paymentVC.price = order.total
         case "addressID":
             let addressVC = segue.destination as! AddressVC
@@ -157,15 +164,16 @@ class ProfileVC: UIViewController {
 // MARK: TableView
 extension ProfileVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Order", message: "Are you sure you want to Order this service", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Order", style: .default, handler: { _ in
-            
-            //TODO: send date from model to Firestore
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
+//        let alert = UIAlertController(title: "Order", message: "Are you sure you want to Order this service", preferredStyle: .actionSheet)
+//        alert.addAction(UIAlertAction(title: "Order", style: .default, handler: { _ in
+//
+//            //TODO: send date from model to Firestore
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+//        DispatchQueue.main.async {
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
 }
 extension ProfileVC: UITableViewDataSource{
@@ -184,16 +192,11 @@ extension ProfileVC: UITableViewDataSource{
 
         if indexPath.row != 0 {
                 cell.OnClickMappingCircle.setImage(UIImage(systemName: "mappin.circle"), for: .normal)
-
             }else{
                 cell.OnClickMappingCircle.setImage(UIImage(systemName: "mappin.circle.fill"), for: .normal)
-
             }
         
-        
         cell.OnClickMappingCircle.addTarget(self, action: #selector(changeAddressPrime), for: .touchUpInside)
-        
-        
         
         return cell
     }
@@ -203,7 +206,9 @@ extension ProfileVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionDelete = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            //remove address reference from User class and collection also remove address form Addresses collection
             self.user.removeAddress(addressRef: self.addressesRef![indexPath.row])
+            // remove address from table view
             self.addresses.remove(at: indexPath.row)
             self.addressesTV.reloadData()
             completionHandler(true)

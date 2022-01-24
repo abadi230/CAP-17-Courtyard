@@ -23,18 +23,18 @@ payment VC
 \f0\b \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls1\ilvl0\cf0 {\listtext	
-\f2\b0 \strike \strikec0 \uc0\u8226 	}[ 
-\f3 \uc0\u9989 
-\f2 ] when click on Book now in Profile page: address not correct. client shuld click on address wanted then book\
+\f2\b0 \strike \strikec0 \uc0\u8226 	}
+\f0\b \strike0\striked0 [ 
+\f3\b0 \uc0\u9989 
+\f0\b ] when click on Book now in Profile page: address not correct. client shuld click on address wanted then book\
 \pard\pardeftab720\sa240\partightenfactor0
-\cf0 \strikec0 Solution\
+\cf0 Solution\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
-\ls2\ilvl0\cf0 \strikec0 {\listtext	1.	}add prime address field in DB\
+\ls2\ilvl0\cf0 {\listtext	1.	}add prime address field in DB\
 {\listtext	2.	}Address class: Add isPrime: bool property\
 {\listtext	3.	}User Class: Add function change isPrime (AddressRef): make all isPrime addresses false except one address\
 {\listtext	4.	}AddressVC: add isPrime argument\
-{\listtext	5.	}PaymentVC: change address depend on isPrime
-\f0\b \strike0\striked0 \
+{\listtext	5.	}PaymentVC: change address depend on isPrime\
 \pard\tx560\pardeftab720\partightenfactor0
 \cf0 \
 Problem \
@@ -43,8 +43,9 @@ Problem \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls3\ilvl0
 \f2\b0 \cf0 \strike \strikec0 {\listtext	1.	}ProfileVC: send orderRef instead DocumentID to Payment VC\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls3\ilvl0
-\f0\b \strike0\striked0 {\listtext	2.	}PaymentVC: \
+\f0\b \cf0 \strike0\striked0 {\listtext	2.	}PaymentVC: \
 \pard\tx940\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
 \ls3\ilvl1
 \f2\b0 \cf0 \strike \strikec0 {\listtext	
@@ -64,26 +65,29 @@ AddressTV: \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls4\ilvl0
 \f2\b0 \cf0 \strike \strikec0 {\listtext	1.	}Add button or switch. \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls4\ilvl0
-\f0\b \strike0\striked0 {\listtext	2.	}when clicked the image change \
+\f0\b \cf0 \strike0\striked0 {\listtext	2.	}when clicked the image change \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls4\ilvl0
-\f2\b0 \strike \strikec0 {\listtext	3.	}adddreses array slice this address to be in index 0\
+\f2\b0 \cf0 \strike \strikec0 {\listtext	3.	}adddreses array slice this address to be in index 0\
 {\listtext	4.	}reload address table view\
 \pard\tx560\pardeftab720\partightenfactor0
 
 \f0\b \cf0 \strike0\striked0 \
 \pard\pardeftab720\sa240\partightenfactor0
-\cf0 \
+\cf0 AddressVC\
+	[] when add address : should save address reference on Order\
+\
 \
 Admin:\
-\pard\pardeftab720\sa240\partightenfactor0
-\cf0 Admin VC\
+Admin VC\
 problem \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls5\ilvl0\cf0 {\listtext	\uc0\u8226 	}[
 \f3\b0 \uc0\u9989 
 \f0\b ] when click on order cell: Should move to OrderDetail\
-\ls5\ilvl0{\listtext	\uc0\u8226 	}[] when click on service cell: Should filter orders depends on service\
+{\listtext	\uc0\u8226 	}[] when click on service cell: Should filter orders depends on service\
 \pard\tx560\pardeftab720\partightenfactor0
 \cf0 Solution: \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
@@ -96,7 +100,9 @@ problem \
 \ls6\ilvl0\cf0 {\listtext	2.	}servicesCollection: didSelect:\
 {\listtext	3.	}\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
-\ls7\ilvl0\cf0 {\listtext	\uc0\u8226 	}[] change services image.\
+\ls7\ilvl0\cf0 {\listtext	\uc0\u8226 	}[
+\f3\b0 \uc0\u9989 
+\f0\b ] change services image.\
 {\listtext	\uc0\u8226 	}[] total price: should be depends on Sorted order\
 \pard\tx560\pardeftab720\partightenfactor0
 \cf0 \

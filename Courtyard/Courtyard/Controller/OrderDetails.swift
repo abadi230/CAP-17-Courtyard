@@ -47,7 +47,7 @@ class OrderDetails: UIViewController {
         
         
         priceLbl.text = "SAR \(order.total)"
-        paymentStatusLbl.text = order.paymentState ? "Paied" : "Unpaid"
+        paymentStatusLbl.text = order.paymentStatus ? "Paied" : "Unpaid"
         serviceStatusLbl.text = "Complated"
 //        paymentSwitch
     }
