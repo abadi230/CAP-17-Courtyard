@@ -72,7 +72,7 @@ class LogIn: UIViewController {
         }
     }
     func goToAdminHomeVC(){
-        let adminHomeVC = storyboard?.instantiateViewController(withIdentifier: "OwnerID") as! AdminHome
+        let adminHomeVC = storyboard?.instantiateViewController(withIdentifier: "AdminHome") as! AdminHome
         adminHomeVC.modalPresentationStyle = .fullScreen
         present(adminHomeVC, animated: true, completion: nil)
     }

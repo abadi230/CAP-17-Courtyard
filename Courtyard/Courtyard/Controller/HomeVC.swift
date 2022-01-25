@@ -69,11 +69,17 @@ class HomeVC: UIViewController {
     @IBAction func onClickBook(_ sender: UIButton) {
         if txtBox.text != "" && datePicker.date != Date.now {
             
-            performSegue(withIdentifier: "profileID", sender: self)
 //            guard let proVC = self.tabBarController?.viewControllers?[2] else { return  }
-//            let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileId") as! ProfileVC
-//
-//            self.navigationController?.show(proVC, sender: nil)
+//            let tab = storyboard?.instantiateViewController(withIdentifier: "tabID")
+//            let vc = tab?.tabBarController?.viewControllers![2] as! ProfileVC
+//            vc.service = service
+//            present(vc, animated: true, completion: nil)
+
+             
+            performSegue(withIdentifier: "profileID", sender: self)
+            /* send data to tab bar then send it again to VC */
+            
+            
         }else{
             print("Select service and Date")
         }
@@ -92,8 +98,9 @@ class HomeVC: UIViewController {
         // Get the new view controller using segue.destination.
         if segue.identifier == "profileID" {
             let profileVC = segue.destination as! ProfileVC
-//            let service = Service(name: txtBox.text!, date: datePicker.date, price: 100)
-//            let service = user.setService(name: txtBox.text!, date: datePicker.date)
+            //MARK: trying to display tabBar 
+            self.definesPresentationContext = true
+            profileVC.modalPresentationStyle = .overCurrentContext
             profileVC.service = service
             
         }

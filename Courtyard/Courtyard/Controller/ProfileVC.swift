@@ -16,7 +16,7 @@ class ProfileVC: UIViewController {
     
     var user = User()
     var service: Service!
-    var address: Address!
+    var address: Address?
     var addressRef: DocumentReference!
     var addresses = [Address]()
     var addressesRef: [DocumentReference]?
@@ -51,7 +51,9 @@ class ProfileVC: UIViewController {
 //         service is grapped from homeVC
         print("service: ", service ?? "unable to get data")
         print("addresses: ", addresses)
-        
+//        print(self.tabBarController?.viewControllers)
+//        guard let homeVC = self.tabBarController?.viewControllers?[1] else { return  }
+//        self.tabBarController?.viewControllers
     }
     
     func fetchData(){
@@ -61,16 +63,25 @@ class ProfileVC: UIViewController {
             self.mobileTF.text = "0\(String(describing: user.mobile!))"
             self.addressesRef = user.addressesRef
 
-            user.getAddresses { addresses,ref  in
+            user.getAddresses { addresses,ref,primeRef   in
 //MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
                 self.addresses = addresses
                 self.addressesRef = ref
                 self.primeAddress = addresses.filter{$0.isPrime == true}.first
                 self.addressesTV.reloadData()
-                
+                self.addressRef = primeRef
 //                self.addressRef = ref.last
             }
         })
+        
+    }
+    @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
+        let homeVC = (storyboard?.instantiateViewController(withIdentifier: "homeID"))!
+        homeVC.modalPresentationStyle = .fullScreen
+
+//        let vc = tabBarController?.viewControllers![2]
+        present(homeVC, animated: true, completion: nil)
+        
         
     }
     @IBAction func onClickAddAddress(_ sender: UIButton) {
@@ -95,22 +106,34 @@ class ProfileVC: UIViewController {
             sendDataToDB()
             showAlert("Your booking has been successfully completed")
         }else{
+            var msg = ""
+            if service == nil {
+                msg = "Please choose the service first"
+            }
+            if primeAddress == nil { msg = "Please Add Address first"}
             print("service is: \(String(describing: service))")
-            showAlert("Please choose the service first")
+            
+            showAlert(msg)
         }
     }
     func sendDataToDB(){
-
         user.storeUserDataInDB(name: nameTF.text, mobile: mobileTF.text)
         
         // asign order reference to orderRef and order
-        (orderRef, order) = user.setOrder(service: service!, servicePrice: service!.price, addressRef: addressRef)
+        if let service = service{
+            print("I'm here \(addressRef)")
+
+            (orderRef, order) = user.setOrder(service: service, servicePrice: service.price, addressRef: addressRef)
+        }
     }
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.performSegue(withIdentifier: "orderID", sender: nil)
+        let alertAction = UIAlertAction(title: "OK", style: .default) { [self] _ in
+            if service != nil && primeAddress != nil{
+
+                self.performSegue(withIdentifier: "orderID", sender: nil)
+            }
         }
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
@@ -129,6 +152,7 @@ class ProfileVC: UIViewController {
         addresses.swapAt(index, 0)
         addressesRef!.swapAt(index, 0)
         primeAddress = addresses.first
+        addressRef = addressesRef?.first
         addressesTV.reloadData()
 
     }
