@@ -109,6 +109,7 @@ class HomeVC: UIViewController {
     
 
 }
+// MARK: Picker
 extension HomeVC : UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -134,12 +135,3 @@ extension HomeVC: UIPickerViewDelegate {
 //        self.dropDown.isHidden = true
     }
 }
-//extension HomeVC: UITextFieldDelegate{
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if textField == self.txtBox {
-//            self.dropDown.isHidden = false
-//            textField.endEditing(true)
-//
-//        }
-//    }
-//}

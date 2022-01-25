@@ -14,6 +14,7 @@ class AdminHome: UIViewController {
     var orders: [Order] = []
     var ordersFilter: [Order] = []
     var isFiltered = false
+    var total = 0.0
     
     var userInfo : User!
     var address : Address!
@@ -50,6 +51,10 @@ class AdminHome: UIViewController {
             self.orders = orders
             self.ordersTV.reloadData()
 
+            self.total = orders.reduce(0) { x, y in
+                x + y.total
+            }
+            self.totalLbl.text = String(self.total)
         }
     }
     @IBAction func logOutPressed(_ sender: UIButton) {
@@ -97,6 +102,7 @@ extension AdminHome: UITableViewDataSource {
             self.address = address
             cell.districLbl.text = self.address.district
         }
+        cell.startedDateLbl.text = "\(order.date)"
         cell.userIDLbl.text = order.userId!.documentID
         cell.paymentState.text = order.paymentStatus ? "Paid" : "Unpaied"
         cell.totalLbl.text = "SAR \(order.total)"
@@ -126,7 +132,10 @@ extension AdminHome: UICollectionViewDelegate{
                 
                 if serviceName as! String == self.services[index] {
                     filterO.append(order)
-                    
+                    self.total = filterO.reduce(0) { x, y in
+                        x + y.total
+                    }
+                    self.totalLbl.text = String(self.total)
                 }
                 complation(filterO)
             })
