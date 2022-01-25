@@ -254,7 +254,7 @@
         <!--Admin Home-->
         <scene sceneID="dZt-Ac-tb7">
             <objects>
-                <viewController storyboardIdentifier="OwnerID" title="Admin Home" id="o8o-yn-k6k" customClass="AdminHome" customModule="Courtyard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdminHome" title="Admin Home" id="o8o-yn-k6k" customClass="AdminHome" customModule="Courtyard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lco-fC-Wmk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -651,6 +651,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rC9-32-UrY"/>
@@ -661,6 +662,9 @@
                             <constraint firstItem="jZB-PX-TXV" firstAttribute="leading" secondItem="rC9-32-UrY" secondAttribute="leading" constant="20" id="bCB-87-zWC"/>
                             <constraint firstItem="rC9-32-UrY" firstAttribute="trailing" secondItem="jZB-PX-TXV" secondAttribute="trailing" constant="20" id="dgv-Xn-xxF"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="53o-iZ-13R" appends="YES" id="dgx-IX-v8C"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="addressLbl" destination="451-Xr-r1e" id="8Ny-oL-fgy"/>
@@ -675,6 +679,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wu3-7Y-01w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="53o-iZ-13R">
+                    <connections>
+                        <action selector="onRightSwipe:" destination="Vg3-gh-zlI" id="zVS-nE-UKX"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2702.898550724638" y="839.73214285714278"/>
         </scene>
@@ -725,7 +734,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mL-rZ-OdX">
-                                <rect key="frame" x="40" y="684" width="334" height="40"/>
+                                <rect key="frame" x="40" y="733" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="efq-0h-7Og"/>
                                 </constraints>
@@ -753,13 +762,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="o0B-RL-oNn">
-                                <rect key="frame" x="20" y="479" width="374" height="185"/>
+                                <rect key="frame" x="20" y="479" width="374" height="234"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="systemGray2Color"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JNv-px-CLp"/>
                         <color key="backgroundColor" name="background"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="JNv-px-CLp" firstAttribute="trailing" secondItem="5Us-gZ-UbM" secondAttribute="trailing" constant="20" id="1ef-F9-aOS"/>
                             <constraint firstItem="JNv-px-CLp" firstAttribute="trailing" secondItem="pVk-Ke-RdU" secondAttribute="trailing" constant="20" id="2eR-fu-yFq"/>
@@ -790,6 +800,9 @@
                             <constraint firstItem="JNv-px-CLp" firstAttribute="bottom" secondItem="9mL-rZ-OdX" secondAttribute="bottom" constant="40" id="xXT-Dn-qyQ"/>
                             <constraint firstItem="tln-hw-L8K" firstAttribute="leading" secondItem="XUk-ZV-x4f" secondAttribute="trailing" constant="22" id="zX5-OY-KSa"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="sqf-09-GQH" appends="YES" id="nIt-0G-u3l"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="profile" image="person" catalog="system" id="X0N-hF-uSb"/>
                     <navigationItem key="navigationItem" id="Ezb-aw-5QT"/>
@@ -803,6 +816,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muD-O5-Isg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="sqf-09-GQH" userLabel="Right Swipe Gesture">
+                    <connections>
+                        <action selector="onRightSwipe:" destination="O7h-8h-ana" id="QA3-ah-FEU"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2702.898550724638" y="-563.16964285714278"/>
         </scene>
@@ -811,7 +829,7 @@
             <objects>
                 <viewController storyboardIdentifier="addressID" id="87m-8i-YuJ" customClass="AddressVC" customModule="Courtyard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oot-bi-GVB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Building No" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vyd-6U-JaE">
@@ -893,7 +911,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yV-hq-0vA">
-                                <rect key="frame" x="40" y="684" width="334" height="40"/>
+                                <rect key="frame" x="40" y="728" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="VPV-7U-5Qf"/>
                                 </constraints>
@@ -1116,11 +1134,11 @@
             <objects>
                 <viewController storyboardIdentifier="orderID" title="Order" id="BfY-1F-qWO" customClass="PaymentVC" customModule="Courtyard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KY3-HI-TBf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Courtyard Cleaning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SG1-GG-yoK">
-                                <rect key="frame" x="20" y="69" width="374" height="40"/>
+                                <rect key="frame" x="20" y="25" width="374" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="qVm-Qy-Z8f"/>
                                 </constraints>
@@ -1129,10 +1147,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RbZ-YW-ZJZ">
-                                <rect key="frame" x="20" y="129" width="374" height="530"/>
+                                <rect key="frame" x="20" y="85" width="374" height="618"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPB-BZ-wOQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="102"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="119.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order Ref" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdb-zC-ggi">
                                                 <rect key="frame" x="10" y="10" width="354" height="20.5"/>
@@ -1158,7 +1176,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="D2n-83-Bgb">
-                                        <rect key="frame" x="0.0" y="107" width="374" height="102"/>
+                                        <rect key="frame" x="0.0" y="124.5" width="374" height="119.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date and Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2e-hy-auQ">
                                                 <rect key="frame" x="10" y="10" width="354" height="20.5"/>
@@ -1184,7 +1202,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toW-N5-hw4">
-                                        <rect key="frame" x="0.0" y="214" width="374" height="102"/>
+                                        <rect key="frame" x="0.0" y="249" width="374" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dp-Pd-ZbT">
                                                 <rect key="frame" x="10" y="10" width="354" height="20.5"/>
@@ -1210,7 +1228,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEh-P5-vSv">
-                                        <rect key="frame" x="0.0" y="321" width="374" height="102"/>
+                                        <rect key="frame" x="0.0" y="374" width="374" height="119.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGO-ot-UFN">
                                                 <rect key="frame" x="10" y="10" width="354" height="20.5"/>
@@ -1236,7 +1254,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLu-la-ReO">
-                                        <rect key="frame" x="0.0" y="428" width="374" height="102"/>
+                                        <rect key="frame" x="0.0" y="498.5" width="374" height="119.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYp-NS-OFB">
                                                 <rect key="frame" x="10" y="10" width="354" height="20.5"/>
@@ -1264,7 +1282,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPV-ae-P5B">
-                                <rect key="frame" x="40" y="684" width="334" height="40"/>
+                                <rect key="frame" x="40" y="728" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="UUH-eh-2NR"/>
                                 </constraints>
@@ -1399,10 +1417,10 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar-->
         <scene sceneID="EYO-Gy-bbJ">
             <objects>
-                <tabBarController storyboardIdentifier="tabID" automaticallyAdjustsScrollViewInsets="NO" id="BmD-0c-alY" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabID" automaticallyAdjustsScrollViewInsets="NO" id="BmD-0c-alY" customClass="TabBar" customModule="Courtyard" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="rMk-dF-tQh"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backgroundImage="logo-1" id="ku0-ka-eXg">
@@ -1422,7 +1440,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nSw-SL-iu6"/>
+        <segue reference="Dlv-gn-iz1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
