@@ -43,7 +43,7 @@ class PaymentVC: UIViewController {
         let alertController = UIAlertController(title: "Payment", message: msg, preferredStyle: .alert)
 
         let alertAction = UIAlertAction(title: "Pay", style: .destructive) { _ in
-            self.orderRef?.setData(["paymentState" : true], merge: true)
+            self.orderRef?.setData(["paymentStatus" : true], merge: true)
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))

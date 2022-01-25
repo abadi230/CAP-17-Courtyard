@@ -51,7 +51,12 @@ class OrderDetails: UIViewController {
         serviceStatusLbl.text = "Complated"
 //        paymentSwitch
     }
-    
+    @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
+        let vc = (storyboard?.instantiateViewController(withIdentifier: "AdminHome"))!
+        vc.modalPresentationStyle = .fullScreen
+//        navigationController?.show(vc, sender: self)
+        present(vc, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

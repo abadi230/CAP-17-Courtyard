@@ -198,30 +198,30 @@ class User: Codable {
         }
     }
 
-    func getAddresses(completion: @escaping ([Address],[DocumentReference])-> Void) {
+    func getAddresses(completion: @escaping ([Address],[DocumentReference],DocumentReference)-> Void) {
         var userAddress = [Address]()
         var references : [DocumentReference] = []
+        var primeRef : DocumentReference?
         guard let addressRef = self.addressesRef else {return}
             for addressID in addressRef {
-//                print("--------getAddresses------------")
-//
-//                print("--------addressId------------")
-//                print(addressID.documentID)
-//                print("--------number of adderssesRef------------")
-//                print(addressRef.count)
+
                 addressID.getDocument { addressDoc, err in
                     do {
                         if (err == nil) {
                             guard let address = try addressDoc?.data(as: Address.self) else {return}
                             userAddress.append(address)
-//                            print("--------number of addersses added------------")
-//                            print(userAddress.count)
+
                             references.append(addressDoc!.reference)
+                            if address.isPrime == true {
+                                primeRef = addressDoc!.reference
+                            }
                         }
                     } catch {
                         print (error.localizedDescription)
                     }
-                    completion(userAddress, references)
+                    if let primeRef = primeRef {
+                        completion(userAddress, references, primeRef)
+                    }
                 }
             }
         
