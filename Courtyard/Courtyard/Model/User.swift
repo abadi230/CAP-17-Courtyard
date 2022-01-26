@@ -145,7 +145,8 @@ class User: Codable {
     func setOrder(service: Service, servicePrice: Double, addressRef: DocumentReference) -> (DocumentReference, Order){
         let db = Firestore.firestore()
         
-        let serviceRef = try? db.collection("Service").addDocument(from: service)
+        let newService = Service(name: service.name.LocalizableLanguage(name: "en"), date: service.date, price: service.price)
+        let serviceRef = try? db.collection("Service").addDocument(from: newService)
         let total = servicePrice + 0.15 // 15% tax
         
         // create Order
