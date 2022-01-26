@@ -121,7 +121,6 @@ class ProfileVC: UIViewController {
         
         // asign order reference to orderRef and order
         if let service = service{
-            print("I'm here \(addressRef)")
 
             (orderRef, order) = user.setOrder(service: service, servicePrice: service.price, addressRef: addressRef)
         }

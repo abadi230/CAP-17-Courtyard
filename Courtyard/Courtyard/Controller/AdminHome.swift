@@ -33,6 +33,9 @@ class AdminHome: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        print("----------------------------------i'm here")
+        let d1 = fromDP.date.formatted(date: .numeric, time: .shortened)
+        print(d1)
         
         let image1 = UIImage(named: "cortyard")
         let image2 = UIImage(named: "roof of house")
@@ -57,10 +60,43 @@ class AdminHome: UIViewController {
             self.totalLbl.text = String(self.total)
         }
     }
+    
+    @IBAction func fromDPAction(_ sender: UIDatePicker) {
+        print(sender.date.formatted(date: .numeric, time: .shortened))
+        print("From: ", fromDP.date.formatted(date: .abbreviated, time: .shortened))
+        //
+        FilterDate()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func toDPAction(_ sender: UIDatePicker) {
+        print("To: ", toDP.date.formatted(date: .abbreviated, time: .shortened))
+        FilterDate()
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func logOutPressed(_ sender: UIButton) {
         
         try! Auth.auth().signOut()
         dismiss(animated: true, completion: nil)
+    }
+    /*
+     all orders
+     check date equal or bigger than formDP and equal or less than toDP
+     */
+    // filter depends on Date
+    func FilterDate(){
+        let sortedOrder = orders.sorted(by: { x, y in
+            x.date < y.date
+        })
+        ordersFilter = sortedOrder.filter { order in
+            let from = fromDP.date.formatted(date: .numeric, time: .omitted)
+            let to = toDP.date.formatted(date: .numeric, time: .omitted)
+            let orderDate = order.date.formatted(date: .numeric, time: .omitted)
+            return orderDate >= from && orderDate <= to
+        }
+        isFiltered = true
+        ordersTV.reloadData()
     }
 }
 // MARK: TableView
@@ -92,7 +128,7 @@ extension AdminHome: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderTVCell
         
         let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
-//        print("address DocID", order.addressRef?.documentID)
+
         Admin.shared.getUserDetail(userRef: order.userId) { user in
             self.userInfo = user
             
@@ -102,7 +138,7 @@ extension AdminHome: UITableViewDataSource {
             self.address = address
             cell.districLbl.text = self.address.district
         }
-        cell.startedDateLbl.text = "\(order.date)"
+        cell.startedDateLbl.text = "\(order.date.formatted(date: .abbreviated, time: .shortened))"
         cell.userIDLbl.text = order.userId!.documentID
         cell.paymentState.text = order.paymentStatus ? "Paid" : "Unpaied"
         cell.totalLbl.text = "SAR \(order.total)"
@@ -123,8 +159,10 @@ extension AdminHome: UICollectionViewDelegate{
             self.ordersTV.reloadData()
         }
     }
+    
+    // filter depends on service
     func getFilteredOrder(index: Int, complation: @escaping([Order])->Void){
-//        ordersFilter.removeAll()
+
         var filterO = [Order]()
         orders.forEach { order in
             order.serviceRef?.getDocument(completion: { doc, err in
@@ -141,28 +179,8 @@ extension AdminHome: UICollectionViewDelegate{
             })
         }
     }
-//    func test(){
-//        print("i am here")
-//        ordersFilter.removeAll()
-//
-//        for x in orders {
-//            x.serviceId?.getDocument(completion: { DocumentSnapshot, error in
-//
-//                guard let data = DocumentSnapshot?.data() else {return}
-//
-//                if data["name"] as! String == self.services[self.index]{
-//                    print(data["name"])
-//
-//                    self.isFiltered = true
-//                    self.ordersFilter.append(x)
-//                    self.ordersTV.reloadData()
-//                }
-//            })
-//        }
-//        print(self.ordersFilter)
-//
-//
-//    }
+
+    
 }
 
 

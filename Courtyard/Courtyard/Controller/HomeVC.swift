@@ -68,31 +68,38 @@ class HomeVC: UIViewController {
    
     @IBAction func onClickBook(_ sender: UIButton) {
         if txtBox.text != "" && datePicker.date != Date.now {
-            
-//            guard let proVC = self.tabBarController?.viewControllers?[2] else { return  }
-//            let tab = storyboard?.instantiateViewController(withIdentifier: "tabID")
-//            let vc = tab?.tabBarController?.viewControllers![2] as! ProfileVC
-//            vc.service = service
-//            present(vc, animated: true, completion: nil)
-
              
             performSegue(withIdentifier: "profileID", sender: self)
             /* send data to tab bar then send it again to VC */
             
             
         }else{
-            print("Select service and Date")
+            
+            showAlert("Please select Service and Date")
         }
     }
     
+    @IBAction func datePickerAction(_ sender: UIDatePicker) {
+        
+         dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func onClickLogOut(_ sender: UIButton) {
         try! Auth.auth().signOut()
-        dismiss(animated: true, completion: nil)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "logInId") as! LogIn
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
     }
 //    synchronizeTitleAndSelectedItem()
     
-    
+    func showAlert(_ msg: String){
+        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(alertAction)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
