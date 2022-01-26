@@ -15,7 +15,7 @@ class AdminHome: UIViewController {
     var ordersFilter: [Order] = []
     var isFiltered = false
     var total = 0.0
-    
+    let currency = NSLocalizedString("SAR", comment: "")
     var userInfo : User!
     var address : Address!
     
@@ -32,10 +32,9 @@ class AdminHome: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        print("----------------------------------i'm here")
-        let d1 = fromDP.date.formatted(date: .numeric, time: .shortened)
-        print(d1)
+//
+//        let d1 = fromDP.date.formatted(date: .numeric, time: .shortened)
+//        print(d1)
         
         let image1 = UIImage(named: "cortyard")
         let image2 = UIImage(named: "roof of house")
@@ -62,15 +61,15 @@ class AdminHome: UIViewController {
     }
     
     @IBAction func fromDPAction(_ sender: UIDatePicker) {
-        print(sender.date.formatted(date: .numeric, time: .shortened))
-        print("From: ", fromDP.date.formatted(date: .abbreviated, time: .shortened))
+//        print(sender.date.formatted(date: .numeric, time: .shortened))
+//        print("From: ", fromDP.date.formatted(date: .abbreviated, time: .shortened))
         //
         FilterDate()
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func toDPAction(_ sender: UIDatePicker) {
-        print("To: ", toDP.date.formatted(date: .abbreviated, time: .shortened))
+//        print("To: ", toDP.date.formatted(date: .abbreviated, time: .shortened))
         FilterDate()
         dismiss(animated: true, completion: nil)
     }
@@ -107,7 +106,7 @@ extension AdminHome: UITableViewDelegate {
         let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
         
         Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
-            vc.serviceNameLbl.text = service.name
+            vc.serviceNameLbl.text = NSLocalizedString(service.name, comment: "")
         }
         
         vc.order = order
@@ -140,8 +139,9 @@ extension AdminHome: UITableViewDataSource {
         }
         cell.startedDateLbl.text = "\(order.date.formatted(date: .abbreviated, time: .shortened))"
         cell.userIDLbl.text = order.userId!.documentID
-        cell.paymentState.text = order.paymentStatus ? "Paid" : "Unpaied"
-        cell.totalLbl.text = "SAR \(order.total)"
+        cell.paymentState.text = order.paymentStatus ? NSLocalizedString("Paid", comment: "") : NSLocalizedString("Unpaied", comment: "")
+        
+        cell.totalLbl.text = "\(currency) \(order.total)"
         return cell
     }
     
@@ -173,7 +173,7 @@ extension AdminHome: UICollectionViewDelegate{
                     self.total = filterO.reduce(0) { x, y in
                         x + y.total
                     }
-                    self.totalLbl.text = String(self.total)
+                    self.totalLbl.text = "\(self.currency) \(String(self.total))"
                 }
                 complation(filterO)
             })

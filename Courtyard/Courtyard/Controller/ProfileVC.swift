@@ -41,19 +41,17 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
-        
+        navigationItem.hidesBackButton = true
         addressesTV.delegate = self
         addressesTV.dataSource = self
         addressesTV.register(UINib(nibName: "AddressCell", bundle: nil), forCellReuseIdentifier: "addressCell")
         
 
-        print("---------------didLoad--------------------")
-//         service is grapped from homeVC
-        print("service: ", service ?? "unable to get data")
-        print("addresses: ", addresses)
-//        print(self.tabBarController?.viewControllers)
-//        guard let homeVC = self.tabBarController?.viewControllers?[1] else { return  }
-//        self.tabBarController?.viewControllers
+//        print("---------------didLoad--------------------")
+////         service is grapped from homeVC
+//        print("service: ", service ?? "unable to get data")
+//        print("addresses: ", addresses)
+
     }
     
     func fetchData(){
@@ -76,7 +74,7 @@ class ProfileVC: UIViewController {
         
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
-        let homeVC = (storyboard?.instantiateViewController(withIdentifier: "homeID"))!
+        let homeVC = (storyboard?.instantiateViewController(withIdentifier: "tabID"))!
         homeVC.modalPresentationStyle = .fullScreen
 
 //        let vc = tabBarController?.viewControllers![2]
@@ -111,7 +109,6 @@ class ProfileVC: UIViewController {
                 msg = "Please choose the service first"
             }
             if primeAddress == nil { msg = "Please Add Address first"}
-            print("service is: \(String(describing: service))")
             
             showAlert(msg)
         }
@@ -127,8 +124,8 @@ class ProfileVC: UIViewController {
     }
     
     func showAlert(_ msg: String){
-        let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default) { [self] _ in
+        let alertController = UIAlertController(title: nil, message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { [self] _ in
             if service != nil && primeAddress != nil{
 
                 self.performSegue(withIdentifier: "orderID", sender: nil)
@@ -164,11 +161,11 @@ class ProfileVC: UIViewController {
         case "orderID":
             let paymentVC = segue.destination as! PaymentVC
             //ref, date, address, paymentState
-            paymentVC.serviceTitle = service!.name + "Cleaning"
+            paymentVC.serviceTitle = service!.name + " " + NSLocalizedString("Cleaning", comment: "")
             paymentVC.orderRef = orderRef
             paymentVC.date = "\(String(describing: service!.date))"
             paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"
-            paymentVC.paymentState = order!.paymentStatus ? "Paied" : "Pending"
+            paymentVC.paymentState = order!.paymentStatus ? NSLocalizedString("Paied", comment: "") : NSLocalizedString("Pending", comment: "")
             paymentVC.price = order.total
         case "addressID":
             let addressVC = segue.destination as! AddressVC
@@ -228,7 +225,7 @@ extension ProfileVC: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let actionDelete = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+        let actionDelete = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { action, view, completionHandler in
             //remove address reference from User class and collection also remove address form Addresses collection
             self.user.removeAddress(addressRef: self.addressesRef![indexPath.row])
             // remove address from table view

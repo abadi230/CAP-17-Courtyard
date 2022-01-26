@@ -15,16 +15,20 @@ class HomeVC: UIViewController {
 
     let db = Firestore.firestore()
     var user = User()
+    var lang = "en"
     var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
     var service: Service?
     var price: String = "0"
+    
+    var tuggleBtn = false
+    
     // TODO: adapt pull down Button and Pop Up Button
     @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
-//    @IBOutlet weak var dropDown: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
     var dropDown = UIPickerView()
     @IBOutlet weak var priceLbl: UILabel!
+    
     
     override func viewWillAppear(_ animated: Bool) {
 //        datePicker.date = Date.now
@@ -32,7 +36,7 @@ class HomeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         priceLbl.text = price
         fetchData()
         configDatePicker()
@@ -40,12 +44,21 @@ class HomeVC: UIViewController {
         dropDown.dataSource = self
         txtBox.inputView = dropDown
         
+        
     }
+
+    @IBAction func onClickLanguageBtn(_ sender: UIBarButtonItem) {
+        
+        tuggleBtn = !tuggleBtn
+        sender.title = tuggleBtn ? "en" : "ar"
+        lang = !tuggleBtn ? "en" : "ar"
+    }
+    
     func fetchData(){
         //from DB
         user.getDataClosure(completion: { user  in
-            
-            self.welcomLbl.text = "Welcome \(user.name!)"
+            let welcome = "Welcome".LocalizableLanguage(name: self.lang)
+            self.welcomLbl.text = "\(welcome) \(user.name!)"
         })
     }
 
@@ -55,11 +68,10 @@ class HomeVC: UIViewController {
             print(self.datePicker.date)
             if self.txtBox.text != nil{
                 
-                service = user.setService(name: txtBox.text!, date: datePicker.date)
-                price = "SAR \(service!.price)"
+                service = user.setService(name: txtBox.text!.LocalizableLanguage(name: "en"), date: datePicker.date)
+                let currency = "SAR".LocalizableLanguage(name: lang)
+                price = "\(currency) \(service!.price)"
                 priceLbl.text = price
-            }else{
-                print("Select Service Please")
             }
         }
         datePicker.addAction(action, for: .valueChanged)
@@ -67,15 +79,12 @@ class HomeVC: UIViewController {
         
    
     @IBAction func onClickBook(_ sender: UIButton) {
-        if txtBox.text != "" && datePicker.date != Date.now {
-             
+        if txtBox.text != "" && datePicker.date > Date.now {
+            
             performSegue(withIdentifier: "profileID", sender: self)
-            /* send data to tab bar then send it again to VC */
-            
-            
         }else{
             
-            showAlert("Please select Service and Date")
+            showAlert("Please select Service and Date".LocalizableLanguage(name: lang))
         }
     }
     
@@ -94,7 +103,7 @@ class HomeVC: UIViewController {
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default)
+        let alertAction = UIAlertAction(title: "OK".LocalizableLanguage(name: lang), style: .default)
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
@@ -130,15 +139,15 @@ extension HomeVC : UIPickerViewDataSource {
 }
 extension HomeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        self.txtBox.endEditing(true)
-//        txtBox.text = ""
-        return services[row]
+
+        return services[row].LocalizableLanguage(name: lang)
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.txtBox.text = services[row]
+        self.txtBox.text = services[row].LocalizableLanguage(name: lang)
         self.txtBox.resignFirstResponder()
 
-//        self.dropDown.isHidden = true
+
     }
 }
+

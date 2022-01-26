@@ -47,7 +47,7 @@ class RegisterVC: UIViewController {
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: "Message", message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default, handler: nil)
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
