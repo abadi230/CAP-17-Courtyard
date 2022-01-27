@@ -1,18 +1,18 @@
 
 /* Class = "UILabel"; text = "Current Address"; ObjectID = "0Dp-Pd-ZbT"; */
-"0Dp-Pd-ZbT.text" = "العنوان الحالي:";
+"0Dp-Pd-ZbT.text" = "Current Address";
 
 /* Class = "UILabel"; text = "SAR 100"; ObjectID = "0rE-xV-An0"; */
-"0rE-xV-An0.text" = "ريال 100";
+"0rE-xV-An0.text" = "SAR 100";
 
 /* Class = "UILabel"; text = "Register"; ObjectID = "1Bn-WF-3o4"; */
-"1Bn-WF-3o4.text" = "تسجيل";
+"1Bn-WF-3o4.text" = "Register";
 
 /* Class = "UILabel"; text = "Address Details"; ObjectID = "1WI-kh-Pnt"; */
-"1WI-kh-Pnt.text" = "عناويني:";
+"1WI-kh-Pnt.text" = "Address Details";
 
 /* Class = "UIButton"; configuration.title = "Add Address"; ObjectID = "2yV-hq-0vA"; */
-"2yV-hq-0vA.configuration.title" = "أضف عنوان";
+"2yV-hq-0vA.configuration.title" = "Add Address";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "2yV-hq-0vA"; */
 "2yV-hq-0vA.normalTitle" = "Button";
@@ -21,16 +21,16 @@
 "451-Xr-r1e.text" = "246 Queen's Road Beeston";
 
 /* Class = "UILabel"; text = "Complated"; ObjectID = "4lg-fa-r8Q"; */
-"4lg-fa-r8Q.text" = "منتهي";
+"4lg-fa-r8Q.text" = "Complated";
 
 /* Class = "UILabel"; text = "Abdullah Bajaman"; ObjectID = "51g-cH-E56"; */
 "51g-cH-E56.text" = "Abdullah Bajaman";
 
 /* Class = "UILabel"; text = "Full Name"; ObjectID = "5MA-qM-Amc"; */
-"5MA-qM-Amc.text" = "الاسم كامل:";
+"5MA-qM-Amc.text" = "Full Name";
 
 /* Class = "UITextField"; placeholder = "Full Name"; ObjectID = "5Us-gZ-UbM"; */
-"5Us-gZ-UbM.placeholder" = "الاسم كامل";
+"5Us-gZ-UbM.placeholder" = "Full Name";
 
 /* Class = "UITextField"; text = "Abdullah"; ObjectID = "5Us-gZ-UbM"; */
 "5Us-gZ-UbM.text" = "Abdullah";
@@ -39,46 +39,46 @@
 "8vV-Hr-ULP.title" = "Item";
 
 /* Class = "UILabel"; text = "SAR 100"; ObjectID = "94U-jT-hxV"; */
-"94U-jT-hxV.text" = "ريال 100";
+"94U-jT-hxV.text" = "SAR 100";
 
 /* Class = "UIButton"; configuration.title = "Book Now"; ObjectID = "9mL-rZ-OdX"; */
-"9mL-rZ-OdX.configuration.title" = "احجز الآن";
+"9mL-rZ-OdX.configuration.title" = "Book Now";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "9mL-rZ-OdX"; */
 "9mL-rZ-OdX.normalTitle" = "Button";
 
 /* Class = "UIViewController"; title = "Order"; ObjectID = "BfY-1F-qWO"; */
-"BfY-1F-qWO.title" = "طلب";
+"BfY-1F-qWO.title" = "Order";
 
 /* Class = "UILabel"; text = "Additional No"; ObjectID = "BkU-jG-3qz"; */
-"BkU-jG-3qz.text" = "الرقم الإضافي:";
+"BkU-jG-3qz.text" = "Additional No";
 
 /* Class = "UILabel"; text = "Date and Time"; ObjectID = "C2e-hy-auQ"; */
-"C2e-hy-auQ.text" = "التاريخ والوقت:";
+"C2e-hy-auQ.text" = "Date and Time";
 
 /* Class = "UITextField"; text = "Palace"; ObjectID = "E8g-X9-Nco"; */
 "E8g-X9-Nco.text" = "Palace";
 
 /* Class = "UILabel"; text = "Pending"; ObjectID = "FSL-Ja-vj9"; */
-"FSL-Ja-vj9.text" = "قيد الانتظار";
+"FSL-Ja-vj9.text" = "Pending";
 
 /* Class = "UILabel"; text = "Hello "; ObjectID = "FWk-CN-SsV"; */
-"FWk-CN-SsV.text" = "مرحبا ";
+"FWk-CN-SsV.text" = "Hello ";
 
 /* Class = "UILabel"; text = "Total:"; ObjectID = "G52-Jo-BTR"; */
-"G52-Jo-BTR.text" = "الإجمالي:";
+"G52-Jo-BTR.text" = "Total:";
 
 /* Class = "UILabel"; text = "10/10/2022 10:10"; ObjectID = "GSE-U9-rQX"; */
 "GSE-U9-rQX.text" = "10/10/2022 10:10";
 
 /* Class = "UILabel"; text = "Order Ref"; ObjectID = "Gdb-zC-ggi"; */
-"Gdb-zC-ggi.text" = "رقم الطلب:";
+"Gdb-zC-ggi.text" = "Order Ref";
 
 /* Class = "UILabel"; text = "a@a.com"; ObjectID = "Gdr-mB-JpS"; */
 "Gdr-mB-JpS.text" = "a@a.com";
 
 /* Class = "UILabel"; text = "Stared Date"; ObjectID = "I0x-C1-dgK"; */
-"I0x-C1-dgK.text" = "تاريخ التنفيذ:";
+"I0x-C1-dgK.text" = "Stared Date";
 
 /* Class = "UILabel"; text = "246 Queen's Road, Beeston"; ObjectID = "JCu-eG-ifO"; */
 "JCu-eG-ifO.text" = "246 Queen's Road, Beeston";
@@ -87,19 +87,19 @@
 "JbX-kq-XAc.text" = "30/01/2022 10:00am";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "KPW-QK-fiN"; */
-"KPW-QK-fiN.text" = "العنوان:";
+"KPW-QK-fiN.text" = "Address";
 
 /* Class = "UILabel"; text = "Date:"; ObjectID = "KkY-1X-uFE"; */
-"KkY-1X-uFE.text" = "التاريخ والوقت:";
+"KkY-1X-uFE.text" = "Date:";
 
 /* Class = "UITextField"; text = "Queens Road"; ObjectID = "M6j-SB-eNi"; */
 "M6j-SB-eNi.text" = "Queens Road";
 
 /* Class = "UITabBarItem"; title = "Addresses"; ObjectID = "MKt-Hu-e4f"; */
-"MKt-Hu-e4f.title" = "عناوين";
+"MKt-Hu-e4f.title" = "Addresses";
 
 /* Class = "UIButton"; configuration.title = "Pay Now"; ObjectID = "MPV-ae-P5B"; */
-"MPV-ae-P5B.configuration.title" = "ادفع الآن";
+"MPV-ae-P5B.configuration.title" = "Pay Now";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MPV-ae-P5B"; */
 "MPV-ae-P5B.normalTitle" = "Button";
@@ -108,13 +108,13 @@
 "MPX-C8-knA.text" = "Beeston";
 
 /* Class = "UILabel"; text = "New to Courtyard App?"; ObjectID = "MXV-sG-Ku6"; */
-"MXV-sG-Ku6.text" = "جديد في موقع فناء؟";
+"MXV-sG-Ku6.text" = "New to Courtyard App?";
 
 /* Class = "UILabel"; text = "Payment Status"; ObjectID = "MYp-NS-OFB"; */
-"MYp-NS-OFB.text" = "حالة الدفع:";
+"MYp-NS-OFB.text" = "Payment Status";
 
 /* Class = "UIButton"; configuration.title = "Register"; ObjectID = "Mnm-0g-SAX"; */
-"Mnm-0g-SAX.configuration.title" = "تسجيل";
+"Mnm-0g-SAX.configuration.title" = "Register";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Mnm-0g-SAX"; */
 "Mnm-0g-SAX.normalTitle" = "Button";
@@ -123,76 +123,76 @@
 "OfK-ut-24v.normalTitle" = "Button";
 
 /* Class = "UITabBarItem"; title = "Contact Us"; ObjectID = "PdO-oe-PWe"; */
-"PdO-oe-PWe.title" = "اتصل بنا";
+"PdO-oe-PWe.title" = "Contact Us";
 
 /* Class = "UILabel"; text = "From"; ObjectID = "QQH-ZH-4Va"; */
-"QQH-ZH-4Va.text" = "من:";
+"QQH-ZH-4Va.text" = "From";
 
 /* Class = "UILabel"; text = "20000"; ObjectID = "QWh-Tg-ZZq"; */
 "QWh-Tg-ZZq.text" = "20000";
 
 /* Class = "UILabel"; text = "Payment State"; ObjectID = "QYJ-Vr-KfY"; */
-"QYJ-Vr-KfY.text" = "حالة الدفع:";
+"QYJ-Vr-KfY.text" = "Payment State";
 
 /* Class = "UITextField"; placeholder = "Press to Select Service"; ObjectID = "RUY-RB-9ha"; */
-"RUY-RB-9ha.placeholder" = "اضغط هنا لاختيار الخدمة";
+"RUY-RB-9ha.placeholder" = "Press to Select Service";
 
 /* Class = "UILabel"; text = "Courtyard Cleaning"; ObjectID = "SG1-GG-yoK"; */
 "SG1-GG-yoK.text" = "Courtyard Cleaning";
 
 /* Class = "UILabel"; text = "Zip Code"; ObjectID = "Sud-Gx-YBF"; */
-"Sud-Gx-YBF.text" = "الرمز البريدي:";
+"Sud-Gx-YBF.text" = "Zip Code";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "VPg-r6-OVc"; */
-"VPg-r6-OVc.placeholder" = "الرقم السري";
+"VPg-r6-OVc.placeholder" = "Password";
 
 /* Class = "UILabel"; text = "Building No"; ObjectID = "Vyd-6U-JaE"; */
-"Vyd-6U-JaE.text" = "رقم المبنى:";
+"Vyd-6U-JaE.text" = "Building No";
 
 /* Class = "UITabBarItem"; title = "profile"; ObjectID = "X0N-hF-uSb"; */
-"X0N-hF-uSb.title" = "حسابي";
+"X0N-hF-uSb.title" = "profile";
 
 /* Class = "UILabel"; text = "Mobile No"; ObjectID = "XUk-ZV-x4f"; */
-"XUk-ZV-x4f.text" = "رقم الجوال:";
+"XUk-ZV-x4f.text" = "Mobile No";
 
 /* Class = "UILabel"; text = "State"; ObjectID = "Xd0-1e-6NJ"; */
-"Xd0-1e-6NJ.text" = "حالة الطلب";
+"Xd0-1e-6NJ.text" = "State";
 
 /* Class = "UILabel"; text = "Total"; ObjectID = "YGO-ot-UFN"; */
-"YGO-ot-UFN.text" = "المجموع:";
+"YGO-ot-UFN.text" = "Total";
 
 /* Class = "UIButton"; configuration.title = "send"; ObjectID = "YW3-Uv-iWH"; */
-"YW3-Uv-iWH.configuration.title" = "ارسل";
+"YW3-Uv-iWH.configuration.title" = "send";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "YW3-Uv-iWH"; */
 "YW3-Uv-iWH.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Paied"; ObjectID = "ZPv-bF-LCE"; */
-"ZPv-bF-LCE.text" = "تم الدفع";
+"ZPv-bF-LCE.text" = "Paied";
 
 /* Class = "UILabel"; text = "District Name"; ObjectID = "ZbY-tP-7OB"; */
-"ZbY-tP-7OB.text" = "اسم الحي:";
+"ZbY-tP-7OB.text" = "District Name";
 
 /* Class = "UILabel"; text = "To"; ObjectID = "aBO-04-6UZ"; */
-"aBO-04-6UZ.text" = "إلى:";
+"aBO-04-6UZ.text" = "To";
 
-/* Class = "UITextField"; placeholder = "Passowrd"; ObjectID = "aD2-pT-hNI"; */
-"aD2-pT-hNI.placeholder" = "الرقم السري";
+/* Class = "UITextField"; placeholder = "Pasowerd"; ObjectID = "aD2-pT-hNI"; */
+"aD2-pT-hNI.placeholder" = "Pasowerd";
 
 /* Class = "UILabel"; text = "Price: "; ObjectID = "bTt-SY-JRd"; */
-"bTt-SY-JRd.text" = "السعر: ";
+"bTt-SY-JRd.text" = "Price: ";
 
 /* Class = "UILabel"; text = "Al Shafa"; ObjectID = "bxM-TZ-4mP"; */
 "bxM-TZ-4mP.text" = "Al Shafa";
 
 /* Class = "UITabBarItem"; title = "Home"; ObjectID = "dDp-N5-hN8"; */
-"dDp-N5-hN8.title" = "الرئيسية";
+"dDp-N5-hN8.title" = "Home";
 
 /* Class = "UILabel"; text = "Service"; ObjectID = "dch-jk-hpb"; */
-"dch-jk-hpb.text" = "عنوان الخدمة:";
+"dch-jk-hpb.text" = "Service";
 
 /* Class = "UIButton"; configuration.title = "Forgot Password?"; ObjectID = "eOe-2S-fmP"; */
-"eOe-2S-fmP.configuration.title" = "نسيت الرقم السري؟";
+"eOe-2S-fmP.configuration.title" = "Forgot Password?";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "eOe-2S-fmP"; */
 "eOe-2S-fmP.normalTitle" = "Button";
@@ -201,13 +201,13 @@
 "erG-Qy-p9w.text" = "100";
 
 /* Class = "UIButton"; configuration.title = "Continu To Order"; ObjectID = "fFr-JC-g9E"; */
-"fFr-JC-g9E.configuration.title" = "اضغط للاستمرار";
+"fFr-JC-g9E.configuration.title" = "Continu To Order";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fFr-JC-g9E"; */
 "fFr-JC-g9E.normalTitle" = "Button";
 
 /* Class = "UIButton"; configuration.title = "LOG IN"; ObjectID = "gOc-6d-iW0"; */
-"gOc-6d-iW0.configuration.title" = "تسجيل الدخول";
+"gOc-6d-iW0.configuration.title" = "LOG IN";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "gOc-6d-iW0"; */
 "gOc-6d-iW0.normalTitle" = "Button";
@@ -216,49 +216,49 @@
 "h6w-eT-HPO.title" = "ar";
 
 /* Class = "UIViewController"; title = "Home"; ObjectID = "i7T-8n-TQD"; */
-"i7T-8n-TQD.title" = "الرئيسية";
+"i7T-8n-TQD.title" = "Home";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kjO-Xy-QJ8"; */
 "kjO-Xy-QJ8.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Paied "; ObjectID = "kqG-v8-1fA"; */
-"kqG-v8-1fA.text" = "تم الدفع ";
+"kqG-v8-1fA.text" = "Paied ";
 
 /* Class = "UILabel"; text = "service name"; ObjectID = "lIk-UQ-mbM"; */
-"lIk-UQ-mbM.text" = "اسم الخدمة:";
+"lIk-UQ-mbM.text" = "service name";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "mAh-QO-YHT"; */
-"mAh-QO-YHT.placeholder" = "الاسم";
+"mAh-QO-YHT.placeholder" = "Name";
 
 /* Class = "UILabel"; text = "Mobile"; ObjectID = "mEk-aq-29i"; */
-"mEk-aq-29i.text" = "رقم الجوال:";
+"mEk-aq-29i.text" = "Mobile";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "md6-xZ-0TF"; */
-"md6-xZ-0TF.placeholder" = "البريد الالكتروني";
+"md6-xZ-0TF.placeholder" = "Email";
 
 /* Class = "UITextField"; text = "246"; ObjectID = "muC-cz-Bbc"; */
 "muC-cz-Bbc.text" = "246";
 
 /* Class = "UILabel"; text = "Type"; ObjectID = "nRM-Nb-Qhc"; */
-"nRM-Nb-Qhc.text" = "النوع:";
+"nRM-Nb-Qhc.text" = "Type";
 
 /* Class = "UILabel"; text = "Price"; ObjectID = "nXK-gZ-9Gx"; */
-"nXK-gZ-9Gx.text" = ":السعر";
+"nXK-gZ-9Gx.text" = "Price";
 
 /* Class = "UILabel"; text = "Individual Services"; ObjectID = "o8e-sG-sq4"; */
-"o8e-sG-sq4.text" = "الخدمات الفردية";
+"o8e-sG-sq4.text" = "Individual Services";
 
 /* Class = "UIViewController"; title = "Admin Home"; ObjectID = "o8o-yn-k6k"; */
-"o8o-yn-k6k.title" = "صفحة المسؤول";
+"o8o-yn-k6k.title" = "Admin Home";
 
 /* Class = "UILabel"; text = "Street Name"; ObjectID = "obR-2g-6AC"; */
-"obR-2g-6AC.text" = "اسم الشارع:";
+"obR-2g-6AC.text" = "Street Name";
 
 /* Class = "UILabel"; text = "100.00"; ObjectID = "ohz-Hp-Xh6"; */
 "ohz-Hp-Xh6.text" = "100.00";
 
 /* Class = "UILabel"; text = "My Profile"; ObjectID = "pVk-Ke-RdU"; */
-"pVk-Ke-RdU.text" = "الحساب الشخصي";
+"pVk-Ke-RdU.text" = "My Profile";
 
 /* Class = "UILabel"; text = "22\\01\\2022 09:00"; ObjectID = "pvu-6l-k2W"; */
 "pvu-6l-k2W.text" = "22\\01\\2022 09:00";
@@ -267,10 +267,10 @@
 "rQY-iM-hxu.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "WELCOME!"; ObjectID = "rcl-z6-MBL"; */
-"rcl-z6-MBL.text" = "مرحباً";
+"rcl-z6-MBL.text" = "WELCOME!";
 
 /* Class = "UILabel"; text = "Roof of House"; ObjectID = "sYR-CN-6gt"; */
-"sYR-CN-6gt.text" = "سطح المنزل";
+"sYR-CN-6gt.text" = "Roof of House";
 
 /* Class = "UITextField"; text = "92"; ObjectID = "sg3-Be-tP1"; */
 "sg3-Be-tP1.text" = "92";
@@ -279,22 +279,22 @@
 "tln-hw-L8K.text" = "0556006662";
 
 /* Class = "UITextField"; placeholder = "Mobile"; ObjectID = "uPK-Py-FsF"; */
-"uPK-Py-FsF.placeholder" = "رقم الجوال";
+"uPK-Py-FsF.placeholder" = "Mobile";
 
 /* Class = "UILabel"; text = "Name: "; ObjectID = "voi-5w-qkf"; */
-"voi-5w-qkf.text" = "الاسم: ";
+"voi-5w-qkf.text" = "Name: ";
 
 /* Class = "UITabBarItem"; title = "Home"; ObjectID = "vyv-XD-nC1"; */
-"vyv-XD-nC1.title" = "الرئيسية";
+"vyv-XD-nC1.title" = "Home";
 
 /* Class = "UILabel"; text = "Courtyard Cleaning"; ObjectID = "xo3-a9-kUR"; */
-"xo3-a9-kUR.text" = "تنظيف الفناء";
+"xo3-a9-kUR.text" = "Courtyard Cleaning";
 
 /* Class = "UILabel"; text = "0556006662"; ObjectID = "yFL-p4-sNu"; */
 "yFL-p4-sNu.text" = "0556006662";
 
 /* Class = "UIButton"; configuration.title = "Sign Up"; ObjectID = "zCW-q6-6mK"; */
-"zCW-q6-6mK.configuration.title" = "سجل";
+"zCW-q6-6mK.configuration.title" = "Sign Up";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "zCW-q6-6mK"; */
 "zCW-q6-6mK.normalTitle" = "Button";
@@ -303,4 +303,4 @@
 "zVh-9x-GiE.text" = "222";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "zkX-jl-bLs"; */
-"zkX-jl-bLs.placeholder" = "البريد الالكتروني";
+"zkX-jl-bLs.placeholder" = "Email";

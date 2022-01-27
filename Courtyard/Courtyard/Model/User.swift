@@ -146,6 +146,7 @@ class User: Codable {
         let db = Firestore.firestore()
         
         let newService = Service(name: service.name.LocalizableLanguage(name: "en"), date: service.date, price: service.price)
+        print(newService.name)
         let serviceRef = try? db.collection("Service").addDocument(from: newService)
         let total = servicePrice + 0.15 // 15% tax
         
@@ -159,7 +160,7 @@ class User: Codable {
     func setService(name: String, date: Date)->Service{
         var priceD : Double
 
-        switch name {
+        switch name.LocalizableLanguage(name: "en") {
         case "Courtyard":
             priceD = 100
         case "Roof of House":
@@ -169,7 +170,7 @@ class User: Codable {
         default:
             priceD = 100
         }
-        return Service(name: name, date: date, price: priceD)
+        return Service(name: name.LocalizableLanguage(name: "en"), date: date, price: priceD)
     }
     
     // MARK: Getter
