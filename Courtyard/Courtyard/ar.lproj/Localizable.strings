@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  Courtyard
+
+  Created by Abdullah Bajaman on 26/01/2022.
+  
+*/
+"Courtyard" = "فناء";
+"Roof of House" = "سطح المنزل";
+"Stairs" = "سلالم";
+"Reset your Passwrd from your Email" = "تم ارسال اعادة ضبط كلمة المرور إلى بريدك الالكتروني";
+"OK" = "حسناً";
+"Welcome" = "مرحباً";
+"SAR" = "ريال";
+"Please select Service and Date" = "فضلاً اختر الخدمة والتاريخ";
+"Your booking has been successfully completed" = "تم حجز طلبك بنجاح";
+"Please choose the service first" = "فضلاً اختر الخدمة أولاً";
+"Please Add Address first" = "فضلاً أضف عنوان";
+"Cleaning" = "تنظيف";
+"Paied" = "تم الدفع";
+"Pending" = "قيد الانتظار";
+"Delete" = "حذف";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+

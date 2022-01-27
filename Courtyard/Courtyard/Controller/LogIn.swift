@@ -40,7 +40,7 @@ class LogIn: UIViewController {
         Auth.auth().signIn(withEmail: emailTF.text!,
                            password: passwordTF.text!) { (user, error) in
             if(error != nil){
-                debugPrint(error ?? "Unable to Log in")
+                
                 self.showAlert(error?.localizedDescription ?? "")
             }else {
                 if Auth.auth().currentUser?.email != "ambajaman@gmail.com"{
@@ -55,10 +55,10 @@ class LogIn: UIViewController {
     @IBAction func onClickForgotPass(_ sender: UIButton) {
         Auth.auth().sendPasswordReset(withEmail: emailTF.text!) { error in
             if(error == nil){
-                debugPrint(error ?? "Unable to Log in")
+                
                 self.showAlert(error?.localizedDescription ?? "")
             }else{
-                self.showAlert("Reset your Passwrd form your Email")
+                self.showAlert(NSLocalizedString("Reset your Passwrd from your Email", comment: ""))
             }
         }
     }
@@ -92,3 +92,11 @@ class LogIn: UIViewController {
     
 }
 
+extension String{
+    func LocalizableLanguage(name: String) -> String{
+        let path = Bundle.main.path(forResource: name, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment:"")
+    }
+}
