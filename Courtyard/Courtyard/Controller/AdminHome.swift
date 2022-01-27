@@ -56,7 +56,7 @@ class AdminHome: UIViewController {
             self.total = orders.reduce(0) { x, y in
                 x + y.total
             }
-            self.totalLbl.text = String(self.total)
+            self.totalLbl.text = String(format: "%.2f", self.total)
         }
     }
     
@@ -173,7 +173,8 @@ extension AdminHome: UICollectionViewDelegate{
                     self.total = filterO.reduce(0) { x, y in
                         x + y.total
                     }
-                    self.totalLbl.text = "\(self.currency) \(String(self.total))"
+//                    self.totalLbl.text = "\(self.currency) \(String(self.total))"
+                    self.totalLbl.text = "\(self.currency) \(String(format: "%.2f", self.total))"
                 }
                 complation(filterO)
             })

@@ -5,6 +5,7 @@
   Created by Abdullah Bajaman on 26/01/2022.
   
 */
+
 "Courtyard" = "فناء";
 "Roof of House" = "سطح المنزل";
 "Stairs" = "سلالم";
@@ -20,9 +21,9 @@
 "Paied" = "تم الدفع";
 "Pending" = "قيد الانتظار";
 "Delete" = "حذف";
-"" = "";
-"" = "";
-"" = "";
+"Are you sure you want Pay for" = "هل ترغب بستديد المبلغ لخدمة";
+"Pay" = "ادفع";
+"Cancel" = "الغاء";
 "" = "";
 "" = "";
 "" = "";
