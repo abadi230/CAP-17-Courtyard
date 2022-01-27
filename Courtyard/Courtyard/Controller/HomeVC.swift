@@ -57,7 +57,7 @@ class HomeVC: UIViewController {
     func fetchData(){
         //from DB
         user.getDataClosure(completion: { user  in
-            let welcome = "Welcome".LocalizableLanguage(name: self.lang)
+            let welcome = NSLocalizedString("Welcome", comment: "")
             self.welcomLbl.text = "\(welcome) \(user.name!)"
         })
     }
@@ -68,7 +68,7 @@ class HomeVC: UIViewController {
             print(self.datePicker.date)
             if self.txtBox.text != nil{
                 
-                service = user.setService(name: txtBox.text!.LocalizableLanguage(name: "en"), date: datePicker.date)
+                service = user.setService(name: txtBox.text!, date: datePicker.date)
                 let currency = "SAR".LocalizableLanguage(name: lang)
                 price = "\(currency) \(service!.price)"
                 priceLbl.text = price

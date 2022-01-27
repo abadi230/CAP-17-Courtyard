@@ -26,7 +26,7 @@ class PaymentVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        serviceTitleLbl.text = serviceTitle
+        serviceTitleLbl.text = NSLocalizedString(serviceTitle, comment: "")
         orderRefLbl.text = orderRef?.documentID
         dateLbl.text = date!
         currentAddress.text = address!
@@ -35,18 +35,19 @@ class PaymentVC: UIViewController {
     }
     @IBAction func onClickPay(_ sender: UIButton) {
         // when client pay: update data in DB
-        showAlert("Are you sure you want Pay for \(serviceTitle)")
+        let msg = NSLocalizedString("Are you sure you want Pay for", comment: "")
+        showAlert("\(msg) \(NSLocalizedString(serviceTitle, comment: ""))")
         
     }
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: "Payment", message: msg, preferredStyle: .alert)
 
-        let alertAction = UIAlertAction(title: "Pay", style: .destructive) { _ in
+        let alertAction = UIAlertAction(title: NSLocalizedString("Pay", comment: ""), style: .destructive) { _ in
             self.orderRef?.setData(["paymentStatus" : true], merge: true)
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)

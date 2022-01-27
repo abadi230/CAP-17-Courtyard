@@ -5,6 +5,10 @@
   Created by Abdullah Bajaman on 26/01/2022.
  "Courtyard", "Roof of House", "Stairs"
 */
+"فناء" = "Courtyard";
+"سطح المنزل" = "Roof of House";
+"سلالم" = "Stairs";
+
 "Courtyard" = "Courtyard";
 "Roof of House" = "Roof of House";
 "Stairs" = "Stairs";
@@ -20,9 +24,9 @@
 "Paied" = "Paied";
 "Pending" = "Pending";
 "Delete" = "Delete";
-"" = "";
-"" = "";
-"" = "";
+"Are you sure you want Pay for" = "Are you sure you want Pay for?";
+"Pay" = "Pay";
+"Cancel" = "Cancel";
 "" = "";
 "" = "";
 "" = "";
