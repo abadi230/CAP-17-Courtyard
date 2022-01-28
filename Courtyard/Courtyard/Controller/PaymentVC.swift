@@ -26,6 +26,8 @@ class PaymentVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+//        navigationItem.hidesBackButton = true
+
         serviceTitleLbl.text = NSLocalizedString(serviceTitle, comment: "")
         orderRefLbl.text = orderRef?.documentID
         dateLbl.text = date!
@@ -45,7 +47,10 @@ class PaymentVC: UIViewController {
 
         let alertAction = UIAlertAction(title: NSLocalizedString("Pay", comment: ""), style: .destructive) { _ in
             self.orderRef?.setData(["paymentStatus" : true], merge: true)
-            self.navigationController?.popViewController(animated: true)
+            let orderVC = self.storyboard?.instantiateViewController(withIdentifier: "UserOrdersVC") as! UserOrdersVC
+//            self.present(orderVC, animated: true, completion: nil)
+            self.navigationController?.show(orderVC, sender: nil)
+//            self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         alertController.addAction(alertAction)

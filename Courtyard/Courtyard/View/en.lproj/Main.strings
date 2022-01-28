@@ -23,6 +23,9 @@
 /* Class = "UILabel"; text = "Complated"; ObjectID = "4lg-fa-r8Q"; */
 "4lg-fa-r8Q.text" = "Complated";
 
+/* Class = "UILabel"; text = "Started Date:"; ObjectID = "4qO-A1-ciu"; */
+"4qO-A1-ciu.text" = "Started Date:";
+
 /* Class = "UILabel"; text = "Abdullah Bajaman"; ObjectID = "51g-cH-E56"; */
 "51g-cH-E56.text" = "Abdullah Bajaman";
 
@@ -56,8 +59,14 @@
 /* Class = "UILabel"; text = "Date and Time"; ObjectID = "C2e-hy-auQ"; */
 "C2e-hy-auQ.text" = "Date and Time";
 
+/* Class = "UILabel"; text = "10/10/2022 10:10AM"; ObjectID = "D0g-Bv-YB1"; */
+"D0g-Bv-YB1.text" = "10/10/2022 10:10AM";
+
 /* Class = "UITextField"; text = "Palace"; ObjectID = "E8g-X9-Nco"; */
 "E8g-X9-Nco.text" = "Palace";
+
+/* Class = "UILabel"; text = "Order Status:"; ObjectID = "ElG-bm-RHI"; */
+"ElG-bm-RHI.text" = "Order Status:";
 
 /* Class = "UILabel"; text = "Pending"; ObjectID = "FSL-Ja-vj9"; */
 "FSL-Ja-vj9.text" = "Pending";
@@ -79,6 +88,9 @@
 
 /* Class = "UILabel"; text = "Stared Date"; ObjectID = "I0x-C1-dgK"; */
 "I0x-C1-dgK.text" = "Stared Date";
+
+/* Class = "UILabel"; text = "Accepted"; ObjectID = "J4w-9O-Cfv"; */
+"J4w-9O-Cfv.text" = "Accepted";
 
 /* Class = "UILabel"; text = "246 Queen's Road, Beeston"; ObjectID = "JCu-eG-ifO"; */
 "JCu-eG-ifO.text" = "246 Queen's Road, Beeston";
@@ -107,6 +119,9 @@
 /* Class = "UITextField"; text = "Beeston"; ObjectID = "MPX-C8-knA"; */
 "MPX-C8-knA.text" = "Beeston";
 
+/* Class = "UILabel"; text = "Service:"; ObjectID = "MPq-Bh-Ag5"; */
+"MPq-Bh-Ag5.text" = "Service:";
+
 /* Class = "UILabel"; text = "New to Courtyard App?"; ObjectID = "MXV-sG-Ku6"; */
 "MXV-sG-Ku6.text" = "New to Courtyard App?";
 
@@ -124,6 +139,9 @@
 
 /* Class = "UITabBarItem"; title = "Contact Us"; ObjectID = "PdO-oe-PWe"; */
 "PdO-oe-PWe.title" = "Contact Us";
+
+/* Class = "UIViewController"; title = "My Orders"; ObjectID = "Q9V-gh-c0q"; */
+"Q9V-gh-c0q.title" = "My Orders";
 
 /* Class = "UILabel"; text = "From"; ObjectID = "QQH-ZH-4Va"; */
 "QQH-ZH-4Va.text" = "From";
@@ -155,8 +173,8 @@
 /* Class = "UILabel"; text = "Mobile No"; ObjectID = "XUk-ZV-x4f"; */
 "XUk-ZV-x4f.text" = "Mobile No";
 
-/* Class = "UILabel"; text = "State"; ObjectID = "Xd0-1e-6NJ"; */
-"Xd0-1e-6NJ.text" = "State";
+/* Class = "UILabel"; text = "Order Status"; ObjectID = "Xd0-1e-6NJ"; */
+"Xd0-1e-6NJ.text" = "Order Status";
 
 /* Class = "UILabel"; text = "Total"; ObjectID = "YGO-ot-UFN"; */
 "YGO-ot-UFN.text" = "Total";
@@ -176,8 +194,8 @@
 /* Class = "UILabel"; text = "To"; ObjectID = "aBO-04-6UZ"; */
 "aBO-04-6UZ.text" = "To";
 
-/* Class = "UITextField"; placeholder = "Pasowerd"; ObjectID = "aD2-pT-hNI"; */
-"aD2-pT-hNI.placeholder" = "Pasowerd";
+/* Class = "UITextField"; placeholder = "Passowrd"; ObjectID = "aD2-pT-hNI"; */
+"aD2-pT-hNI.placeholder" = "Passowrd";
 
 /* Class = "UILabel"; text = "Price: "; ObjectID = "bTt-SY-JRd"; */
 "bTt-SY-JRd.text" = "Price: ";
@@ -196,6 +214,9 @@
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "eOe-2S-fmP"; */
 "eOe-2S-fmP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Roof Of House Cleaning"; ObjectID = "eWX-Aj-GvP"; */
+"eWX-Aj-GvP.text" = "Roof Of House Cleaning";
 
 /* Class = "UILabel"; text = "100"; ObjectID = "erG-Qy-p9w"; */
 "erG-Qy-p9w.text" = "100";
@@ -220,6 +241,9 @@
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kjO-Xy-QJ8"; */
 "kjO-Xy-QJ8.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Order no."; ObjectID = "kjZ-iz-eQJ"; */
+"kjZ-iz-eQJ.text" = "Order no.";
 
 /* Class = "UILabel"; text = "Paied "; ObjectID = "kqG-v8-1fA"; */
 "kqG-v8-1fA.text" = "Paied ";
@@ -256,6 +280,9 @@
 
 /* Class = "UILabel"; text = "100.00"; ObjectID = "ohz-Hp-Xh6"; */
 "ohz-Hp-Xh6.text" = "100.00";
+
+/* Class = "UILabel"; text = "asdvwndwv;dln"; ObjectID = "pJu-zF-F4t"; */
+"pJu-zF-F4t.text" = "asdvwndwv;dln";
 
 /* Class = "UILabel"; text = "My Profile"; ObjectID = "pVk-Ke-RdU"; */
 "pVk-Ke-RdU.text" = "My Profile";
@@ -298,6 +325,9 @@
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "zCW-q6-6mK"; */
 "zCW-q6-6mK.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "My Orders"; ObjectID = "zFt-d0-ebY"; */
+"zFt-d0-ebY.text" = "My Orders";
 
 /* Class = "UITextField"; text = "222"; ObjectID = "zVh-9x-GiE"; */
 "zVh-9x-GiE.text" = "222";

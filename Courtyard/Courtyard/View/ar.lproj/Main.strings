@@ -1,4 +1,5 @@
 
+
 /* Class = "UILabel"; text = "Current Address"; ObjectID = "0Dp-Pd-ZbT"; */
 "0Dp-Pd-ZbT.text" = "العنوان الحالي:";
 
@@ -304,3 +305,20 @@
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "zkX-jl-bLs"; */
 "zkX-jl-bLs.placeholder" = "البريد الالكتروني";
+
+/* Class = "UILabel"; text = "Started Date:"; ObjectID = "4qO-A1-ciu"; Note = "Started Date:"; */
+"4qO-A1-ciu.text" = "تاريخ بدء الخدمة:";
+/* Class = "UILabel"; text = "Order Status:"; ObjectID = "ElG-bm-RHI"; Note = "Order Status:"; */
+"ElG-bm-RHI.text" = "حالة الطلب:";
+/* Class = "UILabel"; text = "Accepted"; ObjectID = "J4w-9O-Cfv"; */
+"J4w-9O-Cfv.text" = "مقبولة";
+/* Class = "UILabel"; text = "Service:"; ObjectID = "MPq-Bh-Ag5"; Note = "Service:"; */
+"MPq-Bh-Ag5.text" = "الخدمة:";
+/* Class = "UIViewController"; title = "My Orders"; ObjectID = "Q9V-gh-c0q"; */
+"Q9V-gh-c0q.title" = "طلباتي";
+/* Class = "UILabel"; text = "Order Status"; ObjectID = "Xd0-1e-6NJ"; */
+"Xd0-1e-6NJ.text" = "حالة الطلب:";
+/* Class = "UILabel"; text = "Order no."; ObjectID = "kjZ-iz-eQJ"; Note = "Order no."; */
+"kjZ-iz-eQJ.text" = "رقم الخدمة:";
+/* Class = "UILabel"; text = "My Orders"; ObjectID = "zFt-d0-ebY"; Note = "My Orders"; */
+"zFt-d0-ebY.text" = "طلباتي";

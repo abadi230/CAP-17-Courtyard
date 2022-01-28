@@ -18,13 +18,11 @@ class AdminHome: UIViewController {
     let currency = NSLocalizedString("SAR", comment: "")
     var userInfo : User!
     var address : Address!
-    
     var services = ["Courtyard", "Roof of House", "Stairs"]
     var images: [UIImage?] = []
     
     @IBOutlet weak var serviceCollection: UICollectionView!
     @IBOutlet weak var ordersTV: UITableView!
-    
     @IBOutlet weak var fromDP: UIDatePicker!
     @IBOutlet weak var toDP: UIDatePicker!
     @IBOutlet weak var totalLbl: UILabel!

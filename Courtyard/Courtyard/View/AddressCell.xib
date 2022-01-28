@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" name="background"/>
+                <color key="backgroundColor" name="TableColor"/>
                 <constraints>
                     <constraint firstItem="QZN-f3-XnN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="6Th-Gd-tWi"/>
                     <constraint firstItem="73r-or-OH0" firstAttribute="top" secondItem="j1e-IW-ekr" secondAttribute="bottom" constant="4" id="W0K-y7-oGs"/>
@@ -57,8 +57,8 @@
     </objects>
     <resources>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
-        <namedColor name="background">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <namedColor name="TableColor">
+            <color red="0.94700002670288086" green="0.95599997043609619" blue="0.95599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
