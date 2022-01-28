@@ -9,6 +9,10 @@ import UIKit
 
 class UserOrdersCell: UITableViewCell {
 
+    @IBOutlet weak var orderRef: UILabel!
+    @IBOutlet weak var serviceTitle: UILabel!
+    @IBOutlet weak var startedDate: UILabel!
+    @IBOutlet weak var orderStatus: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

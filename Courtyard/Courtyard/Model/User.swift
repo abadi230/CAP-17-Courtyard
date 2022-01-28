@@ -148,7 +148,7 @@ class User: Codable {
         let newService = Service(name: service.name.LocalizableLanguage(name: "en"), date: service.date, price: service.price)
         print(newService.name)
         let serviceRef = try? db.collection("Service").addDocument(from: newService)
-        let total = servicePrice + 0.15 // 15% tax
+        let total = servicePrice
         
         // create Order
         let order = Order(userId: self.userReference(), serviceRef: serviceRef, addressRef: addressRef, date: Date(), total: total, paymentStatus: false)
@@ -249,13 +249,13 @@ class User: Codable {
             }
         }
     }
-    func getUserOrders(userId: String, complation: @escaping ([Order]) -> Void){
+    func getUserOrders(userId: String, complation: @escaping ([Order], [String]) -> Void){
         let db = Firestore.firestore()
         
         db.collection("Orders").getDocuments { snapshot, err in
             if err == nil{
                 var userOrders = [Order]()
-                
+                var ordersRef : [String] = []
                 for doc in snapshot!.documents{
                     do {
                         let order = try doc.data(as: Order.self)
@@ -263,13 +263,15 @@ class User: Codable {
                         let userDocID = order?.userId?.documentID
                         if userDocID == userId{
                             userOrders.append(order!)
+                            ordersRef.append(doc.documentID)
                         }
+                        
                     }catch{
                         print(err?.localizedDescription ?? "Unable to get Data")
                     }
                     
                 }
-                complation((userOrders))
+                complation(userOrders, ordersRef)
             }
         }
     }
@@ -357,3 +359,23 @@ struct Service: Codable {
     var price: Double
 }
 
+@IBDesignable extension UIView {
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            guard let cgColor = layer.borderColor else {
+                return nil
+            }
+            return UIColor(cgColor: cgColor)
+        }
+        set { layer.borderColor = newValue?.cgColor }
+    }
+
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+}

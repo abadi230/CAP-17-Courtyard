@@ -6,40 +6,65 @@
 //
 
 import UIKit
+import FirebaseAuth
+import SwiftUI
 
 class UserOrdersVC: UIViewController {
 
-    
+    var user = User()
+    var userOrders: [Order] = []
+    var ordersRef: [String] = []
     @IBOutlet weak var userOrdersTV: UITableView!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        userOrdersTV.reloadData()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
+        user.getDataClosure { user in
+            let userID = user.userReference().documentID
+            user.getUserOrders(userId: userID) { orders,ordersRef  in
+                self.userOrders = orders
+                self.ordersRef = ordersRef
+                self.userOrdersTV.reloadData()
+            }
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 extension UserOrdersVC: UITableViewDelegate{
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        userOrdersTV.deselectRow(at: indexPath, animated: true)
+    }
 }
 extension UserOrdersVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        userOrders.count
+       
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = userOrdersTV.dequeueReusableCell(withIdentifier: "UserOrdersCell", for: indexPath) as! UserOrdersCell
         
+//        cell.layer.borderWidth = 0.5
+//        cell.layer.borderColor = UIColor.white.cgColor
+        let order = userOrders[indexPath.row]
+        let orderId = ordersRef[indexPath.row]
+
+        Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
+            cell.serviceTitle.text = service.name
+            cell.startedDate.text = service.date.formatted(date: .abbreviated, time: .shortened)
+        }
+
+        cell.orderRef.text = orderId
+//TODO:        cell.orderStatus.text = order.status
         return cell
     }
     
