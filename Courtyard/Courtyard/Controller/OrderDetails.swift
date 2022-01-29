@@ -6,15 +6,20 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class OrderDetails: UIViewController {
 
     var order: Order!
+    var orderRef : DocumentReference!
     var user: User!
     var address: Address!
     var service: Service!
     var serviceTitle = ""
-    
+    let paied = NSLocalizedString("Paied", comment: "")
+    let unPaied = NSLocalizedString("Unpaid", comment: "")
+    let complated = NSLocalizedString("Complated", comment: "")
+    let pending = NSLocalizedString("Pending", comment: "")
     // MARK: Connection
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -47,11 +52,13 @@ class OrderDetails: UIViewController {
         
         priceLbl.text = "SAR \(order.total)"
         
-        paymentStatusLbl.text = order.paymentStatus ? "Paied" : "Unpaid"
+        paymentStatusLbl.text = order.paymentStatus ? paied : unPaied
         paymentSwitch.setOn(order.paymentStatus ? true : false, animated: true)
+        if order.paymentStatus {paymentSwitch.isUserInteractionEnabled = false}
         
-//        orderSwitch.setOn(order.status ? true : false, animated: true)
-        serviceStatusLbl.text = "Complated"
+        orderSwitch.setOn(order.status ? true : false, animated: true)
+        serviceStatusLbl.text = order.status ? complated : pending
+        if order.status {orderSwitch.isUserInteractionEnabled = false}
 //        paymentSwitch
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
@@ -59,12 +66,14 @@ class OrderDetails: UIViewController {
     }
 
     @IBAction func onClickPaymentSwitch(_ sender: UISwitch) {
-        if sender.isOn {
-//            order.
-        }
+            orderRef!.setData(["paymentStatus" : true], merge: true)
+            sender.isUserInteractionEnabled = false
+            paymentStatusLbl.text =  paied
     }
     
     @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
-        
+        orderRef.setData(["status" : true], merge: true)
+        serviceStatusLbl.text = complated
+        sender.isUserInteractionEnabled = false
     }
 }

@@ -66,13 +66,13 @@ class HomeVC: UIViewController {
     func configDatePicker(){
         let action = UIAction{ [self] _ in
             print(self.datePicker.date)
-            if self.txtBox.text != nil{
-                
-                service = user.setService(name: txtBox.text!, date: datePicker.date)
-                let currency = NSLocalizedString("SAR", comment: "")
-                price = "\(currency) \(service!.price)"
-                priceLbl.text = price
-            }
+//            if self.txtBox.text != nil{
+//
+//                service = user.setService(name: txtBox.text!, date: datePicker.date)
+//                let currency = NSLocalizedString("SAR", comment: "")
+//                price = "\(currency) \(service!.price)"
+//                priceLbl.text = price
+//            }
         }
         datePicker.addAction(action, for: .valueChanged)
     }
@@ -146,6 +146,11 @@ extension HomeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.txtBox.text =  NSLocalizedString(services[row], comment: "")
         self.txtBox.resignFirstResponder()
+        
+        service = user.setService(name: txtBox.text!, date: datePicker.date)
+        let currency = NSLocalizedString("SAR", comment: "")
+        price = "\(currency) \(service!.price)"
+        priceLbl.text = price
 
 
     }

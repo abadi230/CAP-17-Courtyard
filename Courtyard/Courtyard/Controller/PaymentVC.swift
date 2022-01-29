@@ -50,6 +50,7 @@ class PaymentVC: UIViewController {
             self.orderRef?.setData(["paymentStatus" : true], merge: true)
             let orderVC = self.storyboard?.instantiateViewController(withIdentifier: "UserOrdersVC") as! UserOrdersVC
 //            self.present(orderVC, animated: true, completion: nil)
+            
             self.navigationController?.show(orderVC, sender: nil)
 //            self.navigationController?.popViewController(animated: true)
         }

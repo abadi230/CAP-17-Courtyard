@@ -7,11 +7,13 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 
 class AdminHome: UIViewController {
     
     var orders: [Order] = []
+    var ordersRef: [DocumentReference] = []
     var ordersFilter: [Order] = []
     var isFiltered = false
     var total = 0.0
@@ -46,9 +48,11 @@ class AdminHome: UIViewController {
         ordersTV.delegate = self
         ordersTV.dataSource = self
         
-        Admin.shared.getAllOrders() { orders in
+        Admin.shared.getAllOrders() { orders, ordersRef  in
 
             self.orders = orders
+            self.ordersRef = ordersRef
+            
             self.ordersTV.reloadData()
 
             self.total = orders.reduce(0) { x, y in
@@ -102,7 +106,7 @@ extension AdminHome: UITableViewDelegate {
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "orderDetailsID") as! OrderDetails
         let order = isFiltered ? ordersFilter[indexPath.row] : orders[indexPath.row]
-        
+        let orderRef = ordersRef[indexPath.row]
         Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
             vc.serviceNameLbl.text = NSLocalizedString(service.name, comment: "")
         }
@@ -110,7 +114,7 @@ extension AdminHome: UITableViewDelegate {
         vc.order = order
         vc.user = self.userInfo
         vc.address = self.address
-        
+        vc.orderRef = orderRef
 //        present(vc, animated: true, completion: nil)
         navigationController?.show(vc, sender: nil)
         ordersTV.deselectRow(at: indexPath, animated: true)
