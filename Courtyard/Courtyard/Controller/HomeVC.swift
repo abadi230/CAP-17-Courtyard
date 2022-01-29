@@ -47,12 +47,12 @@ class HomeVC: UIViewController {
         
     }
 
-    @IBAction func onClickLanguageBtn(_ sender: UIBarButtonItem) {
-        
-        tuggleBtn = !tuggleBtn
-        sender.title = tuggleBtn ? "en" : "ar"
-        lang = !tuggleBtn ? "en" : "ar"
-    }
+//    @IBAction func onClickLanguageBtn(_ sender: UIBarButtonItem) {
+//
+//        tuggleBtn = !tuggleBtn
+//        sender.title = tuggleBtn ? "en" : "ar"
+//        lang = !tuggleBtn ? "en" : "ar"
+//    }
     
     func fetchData(){
         //from DB
@@ -93,7 +93,7 @@ class HomeVC: UIViewController {
          dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onClickLogOut(_ sender: UIButton) {
+    @IBAction func onClickLogOut(_ sender: UIBarButtonItem) {
         try! Auth.auth().signOut()
         let vc = storyboard?.instantiateViewController(withIdentifier: "logInId") as! LogIn
         vc.modalPresentationStyle = .fullScreen

@@ -191,7 +191,7 @@ extension AdminHome: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "serviceCell", for: indexPath) as! ServiceCell
         cell.serviceImg.image = images[indexPath.row]
-        cell.serviceName.text = services[indexPath.row]
+//        cell.serviceName.text = services[indexPath.row]
         
         
         return cell
