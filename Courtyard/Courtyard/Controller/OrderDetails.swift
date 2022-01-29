@@ -14,6 +14,7 @@ class OrderDetails: UIViewController {
     var address: Address!
     var service: Service!
     var serviceTitle = ""
+    
     // MARK: Connection
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -25,7 +26,7 @@ class OrderDetails: UIViewController {
     @IBOutlet weak var serviceStatusLbl: UILabel!
     
     @IBOutlet weak var paymentSwitch: UISwitch!
-    
+    @IBOutlet weak var orderSwitch: UISwitch!
     
     
     
@@ -44,28 +45,26 @@ class OrderDetails: UIViewController {
         mobileLbl.text = "0\(user.mobile!)"
         addressLbl.text = address.district
         
-        
-        
         priceLbl.text = "SAR \(order.total)"
+        
         paymentStatusLbl.text = order.paymentStatus ? "Paied" : "Unpaid"
+        paymentSwitch.setOn(order.paymentStatus ? true : false, animated: true)
+        
+//        orderSwitch.setOn(order.status ? true : false, animated: true)
         serviceStatusLbl.text = "Complated"
 //        paymentSwitch
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
-        let vc = (storyboard?.instantiateViewController(withIdentifier: "AdminHome"))!
-        vc.modalPresentationStyle = .fullScreen
-//        navigationController?.show(vc, sender: self)
-        present(vc, animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onClickPaymentSwitch(_ sender: UISwitch) {
+        if sender.isOn {
+//            order.
+        }
     }
-    */
-
+    
+    @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
+        
+    }
 }

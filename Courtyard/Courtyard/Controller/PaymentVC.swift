@@ -38,7 +38,8 @@ class PaymentVC: UIViewController {
     @IBAction func onClickPay(_ sender: UIButton) {
         // when client pay: update data in DB
         let msg = NSLocalizedString("Are you sure you want Pay for", comment: "")
-        showAlert("\(msg) \(NSLocalizedString(serviceTitle, comment: ""))")
+        let serviceT = NSLocalizedString(serviceTitle, comment: "")
+        showAlert("\(msg) \(serviceT)")
         
     }
     

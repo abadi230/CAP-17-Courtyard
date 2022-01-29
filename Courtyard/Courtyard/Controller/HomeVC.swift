@@ -69,7 +69,7 @@ class HomeVC: UIViewController {
             if self.txtBox.text != nil{
                 
                 service = user.setService(name: txtBox.text!, date: datePicker.date)
-                let currency = "SAR".LocalizableLanguage(name: lang)
+                let currency = NSLocalizedString("SAR", comment: "")
                 price = "\(currency) \(service!.price)"
                 priceLbl.text = price
             }
@@ -84,7 +84,7 @@ class HomeVC: UIViewController {
             performSegue(withIdentifier: "profileID", sender: self)
         }else{
             
-            showAlert("Please select Service and Date".LocalizableLanguage(name: lang))
+            showAlert(NSLocalizedString("Please select Service and Date", comment: ""))
         }
     }
     
@@ -103,7 +103,7 @@ class HomeVC: UIViewController {
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK".LocalizableLanguage(name: lang), style: .default)
+        let alertAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default)
         alertController.addAction(alertAction)
         DispatchQueue.main.async {
             self.present(alertController, animated: true, completion: nil)
@@ -140,11 +140,11 @@ extension HomeVC : UIPickerViewDataSource {
 extension HomeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
-        return services[row].LocalizableLanguage(name: lang)
+        return  NSLocalizedString(services[row], comment: "")
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.txtBox.text = services[row].LocalizableLanguage(name: lang)
+        self.txtBox.text =  NSLocalizedString(services[row], comment: "")
         self.txtBox.resignFirstResponder()
 
 

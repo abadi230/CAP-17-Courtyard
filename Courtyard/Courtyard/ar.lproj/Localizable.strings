@@ -6,9 +6,9 @@
   
 */
 
-"Courtyard" = "فناء";
-"Roof of House" = "سطح المنزل";
-"Stairs" = "سلالم";
+"Courtyard" = "تنظيف الفناء";
+"Roof of House" = "تنظيف سطح المنزل";
+"Stairs" = "تنظيف السلالم";
 "Reset your Passwrd from your Email" = "تم ارسال اعادة ضبط كلمة المرور إلى بريدك الالكتروني";
 "OK" = "حسناً";
 "Welcome" = "مرحباً";

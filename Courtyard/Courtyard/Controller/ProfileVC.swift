@@ -161,7 +161,7 @@ class ProfileVC: UIViewController {
         case "orderID":
             let paymentVC = segue.destination as! PaymentVC
             //ref, date, address, paymentState
-            paymentVC.serviceTitle = service!.name + " " + NSLocalizedString("Cleaning", comment: "")
+            paymentVC.serviceTitle = NSLocalizedString(service!.name, comment: "") + " " + NSLocalizedString("Cleaning", comment: "")
             paymentVC.orderRef = orderRef
             paymentVC.date = "\(String(describing: service!.date))"
             paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"

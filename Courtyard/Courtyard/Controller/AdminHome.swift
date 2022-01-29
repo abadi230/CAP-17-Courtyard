@@ -111,7 +111,9 @@ extension AdminHome: UITableViewDelegate {
         vc.user = self.userInfo
         vc.address = self.address
         
-        present(vc, animated: true, completion: nil)
+//        present(vc, animated: true, completion: nil)
+        navigationController?.show(vc, sender: nil)
+        ordersTV.deselectRow(at: indexPath, animated: true)
         
     }
 }

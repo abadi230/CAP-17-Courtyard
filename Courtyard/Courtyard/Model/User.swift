@@ -15,6 +15,7 @@ class Admin {
     
     static let shared = Admin()
     
+    // MARK: Getter
     func getAllOrders(complation: @escaping([Order]) -> Void){
 
         var orders = [Order]()
@@ -359,6 +360,7 @@ struct Service: Codable {
     var price: Double
 }
 
+// MARK: DESIGN BORDER
 @IBDesignable extension UIView {
     @IBInspectable var borderColor: UIColor? {
         get {
