@@ -15,9 +15,11 @@ class Admin {
     
     static let shared = Admin()
     
-    func getAllOrders(complation: @escaping([Order]) -> Void){
+    // MARK: Getter
+    func getAllOrders(complation: @escaping([Order], [DocumentReference]) -> Void){
 
         var orders = [Order]()
+        var ordersRef = [DocumentReference]()
 
         self.db.collection("Orders").getDocuments { snapshot, err in
             if err == nil{
@@ -25,11 +27,12 @@ class Admin {
                     do {
                         let order = try doc.data(as: Order.self)
                         orders.append(order!)
+                        ordersRef.append(doc.reference)
                         
                     }catch{
                         print(err?.localizedDescription ?? "Unable to get Data")
                     }
-                    complation(orders)
+                    complation(orders, ordersRef)
                 }
             }
         }
@@ -151,21 +154,22 @@ class User: Codable {
         let total = servicePrice
         
         // create Order
-        let order = Order(userId: self.userReference(), serviceRef: serviceRef, addressRef: addressRef, date: Date(), total: total, paymentStatus: false)
+        let order = Order(userId: self.userReference(), serviceRef: serviceRef, addressRef: addressRef, date: Date(), total: total, paymentStatus: false, status: false)
 //        let order = Order(userId: self.userReference(), serviceRef: serviceRef, date: Date(), total: total, paymentStatus: false)
 
          //store Orders in DB and return the reference and order
         return try! (db.collection("Orders").addDocument(from: order), order)
     }
+    
     func setService(name: String, date: Date)->Service{
         var priceD : Double
 
         switch name.LocalizableLanguage(name: "en") {
-        case "Courtyard":
+        case "Courtyard Cleaning":
             priceD = 100
-        case "Roof of House":
+        case "Roof of House Cleaning":
             priceD = 80
-        case "Stairs":
+        case "Stairs Cleaning":
             priceD = 50
         default:
             priceD = 100
@@ -313,6 +317,7 @@ struct Order: Codable {
     var date: Date
     var total: Double
     var paymentStatus: Bool
+    var status: Bool // change it to string (Accepted, denied and complated)
     
     func getOrders(complation: @escaping( ([Order]) -> Void) ){
         let db = Firestore.firestore()
@@ -359,6 +364,7 @@ struct Service: Codable {
     var price: Double
 }
 
+// MARK: DESIGN BORDER
 @IBDesignable extension UIView {
     @IBInspectable var borderColor: UIColor? {
         get {

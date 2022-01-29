@@ -4,12 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string></string>
+		<string>OCRAEXT.TTF</string>
+		<string>Ah-moharram-light_0.ttf</string>
 	</array>
-	<key>item 1</key>
-	<string>Ah-moharram-light_0.ttf</string>
-	<key>item 0</key>
-	<string>OCRAEXT.TTF</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

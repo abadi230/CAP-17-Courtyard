@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class OrderDetails: UIViewController {
 
     var order: Order!
+    var orderRef : DocumentReference!
     var user: User!
     var address: Address!
     var service: Service!
     var serviceTitle = ""
+    let paied = NSLocalizedString("Paied", comment: "")
+    let unPaied = NSLocalizedString("Unpaid", comment: "")
+    let complated = NSLocalizedString("Complated", comment: "")
+    let pending = NSLocalizedString("Pending", comment: "")
     // MARK: Connection
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -25,7 +31,7 @@ class OrderDetails: UIViewController {
     @IBOutlet weak var serviceStatusLbl: UILabel!
     
     @IBOutlet weak var paymentSwitch: UISwitch!
-    
+    @IBOutlet weak var orderSwitch: UISwitch!
     
     
     
@@ -44,28 +50,30 @@ class OrderDetails: UIViewController {
         mobileLbl.text = "0\(user.mobile!)"
         addressLbl.text = address.district
         
-        
-        
         priceLbl.text = "SAR \(order.total)"
-        paymentStatusLbl.text = order.paymentStatus ? "Paied" : "Unpaid"
-        serviceStatusLbl.text = "Complated"
+        
+        paymentStatusLbl.text = order.paymentStatus ? paied : unPaied
+        paymentSwitch.setOn(order.paymentStatus ? true : false, animated: true)
+        if order.paymentStatus {paymentSwitch.isUserInteractionEnabled = false}
+        
+        orderSwitch.setOn(order.status ? true : false, animated: true)
+        serviceStatusLbl.text = order.status ? complated : pending
+        if order.status {orderSwitch.isUserInteractionEnabled = false}
 //        paymentSwitch
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
-        let vc = (storyboard?.instantiateViewController(withIdentifier: "AdminHome"))!
-        vc.modalPresentationStyle = .fullScreen
-//        navigationController?.show(vc, sender: self)
-        present(vc, animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onClickPaymentSwitch(_ sender: UISwitch) {
+            orderRef!.setData(["paymentStatus" : true], merge: true)
+            sender.isUserInteractionEnabled = false
+            paymentStatusLbl.text =  paied
     }
-    */
-
+    
+    @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
+        orderRef.setData(["status" : true], merge: true)
+        serviceStatusLbl.text = complated
+        sender.isUserInteractionEnabled = false
+    }
 }

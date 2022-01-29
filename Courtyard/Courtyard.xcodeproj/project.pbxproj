@@ -27,7 +27,6 @@
 		1B8CC89027675F8400E5CDD2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC88F27675F8400E5CDD2 /* FirebaseCrashlytics */; };
 		1B8CC89227675F8400E5CDD2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89127675F8400E5CDD2 /* FirebaseDatabase */; };
 		1B8CC89427675F8400E5CDD2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89327675F8400E5CDD2 /* FirebaseFirestore */; };
-		1B8CC89627675F8400E5CDD2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89527675F8400E5CDD2 /* FirebaseMessaging */; };
 		1B8CC89827675F8400E5CDD2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89727675F8400E5CDD2 /* FirebaseStorage */; };
 		1B8CC89B27675FFF00E5CDD2 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1B8CC89A27675FFF00E5CDD2 /* IQKeyboardManagerSwift */; };
 		1B8CC8A02769675800E5CDD2 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8CC89F2769675800E5CDD2 /* HomeVC.swift */; };
@@ -88,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B8CC89627675F8400E5CDD2 /* FirebaseMessaging in Frameworks */,
 				1B8CC89B27675FFF00E5CDD2 /* IQKeyboardManagerSwift in Frameworks */,
 				1B8CC89027675F8400E5CDD2 /* FirebaseCrashlytics in Frameworks */,
 				1B8CC88C27675F8400E5CDD2 /* FirebaseAnalytics in Frameworks */,
@@ -197,6 +195,7 @@
 				1B8CC86D2767486400E5CDD2 /* Sources */,
 				1B8CC86E2767486400E5CDD2 /* Frameworks */,
 				1B8CC86F2767486400E5CDD2 /* Resources */,
+				1B7F7CFF27A4B55A004EC0B1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -209,7 +208,6 @@
 				1B8CC88F27675F8400E5CDD2 /* FirebaseCrashlytics */,
 				1B8CC89127675F8400E5CDD2 /* FirebaseDatabase */,
 				1B8CC89327675F8400E5CDD2 /* FirebaseFirestore */,
-				1B8CC89527675F8400E5CDD2 /* FirebaseMessaging */,
 				1B8CC89727675F8400E5CDD2 /* FirebaseStorage */,
 				1B8CC89A27675FFF00E5CDD2 /* IQKeyboardManagerSwift */,
 				1B57E853276D379D00B9140B /* FirebaseFirestoreSwift-Beta */,
@@ -274,6 +272,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B7F7CFF27A4B55A004EC0B1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1B8CC86D2767486400E5CDD2 /* Sources */ = {
@@ -371,7 +391,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -582,11 +602,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1B8CC88A27675F8400E5CDD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
-		};
-		1B8CC89527675F8400E5CDD2 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1B8CC88A27675F8400E5CDD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
 		};
 		1B8CC89727675F8400E5CDD2 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
