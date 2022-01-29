@@ -5,9 +5,9 @@
   Created by Abdullah Bajaman on 26/01/2022.
  "Courtyard", "Roof of House", "Stairs"
 */
-"فناء" = "Courtyard";
-"سطح المنزل" = "Roof of House";
-"سلالم" = "Stairs";
+"تنظيف الفناء" = "Courtyard Cleaning";
+"تنظيف سطح المنزل" = "Roof of House Cleaning";
+"تنظيف السلالم" = "Stairs Cleaning";
 
 "Courtyard" = "Courtyard";
 "Roof of House" = "Roof of House";

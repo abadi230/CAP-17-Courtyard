@@ -38,7 +38,8 @@ class PaymentVC: UIViewController {
     @IBAction func onClickPay(_ sender: UIButton) {
         // when client pay: update data in DB
         let msg = NSLocalizedString("Are you sure you want Pay for", comment: "")
-        showAlert("\(msg) \(NSLocalizedString(serviceTitle, comment: ""))")
+        let serviceT = NSLocalizedString(serviceTitle, comment: "")
+        showAlert("\(msg) \(serviceT)")
         
     }
     
@@ -49,6 +50,7 @@ class PaymentVC: UIViewController {
             self.orderRef?.setData(["paymentStatus" : true], merge: true)
             let orderVC = self.storyboard?.instantiateViewController(withIdentifier: "UserOrdersVC") as! UserOrdersVC
 //            self.present(orderVC, animated: true, completion: nil)
+            
             self.navigationController?.show(orderVC, sender: nil)
 //            self.navigationController?.popViewController(animated: true)
         }

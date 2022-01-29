@@ -53,18 +53,16 @@ extension UserOrdersVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = userOrdersTV.dequeueReusableCell(withIdentifier: "UserOrdersCell", for: indexPath) as! UserOrdersCell
         
-//        cell.layer.borderWidth = 0.5
-//        cell.layer.borderColor = UIColor.white.cgColor
         let order = userOrders[indexPath.row]
         let orderId = ordersRef[indexPath.row]
 
         Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
-            cell.serviceTitle.text = service.name
+            cell.serviceTitle.text = NSLocalizedString(service.name, comment: "")
             cell.startedDate.text = service.date.formatted(date: .abbreviated, time: .shortened)
         }
 
         cell.orderRef.text = orderId
-//TODO:        cell.orderStatus.text = order.status
+        cell.orderStatus.text = order.status ? NSLocalizedString("Accepted", comment: "") : NSLocalizedString("Pending", comment: "")
         return cell
     }
     
