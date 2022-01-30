@@ -35,9 +35,6 @@ class UserOrdersVC: UIViewController {
             }
         }
     }
-    
-
-
 }
 extension UserOrdersVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -65,6 +62,4 @@ extension UserOrdersVC: UITableViewDataSource{
         cell.orderStatus.text = order.status ? NSLocalizedString("Accepted", comment: "") : NSLocalizedString("Pending", comment: "")
         return cell
     }
-    
-    
 }

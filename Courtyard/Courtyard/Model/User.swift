@@ -10,82 +10,6 @@ import Firebase
 import FirebaseFirestoreSwift
 import UIKit
 
-class Admin {
-    let db = Firestore.firestore()
-    
-    static let shared = Admin()
-    
-    // MARK: Getter
-    func getAllOrders(complation: @escaping([Order], [DocumentReference]) -> Void){
-
-        var orders = [Order]()
-        var ordersRef = [DocumentReference]()
-
-        self.db.collection("Orders").getDocuments { snapshot, err in
-            if err == nil{
-                for doc in snapshot!.documents{
-                    do {
-                        let order = try doc.data(as: Order.self)
-                        orders.append(order!)
-                        ordersRef.append(doc.reference)
-                        
-                    }catch{
-                        print(err?.localizedDescription ?? "Unable to get Data")
-                    }
-                    complation(orders, ordersRef)
-                }
-            }
-        }
-
-    }
-    func getUserAddress(addressRef: DocumentReference, complation: @escaping(Address)->()){
-        addressRef.getDocument { addressDoc, error in
-            if error == nil{
-                var address : Address
-                do{
-                    if let doc = addressDoc{
-                        
-                        address = try doc.data(as: Address.self)!
-                        complation(address)
-                    }
-                }catch{
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    func getUserDetail(userRef: DocumentReference?, complation: @escaping(User) -> Void){
-        db.collection("Users").document(userRef!.documentID).getDocument { doc, err in
-            if err == nil{
-                var userInfo : User?
-                do {
-                    userInfo = try doc?.data(as: User.self)
-                    
-                }catch{
-                    print(err?.localizedDescription ?? "Unable to get Data")
-                }
-                
-                complation(userInfo!)
-            }
-        }
-        
-    }
-    
-    func getUserService(serviceRef: DocumentReference, complation: @escaping(Service)->Void){
-        db.collection("Service").document(serviceRef.documentID)
-            .getDocument { doc, err in
-            if err == nil{
-                var service : Service?
-                do{
-                    service = try doc?.data(as: Service.self)
-                }catch{
-                    print(err?.localizedDescription ?? "Unable to get Data")
-                }
-                complation(service!)
-            }
-        }
-    }
-}
 class User: Codable {
 
     var name: String?
@@ -106,21 +30,11 @@ class User: Codable {
             userRef.updateData(["addressesRef" : FieldValue.arrayUnion([addressRef]) ])
             
             changePrimeAddress(for: addressRef)
+            
             complation(addressRef)
         }
-        // MARK: to call this function use this code
-        
-        //        Admin.getAllOrders(complation: { orders in
-        //            print("----------orders count----------------")
-        //            print(orders.count)
-        //            print("----------orders----------------")
-        //            print(orders)
-        //        })
-        
-//        return (self.addressesRef?.last)!
     }
     func changePrimeAddress(for addressRef: DocumentReference){
-//        let dbStore = Firestore.firestore()
         // get all user addresses
         // updata isPrime to false
         if let userAddresses = self.addressesRef{
@@ -128,7 +42,7 @@ class User: Codable {
                 docRef.setData(["isPrime" : false], merge: true)
             }
         }
-//        let primeAddress = dbStore.collection("Addresses").document(addressRer)
+
         addressRef.setData(["isPrime" : true], merge: true)
         
     }
@@ -139,10 +53,6 @@ class User: Codable {
         self.mobile = Int(mobile!)
         
         try? dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!).setData(from: self)
-        
-        
-//        let userRef : DocumentReference? = dbStore.collection("Users").document((Auth.auth().currentUser?.email!)!)
-//        return userRef
     }
     
     func setOrder(service: Service, servicePrice: Double, addressRef: DocumentReference) -> (DocumentReference, Order){
@@ -155,9 +65,7 @@ class User: Codable {
         
         // create Order
         let order = Order(userId: self.userReference(), serviceRef: serviceRef, addressRef: addressRef, date: Date(), total: total, paymentStatus: false, status: false)
-//        let order = Order(userId: self.userReference(), serviceRef: serviceRef, date: Date(), total: total, paymentStatus: false)
 
-         //store Orders in DB and return the reference and order
         return try! (db.collection("Orders").addDocument(from: order), order)
     }
     
@@ -230,8 +138,6 @@ class User: Codable {
                     }
                 }
             }
-        
-        
     }
     func getPrimeAddress(complation: @escaping  (Address)->()){
         var primeAddress : Address?
@@ -279,17 +185,7 @@ class User: Codable {
             }
         }
     }
-//    // MARK: To Call this in view controller copy the folowing code and paste it in VC
-//    // test user Orders
-//    let userId = self.user.userReference().documentID
-//    user.getUserOrders(userId: userId) { userOrders in
-//        print("---------order from comlation---------")
-//        print(userOrders.count)
-//        print(userOrders)
-////            self.orders = userOrders
-//
-//    }
-    
+
     // MARK: DELETE
     func removeAddress(addressRef: DocumentReference){
         self.addressesRef?.forEach({ address in
@@ -307,81 +203,4 @@ class User: Codable {
         })
     }
     
-}
-
-struct Order: Codable {
-
-    var userId: DocumentReference?
-    var serviceRef: DocumentReference?
-    var addressRef: DocumentReference?
-    var date: Date
-    var total: Double
-    var paymentStatus: Bool
-    var status: Bool // change it to string (Accepted, denied and complated)
-    
-    func getOrders(complation: @escaping( ([Order]) -> Void) ){
-        let db = Firestore.firestore()
-        var orders = [Order]()
-        
-        db.collection("Orders").getDocuments { snapshot, err in
-            if err == nil{
-//                snapshot!.documents.compactMap{ doc in
-//                    do {
-//                        let order = try doc.data(as: Order.self)
-//                        orders.append(order!)
-//                    }catch{
-//                        print(err?.localizedDescription ?? "Unable to get Data")
-//                    }
-//                }
-                for doc in snapshot!.documents{
-                    do {
-                        let order = try doc.data(as: Order.self)
-                        orders.append(order!)
-                    }catch{
-                        print(err?.localizedDescription ?? "Unable to get Data")
-                    }
-                    complation(orders)
-                }
-            }
-        }
-    }
-    // TODO: get user info from userId
-}
-
-struct Address: Codable {
-    var type: String 
-    var street: String
-    var buildingNo : Int
-    var zip: Int?
-    var additionalNo: Int?
-    var district: String?
-    var isPrime: Bool
-}
-
-struct Service: Codable {
-    var name: String
-    var date: Date
-    var price: Double
-}
-
-// MARK: DESIGN BORDER
-@IBDesignable extension UIView {
-    @IBInspectable var borderColor: UIColor? {
-        get {
-            guard let cgColor = layer.borderColor else {
-                return nil
-            }
-            return UIColor(cgColor: cgColor)
-        }
-        set { layer.borderColor = newValue?.cgColor }
-    }
-
-    @IBInspectable var borderWidth: CGFloat {
-        get {
-            return layer.borderWidth
-        }
-        set {
-            layer.borderWidth = newValue
-        }
-    }
 }

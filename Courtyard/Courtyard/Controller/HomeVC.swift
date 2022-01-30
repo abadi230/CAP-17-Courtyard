@@ -22,7 +22,6 @@ class HomeVC: UIViewController {
     
     var tuggleBtn = false
     
-    // TODO: adapt pull down Button and Pop Up Button
     @IBOutlet weak var welcomLbl : UILabel!
     @IBOutlet weak var txtBox: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -31,10 +30,10 @@ class HomeVC: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-//        datePicker.date = Date.now
         navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +43,6 @@ class HomeVC: UIViewController {
         dropDown.delegate = self
         dropDown.dataSource = self
         txtBox.inputView = dropDown
-        
         
     }
 
@@ -59,15 +57,7 @@ class HomeVC: UIViewController {
 
     
     func configDatePicker(){
-        let action = UIAction{ [self] _ in
-            print(self.datePicker.date)
-//            if self.txtBox.text != nil{
-//
-//                service = user.setService(name: txtBox.text!, date: datePicker.date)
-//                let currency = NSLocalizedString("SAR", comment: "")
-//                price = "\(currency) \(service!.price)"
-//                priceLbl.text = price
-//            }
+        let action = UIAction{ _ in
         }
         datePicker.addAction(action, for: .valueChanged)
     }
@@ -94,7 +84,6 @@ class HomeVC: UIViewController {
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
     }
-//    synchronizeTitleAndSelectedItem()
     
     func showAlert(_ msg: String){
         let alertController = UIAlertController(title: nil, message: msg, preferredStyle: .alert)
@@ -106,16 +95,15 @@ class HomeVC: UIViewController {
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
+        
         if segue.identifier == "profileID" {
             let profileVC = segue.destination as! ProfileVC
-            //MARK: trying to display tabBar 
+            //MARK: trying to display tabBar without navigationController
             self.definesPresentationContext = true
             profileVC.modalPresentationStyle = .overCurrentContext
             profileVC.service = service
             
         }
-        // Pass the selected object to the new view controller.
     }
     
 

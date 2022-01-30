@@ -11,11 +11,8 @@ class OrderTVCell: UITableViewCell {
 
     @IBOutlet weak var districLbl: UILabel!
     @IBOutlet weak var userIDLbl: UILabel!
-    
     @IBOutlet weak var startedDateLbl: UILabel!
-    
     @IBOutlet weak var totalLbl: UILabel!
-    
     @IBOutlet weak var paymentState: UILabel!
     
     

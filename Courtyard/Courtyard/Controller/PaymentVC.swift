@@ -25,9 +25,6 @@ class PaymentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-//        navigationItem.hidesBackButton = true
-
         serviceTitleLbl.text = NSLocalizedString(serviceTitle, comment: "")
         orderRefLbl.text = orderRef?.documentID
         dateLbl.text = date!
@@ -35,6 +32,7 @@ class PaymentVC: UIViewController {
         PriceLbl.text = "SAR \(price)"
         paymentStatus.text = paymentState!
     }
+    
     @IBAction func onClickPay(_ sender: UIButton) {
         // when client pay: update data in DB
         let msg = NSLocalizedString("Are you sure you want Pay for", comment: "")
@@ -49,10 +47,8 @@ class PaymentVC: UIViewController {
         let alertAction = UIAlertAction(title: NSLocalizedString("Pay", comment: ""), style: .destructive) { _ in
             self.orderRef?.setData(["paymentStatus" : true], merge: true)
             let orderVC = self.storyboard?.instantiateViewController(withIdentifier: "UserOrdersVC") as! UserOrdersVC
-//            self.present(orderVC, animated: true, completion: nil)
             
             self.navigationController?.show(orderVC, sender: nil)
-//            self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
         alertController.addAction(alertAction)

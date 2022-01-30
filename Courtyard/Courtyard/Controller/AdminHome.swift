@@ -35,10 +35,6 @@ class AdminHome: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//
-//        let d1 = fromDP.date.formatted(date: .numeric, time: .shortened)
-//        print(d1)
-        
         let image1 = UIImage(named: "cortyard")
         let image2 = UIImage(named: "roof of house")
         let image3 = UIImage(named: "stairs")
@@ -70,19 +66,17 @@ class AdminHome: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     func displayVC(){
-        // set month minus 1 to show orders of last month
-        fromDP.date = Calendar.current.date(byAdding: .month, value: -1, to: Date.now)!
         Admin.shared.getAllOrders() { orders, ordersRef  in
 
             self.orders = orders
             self.ordersRef = ordersRef
-            
-            self.ordersTV.reloadData()
 
             self.total = orders.reduce(0) { x, y in
                 x + y.total
             }
             self.totalLbl.text = String(format: "%.2f", self.total)
+            
+            self.ordersTV.reloadData()
         }
     }
     // filter depends on service
@@ -147,7 +141,7 @@ extension AdminHome: UITableViewDelegate {
 extension AdminHome: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-                return isFiltered ? ordersFilter.count : orders.count
+        return isFiltered ? ordersFilter.count : orders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -186,10 +180,6 @@ extension AdminHome: UICollectionViewDelegate{
             self.ordersTV.reloadData()
         }
     }
-    
-    
-
-    
 }
 
 
@@ -201,11 +191,7 @@ extension AdminHome: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "serviceCell", for: indexPath) as! ServiceCell
         cell.serviceImg.image = images[indexPath.row]
-//        cell.serviceName.text = services[indexPath.row]
-        
         
         return cell
     }
-    
-    
 }

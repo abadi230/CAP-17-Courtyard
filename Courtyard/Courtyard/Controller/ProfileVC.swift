@@ -152,12 +152,12 @@ class ProfileVC: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // MARK: if address selected let user edit address
+        // TODO: if address selected let user edit address
         switch segue.identifier{
         case "orderID":
             let paymentVC = segue.destination as! PaymentVC
-            //ref, date, address, paymentState
-            paymentVC.serviceTitle = service!.name //NSLocalizedString(service!.name, comment: "") + " " + NSLocalizedString("Cleaning", comment: "")
+            
+            paymentVC.serviceTitle = service!.name
             paymentVC.orderRef = orderRef
             paymentVC.date = "\(String(describing: service!.date))"
             paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"
@@ -169,10 +169,6 @@ class ProfileVC: UIViewController {
         default:
             print("no data")
         }
-//                if segue.identifier == "addressID"{
-//                    let addressVC = segue.destination as! AddressVC
-//                    addressVC.user = self.user
-//                }
     }
     
     
@@ -181,15 +177,7 @@ class ProfileVC: UIViewController {
 extension ProfileVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let alert = UIAlertController(title: "Order", message: "Are you sure you want to Order this service", preferredStyle: .actionSheet)
-//        alert.addAction(UIAlertAction(title: "Order", style: .default, handler: { _ in
-//
-//            //TODO: send date from model to Firestore
-//        }))
-//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//        DispatchQueue.main.async {
-//            self.present(alert, animated: true, completion: nil)
-//        }
+
     }
 }
 extension ProfileVC: UITableViewDataSource{

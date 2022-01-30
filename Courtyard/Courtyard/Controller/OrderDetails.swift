@@ -20,6 +20,7 @@ class OrderDetails: UIViewController {
     let unPaied = NSLocalizedString("Unpaid", comment: "")
     let complated = NSLocalizedString("Complated", comment: "")
     let pending = NSLocalizedString("Pending", comment: "")
+    
     // MARK: Connection
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -29,6 +30,7 @@ class OrderDetails: UIViewController {
     @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var paymentStatusLbl: UILabel!
     @IBOutlet weak var serviceStatusLbl: UILabel!
+    @IBOutlet weak var orderRefLbl: UILabel!
     
     @IBOutlet weak var paymentSwitch: UISwitch!
     @IBOutlet weak var orderSwitch: UISwitch!
@@ -41,12 +43,6 @@ class OrderDetails: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-//        Admin.shared.getUserService(serviceRef: order.serviceId!) { service in
-            
-//            self.serviceNameLbl.text = service.name
-//        }
         displayVC()
     }
     
@@ -56,7 +52,8 @@ class OrderDetails: UIViewController {
         sender.isUserInteractionEnabled = false
     }
     func displayVC(){
-        self.serviceNameLbl.text = serviceTitle
+        orderRefLbl.text = orderRef.documentID
+        serviceNameLbl.text = serviceTitle
         userNameLbl.text = user.name
         mobileLbl.text = "0\(user.mobile!)"
         addressLbl.text = address.district
@@ -70,7 +67,11 @@ class OrderDetails: UIViewController {
         orderSwitch.setOn(order.status ? true : false, animated: true)
         serviceStatusLbl.text = order.status ? complated : pending
         if order.status {orderSwitch.isUserInteractionEnabled = false}
-//        paymentSwitch
+
+        Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
+            
+            self.serviceNameLbl.text = NSLocalizedString(service.name, comment: "")
+        }
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){
         navigationController?.popViewController(animated: true)
