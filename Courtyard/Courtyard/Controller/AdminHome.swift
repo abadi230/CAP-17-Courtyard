@@ -20,7 +20,7 @@ class AdminHome: UIViewController {
     let currency = NSLocalizedString("SAR", comment: "")
     var userInfo : User!
     var address : Address!
-    var services = ["Courtyard", "Roof of House", "Stairs"]
+    var services = ["Courtyard Cleaning", "Roof of House Cleaning", "Stairs Cleaning"]
     var images: [UIImage?] = []
     
     @IBOutlet weak var serviceCollection: UICollectionView!
@@ -29,6 +29,9 @@ class AdminHome: UIViewController {
     @IBOutlet weak var toDP: UIDatePicker!
     @IBOutlet weak var totalLbl: UILabel!
     
+    override func viewDidAppear(_ animated: Bool) {
+        displayVC()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +51,27 @@ class AdminHome: UIViewController {
         ordersTV.delegate = self
         ordersTV.dataSource = self
         
+        displayVC()
+    }
+    
+    @IBAction func fromDPAction(_ sender: UIDatePicker) {
+        FilterDate()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func toDPAction(_ sender: UIDatePicker) {
+        FilterDate()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        
+        try! Auth.auth().signOut()
+        dismiss(animated: true, completion: nil)
+    }
+    func displayVC(){
+        // set month minus 1 to show orders of last month
+        fromDP.date = Calendar.current.date(byAdding: .month, value: -1, to: Date.now)!
         Admin.shared.getAllOrders() { orders, ordersRef  in
 
             self.orders = orders
@@ -61,39 +85,38 @@ class AdminHome: UIViewController {
             self.totalLbl.text = String(format: "%.2f", self.total)
         }
     }
-    
-    @IBAction func fromDPAction(_ sender: UIDatePicker) {
-//        print(sender.date.formatted(date: .numeric, time: .shortened))
-//        print("From: ", fromDP.date.formatted(date: .abbreviated, time: .shortened))
-        //
-        FilterDate()
-        dismiss(animated: true, completion: nil)
+    // filter depends on service
+    func getFilteredOrder(index: Int, complation: @escaping([Order])->Void){
+
+        var filterO = [Order]()
+        orders.forEach { order in
+            order.serviceRef?.getDocument(completion: { doc, err in
+                guard let serviceName = doc?["name"] else { return }
+                
+                if serviceName as! String == self.services[index].LocalizableLanguage(name: "en") {
+                    filterO.append(order)
+                    self.total = filterO.reduce(0) { x, y in
+                        x + y.total
+                    }
+                    self.totalLbl.text = "\(self.currency) \(String(format: "%.2f", self.total))"
+                }
+                complation(filterO)
+            })
+        }
     }
     
-    @IBAction func toDPAction(_ sender: UIDatePicker) {
-//        print("To: ", toDP.date.formatted(date: .abbreviated, time: .shortened))
-        FilterDate()
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func logOutPressed(_ sender: UIButton) {
-        
-        try! Auth.auth().signOut()
-        dismiss(animated: true, completion: nil)
-    }
-    /*
-     all orders
-     check date equal or bigger than formDP and equal or less than toDP
-     */
     // filter depends on Date
     func FilterDate(){
-        let sortedOrder = orders.sorted(by: { x, y in
+        let newfilter = isFiltered ? ordersFilter : orders
+        
+        let sortedOrder = newfilter.sorted(by: { x, y in
             x.date < y.date
         })
         ordersFilter = sortedOrder.filter { order in
             let from = fromDP.date.formatted(date: .numeric, time: .omitted)
             let to = toDP.date.formatted(date: .numeric, time: .omitted)
             let orderDate = order.date.formatted(date: .numeric, time: .omitted)
+            
             return orderDate >= from && orderDate <= to
         }
         isFiltered = true
@@ -115,7 +138,7 @@ extension AdminHome: UITableViewDelegate {
         vc.user = self.userInfo
         vc.address = self.address
         vc.orderRef = orderRef
-//        present(vc, animated: true, completion: nil)
+        
         navigationController?.show(vc, sender: nil)
         ordersTV.deselectRow(at: indexPath, animated: true)
         
@@ -164,26 +187,7 @@ extension AdminHome: UICollectionViewDelegate{
         }
     }
     
-    // filter depends on service
-    func getFilteredOrder(index: Int, complation: @escaping([Order])->Void){
-
-        var filterO = [Order]()
-        orders.forEach { order in
-            order.serviceRef?.getDocument(completion: { doc, err in
-                guard let serviceName = doc?["name"] else { return }
-                
-                if serviceName as! String == self.services[index] {
-                    filterO.append(order)
-                    self.total = filterO.reduce(0) { x, y in
-                        x + y.total
-                    }
-//                    self.totalLbl.text = "\(self.currency) \(String(self.total))"
-                    self.totalLbl.text = "\(self.currency) \(String(format: "%.2f", self.total))"
-                }
-                complation(filterO)
-            })
-        }
-    }
+    
 
     
 }

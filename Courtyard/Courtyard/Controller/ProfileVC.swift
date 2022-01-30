@@ -7,8 +7,6 @@
 // MARK: check imported library which one is not nesserry
 import UIKit
 import Firebase
-//import FirebaseCore
-//import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
@@ -32,12 +30,11 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var mobileTF: UITextField!
     @IBOutlet weak var addressesTV: UITableView!
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        print("---------------viewWillAppear--------------------")
-//
-//        print(service)
-//
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+//        fetchData()
+        print("viewDidAppear")
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
@@ -63,12 +60,12 @@ class ProfileVC: UIViewController {
 
             user.getAddresses { addresses,ref,primeRef   in
 //MARK: to avoid duplicated element : self.addresses.removeAll() before append element to array  Or asign the array to data directly
-                self.addresses = addresses
+//                self.addresses = addresses
                 self.addressesRef = ref
                 self.primeAddress = addresses.filter{$0.isPrime == true}.first
-                self.addressesTV.reloadData()
+                self.addresses = addresses
                 self.addressRef = primeRef
-//                self.addressRef = ref.last
+                self.addressesTV.reloadData()
             }
         })
         
@@ -127,7 +124,6 @@ class ProfileVC: UIViewController {
         let alertController = UIAlertController(title: nil, message: NSLocalizedString(msg, comment: ""), preferredStyle: .alert)
         let alertAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { [self] _ in
             if service != nil && primeAddress != nil{
-
                 self.performSegue(withIdentifier: "orderID", sender: nil)
             }
         }

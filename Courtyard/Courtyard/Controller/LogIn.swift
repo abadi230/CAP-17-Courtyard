@@ -74,8 +74,8 @@ class LogIn: UIViewController {
     func goToAdminHomeVC(){
         let adminHomeVC = storyboard?.instantiateViewController(withIdentifier: "AdminNav")// as! AdminHome
         adminHomeVC!.modalPresentationStyle = .fullScreen
-//        present(adminHomeVC!, animated: true, completion: nil)
-        navigationController?.show(adminHomeVC!, sender: nil)
+        present(adminHomeVC!, animated: true, completion: nil)
+//        navigationController?.show(adminHomeVC!, sender: nil)
     }
     func logIn(){
         if Auth.auth().currentUser != nil{

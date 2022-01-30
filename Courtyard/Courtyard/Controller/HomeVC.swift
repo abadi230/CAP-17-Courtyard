@@ -16,7 +16,7 @@ class HomeVC: UIViewController {
     let db = Firestore.firestore()
     var user = User()
     var lang = "en"
-    var services : [String] = ["Courtyard", "Roof of House", "Stairs"]
+    var services : [String] = ["Courtyard Cleaning", "Roof of House Cleaning", "Stairs Cleaning"]
     var service: Service?
     var price: String = "0"
     
@@ -32,6 +32,7 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
 //        datePicker.date = Date.now
+        navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
     override func viewDidLoad() {
@@ -47,12 +48,6 @@ class HomeVC: UIViewController {
         
     }
 
-//    @IBAction func onClickLanguageBtn(_ sender: UIBarButtonItem) {
-//
-//        tuggleBtn = !tuggleBtn
-//        sender.title = tuggleBtn ? "en" : "ar"
-//        lang = !tuggleBtn ? "en" : "ar"
-//    }
     
     func fetchData(){
         //from DB

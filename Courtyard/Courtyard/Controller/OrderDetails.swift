@@ -35,7 +35,9 @@ class OrderDetails: UIViewController {
     
     
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        displayVC()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,15 @@ class OrderDetails: UIViewController {
             
 //            self.serviceNameLbl.text = service.name
 //        }
+        displayVC()
+    }
+    
+    @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
+        orderRef.setData(["status" : true], merge: true)
+        serviceStatusLbl.text = complated
+        sender.isUserInteractionEnabled = false
+    }
+    func displayVC(){
         self.serviceNameLbl.text = serviceTitle
         userNameLbl.text = user.name
         mobileLbl.text = "0\(user.mobile!)"
@@ -69,11 +80,5 @@ class OrderDetails: UIViewController {
             orderRef!.setData(["paymentStatus" : true], merge: true)
             sender.isUserInteractionEnabled = false
             paymentStatusLbl.text =  paied
-    }
-    
-    @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
-        orderRef.setData(["status" : true], merge: true)
-        serviceStatusLbl.text = complated
-        sender.isUserInteractionEnabled = false
     }
 }
