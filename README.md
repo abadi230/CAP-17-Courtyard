@@ -22,7 +22,7 @@ An application for house occupant to contract works for wash homes patio 
 * As a user, I am able to see the avalible date and time to order
 
 ## ERD
-<a href="https://ibb.co/MNK4Q69"><img src="https://i.ibb.co/PCJn0Qt/ERD.png" alt="ERD" border="0"></a>
+![alt text](https://ibb.co/MNK4Q69)
 
 
 ## Scketch
