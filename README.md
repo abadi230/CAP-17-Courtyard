@@ -18,9 +18,12 @@ An application for house occupant to contract works for wash homes patio 
 * As a user, I am able to pay online
 * As a user, I am able to login by mobile number
 * As a user, I am able to login as a company with different offer
+* As a user, I am able to order more than one service at the same time 
+* As a user, I am able to see the avalible date and time to order
+* As a user, I am able to contact with the owner
 
 ## ERD
-<a href="https://ibb.co/P1T26xv"><img src="https://i.ibb.co/mhvncJV/ERD1.png" alt="ERD1" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>
+<a href="https://ibb.co/MNK4Q69"><img src="https://i.ibb.co/PCJn0Qt/ERD.png" alt="ERD" border="0"></a>
 
 
 ## Scketch
