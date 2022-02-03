@@ -750,6 +750,7 @@
                         <outlet property="addressLbl" destination="451-Xr-r1e" id="8Ny-oL-fgy"/>
                         <outlet property="mobileLbl" destination="yFL-p4-sNu" id="8Sw-h6-wih"/>
                         <outlet property="orderRefLbl" destination="mmj-Pt-BWz" id="TDF-BN-3io"/>
+                        <outlet property="orderRefLbl1" destination="qDG-1E-0Nu" id="MqS-dt-lHL"/>
                         <outlet property="orderSwitch" destination="SQy-Ia-zsP" id="1Ub-8B-Sn8"/>
                         <outlet property="paymentStatusLbl" destination="kqG-v8-1fA" id="BGM-WJ-YrX"/>
                         <outlet property="paymentSwitch" destination="eox-5Y-7LG" id="Bju-pi-0CC"/>
