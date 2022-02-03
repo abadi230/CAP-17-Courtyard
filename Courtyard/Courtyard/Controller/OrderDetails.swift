@@ -25,6 +25,8 @@ class OrderDetails: UIViewController {
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
     @IBOutlet weak var addressLbl: UILabel!
+    @IBOutlet weak var orderRefLbl1: UILabel!
+    
     @IBOutlet weak var serviceNameLbl: UILabel!
     @IBOutlet weak var startDateLbl : UILabel!
     @IBOutlet weak var priceLbl: UILabel!
@@ -52,6 +54,7 @@ class OrderDetails: UIViewController {
         sender.isUserInteractionEnabled = false
     }
     func displayVC(){
+        orderRefLbl1.text = NSLocalizedString("Order Ref", comment: "")
         orderRefLbl.text = orderRef.documentID
         serviceNameLbl.text = serviceTitle
         userNameLbl.text = user.name
