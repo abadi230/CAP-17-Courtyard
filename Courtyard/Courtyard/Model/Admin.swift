@@ -36,6 +36,18 @@ class Admin {
         }
 
     }
+    func isServiceAvailable(){
+        /*
+         read datePicker form user
+         while date is available contenu
+         
+         */
+        self.db.collection("Service").getDocuments { snapshot, err in
+            guard let docs = snapshot?.documents else {return}
+            let servicesDate = docs.map{$0["date"] as! Date}
+            print(servicesDate[0])
+        }
+    }
     func getUserAddress(addressRef: DocumentReference, complation: @escaping(Address)->()){
         addressRef.getDocument { addressDoc, error in
             if error == nil{

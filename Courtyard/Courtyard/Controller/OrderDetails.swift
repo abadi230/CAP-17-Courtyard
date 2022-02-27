@@ -46,6 +46,8 @@ class OrderDetails: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         displayVC()
+        
+        
     }
     
     @IBAction func onClickOrderSwitch(_ sender: UISwitch) {
@@ -74,6 +76,7 @@ class OrderDetails: UIViewController {
         Admin.shared.getUserService(serviceRef: order.serviceRef!) { service in
             
             self.serviceNameLbl.text = NSLocalizedString(service.name, comment: "")
+            self.startDateLbl.text = service.date.formatted(date: .abbreviated, time: .shortened)
         }
     }
     @IBAction func onRightSwipe(_ sender: UISwipeGestureRecognizer){

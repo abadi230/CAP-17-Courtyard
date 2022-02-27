@@ -70,19 +70,9 @@ class User: Codable {
     }
     
     func setService(name: String, date: Date)->Service{
-        var priceD : Double
 
-        switch name.LocalizableLanguage(name: "en") {
-        case "Courtyard Cleaning":
-            priceD = 100
-        case "Roof of House Cleaning":
-            priceD = 80
-        case "Stairs Cleaning":
-            priceD = 50
-        default:
-            priceD = 100
-        }
-        return Service(name: name.LocalizableLanguage(name: "en"), date: date, price: priceD)
+        let price = getServicePrice(serviceTitle: name.LocalizableLanguage(name: "en"))
+        return Service(name: name.LocalizableLanguage(name: "en"), date: date, price: price)
     }
     
     // MARK: Getter
@@ -110,6 +100,22 @@ class User: Codable {
                 }
             }
         }
+    }
+    
+    func getServicePrice(serviceTitle: String)->Double{
+        var priceD : Double
+
+        switch serviceTitle.LocalizableLanguage(name: "en") {
+        case "Courtyard Cleaning":
+            priceD = 100
+        case "Roof of House Cleaning":
+            priceD = 80
+        case "Stairs Cleaning":
+            priceD = 50
+        default:
+            priceD = 100
+        }
+        return priceD
     }
 
     func getAddresses(completion: @escaping ([Address],[DocumentReference],DocumentReference)-> Void) {

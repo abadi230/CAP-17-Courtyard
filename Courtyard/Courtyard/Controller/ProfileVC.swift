@@ -159,7 +159,7 @@ class ProfileVC: UIViewController {
             
             paymentVC.serviceTitle = service!.name
             paymentVC.orderRef = orderRef
-            paymentVC.date = "\(String(describing: service!.date))"
+            paymentVC.date = service.date.formatted(date: .abbreviated , time: .shortened)
             paymentVC.address = "\(String(describing: primeAddress.buildingNo)), \(String(describing: primeAddress.street)), \(String(describing: primeAddress.district!))"
             paymentVC.paymentState = order!.paymentStatus ? NSLocalizedString("Paied", comment: "") : NSLocalizedString("Pending", comment: "")
             paymentVC.price = order.total
